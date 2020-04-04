@@ -80,6 +80,9 @@ function setUpMurder(murder, playerCount)
     guiltyDeck.putObject(guiltyCard)  -- put suspects in play on top, will destroy bottom cards before shuffling
     innocentCard = innocentDeck.takeObject({guid = suspectData[suspect]["guids"]["innocentHunchCard"]})
     innocentDeck.putObject(innocentCard)
+    suspectToken = getObjectFromGUID(suspectData[suspect]["guids"]["token"])
+    suspectToken.setRotation({180,0,0})
+    suspectToken.setPosition(getNPCPosition(murderData[murder]["suspects"][i]["startingLocation"]))
   end
   if playerCount < 5 then
     for i = 1, 5 - playerCount do
@@ -95,6 +98,7 @@ function setUpMurder(murder, playerCount)
   guiltyDeck.deal(1)
   innocentDeck.randomize()
   innocentDeck.deal(1)
+  cleanAfterSetup(murder)
 end
 
 function getSheetPlacement(playerCount, sheet)

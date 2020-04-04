@@ -15,7 +15,7 @@ murderData = {
       },
       {
         id = "Noise",
-        startingLocation = "Armitage Codebusting"
+        startingLocation = "Armitage Software"
       },
       {
         id = "Tommy",
@@ -89,4 +89,19 @@ end
 function getMurderEvents(murder)
   bag = getObjectFromGUID(murderData[murder]['guids']['bag'])
   return bag.takeObject({guid = murderData[murder]['guids']['deck']})
+end
+
+function cleanAfterSetup(murder)
+  getObjectFromGUID(murderData[murder]['guids']['bag']).destruct()
+  getObjectFromGUID(murdersBagGUID).destruct()
+  for murderName, data in pairs(murderData) do
+    if murderName != murder then
+      for item, guid in pairs(data["guids"]) do
+        object = getObjectFromGUID(guid)
+        if object != nil then
+          object.destruct()
+        end
+      end
+    end
+  end
 end
