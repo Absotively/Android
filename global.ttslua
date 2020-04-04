@@ -1,0 +1,33 @@
+murderTrayLinerGUID = 'def075'
+evidenceBagGUID = '70acc8'
+shiftBagGUID = '1ed1cc'
+favorBagGUID = 'bf7df8'
+baggageBagGUID = '94081d'
+genericEventDeckGUID = 'adce08'
+
+#include players
+#include murders
+#include locations
+#include utils
+#include setup
+
+playerTrayZones = {}
+murderTrayZone = nil
+
+function onload()
+  murderTrayLiner = getObjectFromGUID(murderTrayLinerGUID)
+  murderTrayLiner.createButton({
+    label = 'Set up',
+    click_function = 'setUp',
+    tooltip = 'Set up the game!',
+    position = {0,0.2,0},
+    width = 1200,
+    height = 500,
+    font_size = 300
+  })
+  murderTrayZone = scriptingZoneForTrayLiner(murderTrayLinerGUID)
+
+  for player, guids in pairs(playerObjectGUIDs) do
+    playerTrayZones[player] = scriptingZoneForTrayLiner(guids.trayLiner)
+  end
+end

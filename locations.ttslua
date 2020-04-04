@@ -1,0 +1,103 @@
+
+locations = {
+  ["Jacobi Miner's Co-op"] = {
+    x = -24.81,
+    z = 17.68,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'business',
+    row = 7,
+    column = "C",
+    world = 'Luna'
+  },
+  ["Melange Mining"] = {
+    x = 4.03,
+    z = 13.43,
+    nameplate = 'left',
+    quality = 'normal',
+    type = 'business',
+    row = 7,
+    column = "G",
+    world = 'Luna'
+  },
+  ["Armitage Software"] = {
+    x = -0.40,
+    z = 17.69,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'business',
+    row = 7,
+    column = "F",
+    world = 'Luna'
+  },
+  ["Levy University"] = {
+    x = -7.08,
+    z = -21.47,
+    nameplate = 'left',
+    quality = 'ritzy',
+    type = 'residential',
+    row = 1,
+    column = "E",
+    world = 'Earth'
+  },
+  ["NAPD"] = {
+    x = 17.12,
+    z = -7.28,
+    nameplate = 'below right',
+    quality = 'normal',
+    type = 'civic',
+    row = 3,
+    column = "I",
+    world = 'Earth'
+  },
+  ["Eastside Tenements"] = {
+    x = 37.29,
+    z = -10.58,
+    nameplate = 'below left',
+    quality = 'normal',
+    type = 'residential',
+    row = 3,
+    column = "L",
+    world = 'Earth'
+  },
+  ["Rockvil Estates"] = {
+    x = 7.34,
+    z = -18.80,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'residential',
+    row = 2,
+    column = "G",
+    world = 'Earth'
+  },
+  ["The Root"] = {
+    x = -0.25,
+    z = -8.51,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'civic',
+    row = 3,
+    column = "F",
+    world = 'Earth'
+  },
+  ["The Old War Memorial"] = {
+    x = -28.96,
+    z = -21.84,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'civic',
+    row = 1,
+    column = "B",
+    world = 'Earth'
+  },
+  ["Alpha Prospecting"] = {
+    x = 0.90,
+    z = 9.31,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'business',
+    row = 6,
+    column = "G",
+    world = 'Luna'
+  }
+}

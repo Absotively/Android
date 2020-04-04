@@ -1,0 +1,19 @@
+function scriptingZoneForTrayLiner(linerGUID)
+  liner = getObjectFromGUID(linerGUID)
+  linerBounds = liner.getBoundsNormalized()
+  return spawnObject({
+    type = 'ScriptingTrigger',
+    position = {
+      x = linerBounds.center.x,
+      y = linerBounds.center.y + 2,
+      z = linerBounds.center.z
+    },
+    scale = {
+      linerBounds.size.x,
+      4,
+      linerBounds.size.z
+    },
+    rotation = liner.getRotation(),
+    sound = false
+  })
+end

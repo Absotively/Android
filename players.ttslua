@@ -1,0 +1,22 @@
+playerObjectGUIDs = {
+  White = {
+    tray = 'ede27e',
+    trayLiner = '05eab9'
+  },
+  Red = {
+    tray = 'c5ccf0',
+    trayLiner = 'd4880b'
+  },
+  Green = {
+    tray = '8313d4',
+    trayLiner = '382bd8'
+  },
+  Blue = {
+    tray = '34cb12',
+    trayLiner = '435c47'
+  },
+  Purple = {
+    tray = '45461a',
+    trayLiner = '933cba'
+  }
+}

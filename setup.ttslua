@@ -1,0 +1,60 @@
+
+
+function setUp()
+  setUpPuzzlePieces(shiftBagGUID)
+  setUpPuzzlePieces(favorBagGUID)
+  setUpPuzzlePieces(baggageBagGUID)
+
+  getObjectFromGUID(evidenceBagGUID).randomize()
+  getObjectFromGUID(genericEventDeckGUID).randomize()
+
+  playerCount = countAndRemovePlayers()
+  murderBag = chooseMurderBag()
+  print(murderBag.name)
+  setUpMurder(murderBag, playerCount)
+end
+
+function countAndRemovePlayers()
+  colors = Player.getAvailableColors()
+  playerCount = 0
+  for _, color in ipairs(colors) do
+    if Player[color].seated then
+      playerCount = playerCount + 1
+    else
+      guids = playerObjectGUIDs[color]
+      for item, guid in pairs(guids) do
+        getObjectFromGUID(guid).destruct()
+      end
+    end
+  end
+  return playerCount
+end
+
+function setUpPuzzlePieces(bagGUID)
+  bag = getObjectFromGUID(bagGUID)
+  pos = bag.getPosition()
+  bag.setPosition({pos.x + 5, pos.y, pos.z })
+  bag.randomize()
+  tileInfo = bag.getObjects()
+  for j, tile in ipairs(tileInfo) do
+    bag.takeObject({
+      position = ({pos.x, pos.y + (0.3 * j), pos.z}),
+      smooth = false
+    })
+  end
+  bag.destruct()
+end
+
+function chooseMurderBag()
+  for _, object in pairs(murderTrayZone.getObjects()) do
+    print(object.getName())
+    if isMurderBag(object) then
+      return object
+    end
+  end
+  murdersBag = getObjectFromGUID(murdersBagGUID)
+  murdersBag.randomize()
+  murderBag = murdersBag.takeObject()
+  murdersBag.destruct()
+  return murderBag
+end

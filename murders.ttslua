@@ -1,0 +1,55 @@
+
+murdersBagGUID = 'cab0ad'
+
+murderObjectGUIDs = {
+  ["Evil at the Estates"] = {
+    bag = '061814',
+    sheet = '112fbf',
+    deck = '8d6d37'
+  },
+  ["Last Call at Roxie's"] = {
+    bag = 'ab4664',
+    sheet = '82e167',
+    deck = 'ba8fac'
+  },
+  ["Mons Wolff Massacre"] = {
+    bag = '530b38',
+    sheet = 'c697d5',
+    deck = '22de17'
+  },
+  ["Freetown Fright"] = {
+    bag = '6a7345',
+    sheet = '30ab24',
+    deck = '4922e0'
+  },
+  ["Murder on the Midway"] = {
+    bag = '4dc198',
+    sheet = '31c092',
+    deck = '6f8060'
+  },
+  ["Revenge at the Races"] = {
+    bag = '765eac',
+    sheet = 'a18211',
+    deck = '133e57'
+  }
+}
+
+function murderNameFromBag(object)
+  objectGUID = object.getGUID()
+  for murder, guids in pairs(murderObjectGUIDs) do
+    if guids.bag == objectGUID then
+      return true
+    end
+  end
+  return false
+end
+
+function takeSheetFromMurderBag(bag)
+  murderGUIDs = nil
+  for murdername, guids in pairs(murderObjectGUIDs) do
+    if guids.bag == bag.guid then
+      murderGUIDs = guids
+      break
+    end
+  end
+end
