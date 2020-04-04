@@ -1,5 +1,3 @@
-
-
 function setUp()
   setUpPuzzlePieces(shiftBagGUID)
   setUpPuzzlePieces(favorBagGUID)
@@ -9,9 +7,8 @@ function setUp()
   getObjectFromGUID(genericEventDeckGUID).randomize()
 
   playerCount = countAndRemovePlayers()
-  murderBag = chooseMurderBag()
-  print(murderBag.name)
-  setUpMurder(murderBag, playerCount)
+  murder = chooseMurder()
+  setUpMurder(murder, playerCount)
 end
 
 function countAndRemovePlayers()
@@ -45,16 +42,34 @@ function setUpPuzzlePieces(bagGUID)
   bag.destruct()
 end
 
-function chooseMurderBag()
+function chooseMurder()
   for _, object in pairs(murderTrayZone.getObjects()) do
-    print(object.getName())
-    if isMurderBag(object) then
-      return object
+    name = murderNameFromBag(object)
+    if name != nil then
+      return name
     end
   end
   murdersBag = getObjectFromGUID(murdersBagGUID)
   murdersBag.randomize()
   murderBag = murdersBag.takeObject()
   murdersBag.destruct()
-  return murderBag
+  return murderBag.getName()
+end
+
+function setUpMurder(murder, playerCount)
+  sheet = getMurderSheet(murder)
+  print(sheet.getBounds().size.x)
+  sheet.setRotation(murderTrayLiner.getRotation())
+  sheet.setPosition(getSheetPlacement(playerCount, 0))
+end
+
+function getSheetPlacement(playerCount, sheet)
+  space = murderTrayLiner.getBounds()
+  sheetWidth = 5
+  sheetSpacing = 0.5
+  leftMost = space.center.z - ((playerCount+2)*sheetWidth + (playerCount+1)*sheetSpacing)/2
+  z = leftMost + (sheetWidth + sheetSpacing) * sheet
+  y = space.center.y + space.size.y / 2 + 0.1
+  x = space.center.x
+  return {x, y, z}
 end

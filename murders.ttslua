@@ -1,55 +1,59 @@
 
 murdersBagGUID = 'cab0ad'
 
-murderObjectGUIDs = {
+murderData = {
   ["Evil at the Estates"] = {
-    bag = '061814',
-    sheet = '112fbf',
-    deck = '8d6d37'
+    guids = {
+      bag = '061814',
+      sheet = '112fbf',
+      deck = '8d6d37'
+    }
   },
   ["Last Call at Roxie's"] = {
-    bag = 'ab4664',
-    sheet = '82e167',
-    deck = 'ba8fac'
+    guids = {
+      bag = 'ab4664',
+      sheet = '82e167',
+      deck = 'ba8fac'
+    }
   },
   ["Mons Wolff Massacre"] = {
-    bag = '530b38',
-    sheet = 'c697d5',
-    deck = '22de17'
+    guids = {
+      bag = '530b38',
+      sheet = 'c697d5',
+      deck = '22de17'
+    }
   },
   ["Freetown Fright"] = {
-    bag = '6a7345',
-    sheet = '30ab24',
-    deck = '4922e0'
+    guids = {
+      bag = '6a7345',
+      sheet = '30ab24',
+      deck = '4922e0'
+    }
   },
   ["Murder on the Midway"] = {
-    bag = '4dc198',
-    sheet = '31c092',
-    deck = '6f8060'
+    guids = {
+      bag = '4dc198',
+      sheet = '31c092',
+      deck = '6f8060'
+    }
   },
   ["Revenge at the Races"] = {
-    bag = '765eac',
-    sheet = 'a18211',
-    deck = '133e57'
+    guids = {
+      bag = '765eac',
+      sheet = 'a18211',
+      deck = '133e57'
+    }
   }
 }
 
 function murderNameFromBag(object)
-  objectGUID = object.getGUID()
-  for murder, guids in pairs(murderObjectGUIDs) do
-    if guids.bag == objectGUID then
-      return true
-    end
+  if object.tag == "Bag" and murderData[object.getName()] != nil then
+    return object.getName()
   end
-  return false
+  return nil
 end
 
-function takeSheetFromMurderBag(bag)
-  murderGUIDs = nil
-  for murdername, guids in pairs(murderObjectGUIDs) do
-    if guids.bag == bag.guid then
-      murderGUIDs = guids
-      break
-    end
-  end
+function getMurderSheet(murder)
+  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])
+  return bag.takeObject({guid = murderData[murder]['guids']['sheet']})
 end
