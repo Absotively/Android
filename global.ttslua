@@ -8,6 +8,7 @@ genericEventDeckGUID = 'adce08'
 #include players
 #include murders
 #include locations
+#include suspects
 #include utils
 #include setup
 

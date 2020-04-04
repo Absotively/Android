@@ -7,6 +7,32 @@ murderData = {
       bag = '061814',
       sheet = '112fbf',
       deck = '8d6d37'
+    },
+    suspects = {
+      {
+        id = "Eve",
+        startingLocation = "NAPD"
+      },
+      {
+        id = "Noise",
+        startingLocation = "Armitage Codebusting"
+      },
+      {
+        id = "Tommy",
+        startingLocation = "Levy University"
+      },
+      {
+        id = "Vinnie",
+        startingLocation = "EastsideTenements"
+      },
+      {
+        id = "Mark",
+        startingLocation = "Melange Mining"
+      },
+      {
+        id = "Dejah",
+        startingLocation = "Jacobi Miner's Co-op"
+      }
     }
   },
   ["Last Call at Roxie's"] = {

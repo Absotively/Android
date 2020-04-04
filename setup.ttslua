@@ -58,14 +58,38 @@ end
 
 function setUpMurder(murder, playerCount)
   sheet = getMurderSheet(murder)
-  print(sheet.getBounds().size.x)
-  sheet.setRotation(murderTrayLiner.getRotation())
+  rotation = murderTrayLiner.getRotation()
+  sheet.setRotation(rotation)
   sheet.setPosition(getSheetPlacement(playerCount, 0))
+  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)
+  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)
+  suspectDeck = getObjectFromGUID(suspectDeckGUID)
+  for i = 1, playerCount + 1 do
+    suspect = murderData[murder]["suspects"][i]["id"]
+    suspectSheet = suspectDeck.takeObject({ guid = suspectData[suspect]["guids"]["sheet"] })
+    suspectSheet.setRotation(rotation)
+    suspectSheet.setPosition(getSheetPlacement(playerCount, i))
+    print(suspectSheet.getBounds().size.z)
+    guiltyCard = guiltyDeck.takeObject({guid = suspectData[suspect]["guids"]["guiltyHunchCard"]})
+    guiltyDeck.putObject(guiltyCard)  -- put suspects in play on top, will destroy bottom cards before shuffling
+    innocentCard = innocentDeck.takeObject({guid = suspectData[suspect]["guids"]["innocentHunchCard"]})
+    innocentDeck.putObject(innocentCard)
+  end
+  if playerCount < 5 then
+    for i = 1, 5 - playerCount do
+      guiltyDeck.takeObject({top = false}).destruct()
+      innocentDeck.takeObject({top = false}).destruct()
+    end
+  end
+  guiltyDeck.randomize()
+  guiltyDeck.deal(1)
+  innocentDeck.randomize()
+  innocentDeck.deal(1)
 end
 
 function getSheetPlacement(playerCount, sheet)
   space = murderTrayLiner.getBounds()
-  sheetWidth = 5
+  sheetWidth = 8.74
   sheetSpacing = 0.5
   leftMost = space.center.z - ((playerCount+2)*sheetWidth + (playerCount+1)*sheetSpacing)/2
   z = leftMost + (sheetWidth + sheetSpacing) * sheet

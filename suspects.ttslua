@@ -1,0 +1,54 @@
+suspectDeckGUID = '399cb6'
+guiltyHunchDeckGUID = '6dc7ee'
+innocentHunchDeckGUID = 'd17a2d'
+
+suspectData = {
+  ["Eve"] = {
+    guids = {
+      sheet = 'a193b7',
+      token = '0e28c8',
+      guiltyHunchCard = 'bea687',
+      innocentHunchCard = '74f72d'
+    }
+  },
+  ["Noise"] = {
+    guids = {
+      sheet = '0dd696',
+      token = 'd3b8ae',
+      guiltyHunchCard = 'c1f08b',
+      innocentHunchCard = 'e4ae9e'
+    }
+  },
+  ["Tommy"] = {
+    guids = {
+      sheet = 'cae8bd',
+      token = 'f11ca0',
+      guiltyHunchCard = '0d50cd',
+      innocentHunchCard = '7ad00a'
+    }
+  },
+  ["Vinnie"] = {
+    guids = {
+      sheet = '9edd9b',
+      token = '3d7198',
+      guiltyHunchCard = '7f662c',
+      innocentHunchCard = '453f35'
+    }
+  },
+  ["Mark"] = {
+    guids = {
+      sheet = '4f0438',
+      token = '57af74',
+      guiltyHunchCard = '60cf05',
+      innocentHunchCard = 'f937a0'
+    }
+  },
+  ["Dejah"] = {
+    guids = {
+      sheet = '4b3c9a',
+      token = '76f1c8',
+      guiltyHunchCard = 'faf2eb',
+      innocentHunchCard = 'c7e104'
+    }
+  }
+}
