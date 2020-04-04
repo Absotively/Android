@@ -17,15 +17,19 @@ murderTrayZone = nil
 
 function onload()
   murderTrayLiner = getObjectFromGUID(murderTrayLinerGUID)
-  murderTrayLiner.createButton({
-    label = 'Set up',
-    click_function = 'setUp',
-    tooltip = 'Set up the game!',
-    position = {0,0.2,0},
-    width = 1200,
-    height = 500,
-    font_size = 300
-  })
+  -- use existence of a puzzle piece bag to check if setup already happened
+  shiftBag = getObjectFromGUID(shiftBagGUID)
+  if shiftBag != nil then
+    murderTrayLiner.createButton({
+      label = 'Set up',
+      click_function = 'setUp',
+      tooltip = 'Set up the game!',
+      position = {0,0.2,0},
+      width = 1200,
+      height = 500,
+      font_size = 300
+    })
+  end
   murderTrayZone = scriptingZoneForTrayLiner(murderTrayLinerGUID)
 
   for player, guids in pairs(playerObjectGUIDs) do

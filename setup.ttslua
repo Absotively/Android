@@ -1,4 +1,11 @@
-function setUp()
+murderEventsLocation = {
+  x = -41.37,
+  y = 1.05,
+  z = 0.75
+}
+
+function setUp(buttonOwner)
+  buttonOwner.removeButton(0)
   setUpPuzzlePieces(shiftBagGUID)
   setUpPuzzlePieces(favorBagGUID)
   setUpPuzzlePieces(baggageBagGUID)
@@ -69,7 +76,6 @@ function setUpMurder(murder, playerCount)
     suspectSheet = suspectDeck.takeObject({ guid = suspectData[suspect]["guids"]["sheet"] })
     suspectSheet.setRotation(rotation)
     suspectSheet.setPosition(getSheetPlacement(playerCount, i))
-    print(suspectSheet.getBounds().size.z)
     guiltyCard = guiltyDeck.takeObject({guid = suspectData[suspect]["guids"]["guiltyHunchCard"]})
     guiltyDeck.putObject(guiltyCard)  -- put suspects in play on top, will destroy bottom cards before shuffling
     innocentCard = innocentDeck.takeObject({guid = suspectData[suspect]["guids"]["innocentHunchCard"]})
@@ -81,6 +87,10 @@ function setUpMurder(murder, playerCount)
       innocentDeck.takeObject({top = false}).destruct()
     end
   end
+  murderEventsDeck = getMurderEvents(murder)
+  murderEventsDeck.setPosition(murderEventsLocation)
+  murderEventsDeck.setRotation({ 180, 0, 0 })
+  murderEventsDeck.randomize()
   guiltyDeck.randomize()
   guiltyDeck.deal(1)
   innocentDeck.randomize()

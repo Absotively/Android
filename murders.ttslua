@@ -33,7 +33,9 @@ murderData = {
         id = "Dejah",
         startingLocation = "Jacobi Miner's Co-op"
       }
-    }
+    },
+    LilyStartingLocation = "Rockvil Estates",
+    JimmyStartingLocation = "The Old War Memorial"
   },
   ["Last Call at Roxie's"] = {
     guids = {
@@ -82,4 +84,9 @@ end
 function getMurderSheet(murder)
   bag = getObjectFromGUID(murderData[murder]['guids']['bag'])
   return bag.takeObject({guid = murderData[murder]['guids']['sheet']})
+end
+
+function getMurderEvents(murder)
+  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])
+  return bag.takeObject({guid = murderData[murder]['guids']['deck']})
 end
