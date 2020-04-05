@@ -15,7 +15,7 @@ function setUp(buttonOwner)
 
   playerCount = countAndRemovePlayers()
   murder = chooseMurder()
-  setUpMurder(murder, playerCount)
+  Wait.time(function() setUpMurder(murder, playerCount) end, 0.1)
 end
 
 function countAndRemovePlayers()

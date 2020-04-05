@@ -115,21 +115,108 @@ murderData = {
       bag = '6a7345',
       sheet = '30ab24',
       deck = '4922e0'
-    }
+    },
+    suspects = {
+      {
+        id = "Mark",
+        startingLocation = "NAPD"
+      },
+      {
+        id = "Dejah",
+        startingLocation = "Skye Recycling"
+      },
+      {
+        id = "Noise",
+        startingLocation = "Olivaw Robotics"
+      },
+      {
+        id = "Eve",
+        startingLocation = "Starlight Crusade"
+      },
+      {
+        id = "Vinnie",
+        startingLocation = "Tony's Flophouse"
+      },
+      {
+        id = "Tommy",
+        startingLocation = "Monroe & Associates"
+      }
+    },
+    LilyStartingLocation = "Freetown",
+    JimmyStartingLocation = "Jacobi Miner's Co-op",
+    crimeScene = "Freetown"
   },
   ["Murder on the Midway"] = {
     guids = {
       bag = '4dc198',
       sheet = '31c092',
       deck = '6f8060'
-    }
+    },
+    suspects = {
+      {
+        id = "Noise",
+        startingLocation = "NAPD"
+      },
+      {
+        id = "Tommy",
+        startingLocation = "Cosmos Fine Dining"
+      },
+      {
+        id = "Dejah",
+        startingLocation = "Alpha Prospecting"
+      },
+      {
+        id = "Mark",
+        startingLocation = "Freetown"
+      },
+      {
+        id = "Eve",
+        startingLocation = "Eliza's Toybox"
+      },
+      {
+        id = "Vinnie",
+        startingLocation = "Heaven & Hell Club"
+      }
+    },
+    LilyStartingLocation = "The Midway",
+    JimmyStartingLocation = "Tony's Flophouse",
+    crimeScene = "The Midway"
   },
   ["Revenge at the Races"] = {
     guids = {
       bag = '765eac',
       sheet = 'a18211',
       deck = '133e57'
-    }
+    },
+    suspects = {
+      {
+        id = "Vinnie",
+        startingLocation = "Monroe & Associates"
+      },
+      {
+        id = "Eve",
+        startingLocation = "Eliza's Toybox"
+      },
+      {
+        id = "Mark",
+        startingLocation = "NAPD"
+      },
+      {
+        id = "Tommy",
+        startingLocation = "Levy University"
+      },
+      {
+        id = "Dejah",
+        startingLocation = "Castle Club"
+      },
+      {
+        id = "Noise",
+        startingLocation = "Armitage Software"
+      }
+    },
+    LilyStartingLocation = "Campbell Greens",
+    JimmyStartingLocation = "Eastside Tenements",
+    crimeScene = "Campbell Greens"
   }
 }
 
@@ -151,15 +238,12 @@ function getMurderEvents(murder)
 end
 
 function cleanAfterSetup(murder)
-  getObjectFromGUID(murderData[murder]['guids']['bag']).destruct()
-  getObjectFromGUID(murdersBagGUID).destruct()
+  destroyObjectFromGUID(murderData[murder]['guids']['bag'])
+  destroyObjectFromGUID(murdersBagGUID)
   for murderName, data in pairs(murderData) do
     if murderName != murder then
       for item, guid in pairs(data["guids"]) do
-        object = getObjectFromGUID(guid)
-        if object != nil then
-          object.destruct()
-        end
+        destroyObjectFromGUID(guid)
       end
     end
   end

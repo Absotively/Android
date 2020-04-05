@@ -17,3 +17,10 @@ function scriptingZoneForTrayLiner(linerGUID)
     sound = false
   })
 end
+
+function destroyObjectFromGUID(guid)
+  object = getObjectFromGUID(guid)
+  if object != nil then
+    object.destruct()
+  end
+end

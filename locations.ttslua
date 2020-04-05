@@ -49,6 +49,26 @@ locations = {
     column = "G",
     world = 'Earth'
   },
+  ["Heaven & Hell Club"] = {
+    x = 23.33,
+    z = -14.61,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'nightlife',
+    row = 2,
+    column = "J",
+    world = 'Earth'
+  },
+  ["Campbell Greens"] = {
+    x = 27.19,
+    z = -17.70,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'civic',
+    row = 2,
+    column = "K",
+    world = 'Earth'
+  },
   ["Roxie HT's Cabaret"] = {
     x = -31.60,
     z = -12.48,
@@ -90,6 +110,16 @@ locations = {
     column = "G",
     world = 'Earth'
   },
+  ["Monroe & Associates"] = {
+    x = 8.59,
+    z = -12.64,
+    nameplate = 'below left',
+    quality = 'normal',
+    type = 'business',
+    row = 3,
+    column = "H",
+    world = 'Earth'
+  },
   ["NAPD"] = {
     x = 17.12,
     z = -7.28,
@@ -98,6 +128,16 @@ locations = {
     type = 'civic',
     row = 3,
     column = "I",
+    world = 'Earth'
+  },
+  ["Tony's Flophouse"] = {
+    x = 25.34,
+    z = -8.79,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'residential',
+    row = 3,
+    column = "J",
     world = 'Earth'
   },
   ["Eastside Tenements"] = {
@@ -110,6 +150,16 @@ locations = {
     column = "L",
     world = 'Earth'
   },
+  ["Cosmos Fine Dining"] = {
+    x = -26.20,
+    z = -6.26,
+    nameplate = 'below',
+    quality = 'ritzy',
+    type = 'business',
+    row = 4,
+    column = "B",
+    world = 'Earth'
+  },
   ["Castle Club"] = {
     x = -0.42,
     z = 0.19,
@@ -119,6 +169,16 @@ locations = {
     row = 4,
     column = "F",
     beanstalkStation = 3
+  },
+  ["The Midway"] = {
+    x = -0.33,
+    z = -4.39,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'business',
+    row = 4,
+    column = "F",
+    beanstalkStation = 2
   },
   ["Skye Recycling"] = {
     x = -9.26,
@@ -150,6 +210,16 @@ locations = {
     column = "G",
     world = 'Luna'
   },
+  ["Freetown"] = {
+    x = -25.23,
+    z = 14.52,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'residential',
+    row = 7,
+    column = "C",
+    world = 'Luna'
+  },
   ["Jacobi Miner's Co-op"] = {
     x = -24.81,
     z = 17.68,
@@ -158,6 +228,16 @@ locations = {
     type = 'business',
     row = 7,
     column = "C",
+    world = 'Luna'
+  },
+  ["Eliza's Toybox"] = {
+    x = -15.05,
+    z = 13.73,
+    nameplate = 'below left',
+    quality = 'ritzy',
+    type = 'business',
+    row = 7,
+    column = "D",
     world = 'Luna'
   },
   ["Armitage Software"] = {
