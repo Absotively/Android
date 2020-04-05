@@ -1,33 +1,13 @@
 locations = {
-  ["Jacobi Miner's Co-op"] = {
-    x = -24.81,
-    z = 17.68,
+  ["The Old War Memorial"] = {
+    x = -28.96,
+    z = -21.84,
     nameplate = 'below',
     quality = 'seedy',
-    type = 'business',
-    row = 7,
-    column = "C",
-    world = 'Luna'
-  },
-  ["Melange Mining"] = {
-    x = 4.03,
-    z = 13.43,
-    nameplate = 'left',
-    quality = 'normal',
-    type = 'business',
-    row = 7,
-    column = "G",
-    world = 'Luna'
-  },
-  ["Armitage Software"] = {
-    x = -0.40,
-    z = 17.69,
-    nameplate = 'below',
-    quality = 'seedy',
-    type = 'business',
-    row = 7,
-    column = "F",
-    world = 'Luna'
+    type = 'civic',
+    row = 1,
+    column = "B",
+    world = 'Earth'
   },
   ["Levy University"] = {
     x = -7.08,
@@ -37,26 +17,6 @@ locations = {
     type = 'residential',
     row = 1,
     column = "E",
-    world = 'Earth'
-  },
-  ["NAPD"] = {
-    x = 17.12,
-    z = -7.28,
-    nameplate = 'below right',
-    quality = 'normal',
-    type = 'civic',
-    row = 3,
-    column = "I",
-    world = 'Earth'
-  },
-  ["Eastside Tenements"] = {
-    x = 37.29,
-    z = -10.58,
-    nameplate = 'below left',
-    quality = 'normal',
-    type = 'residential',
-    row = 3,
-    column = "L",
     world = 'Earth'
   },
   ["Rockvil Estates"] = {
@@ -79,14 +39,24 @@ locations = {
     column = "F",
     world = 'Earth'
   },
-  ["The Old War Memorial"] = {
-    x = -28.96,
-    z = -21.84,
-    nameplate = 'below',
-    quality = 'seedy',
+  ["NAPD"] = {
+    x = 17.12,
+    z = -7.28,
+    nameplate = 'below right',
+    quality = 'normal',
     type = 'civic',
-    row = 1,
-    column = "B",
+    row = 3,
+    column = "I",
+    world = 'Earth'
+  },
+  ["Eastside Tenements"] = {
+    x = 37.29,
+    z = -10.58,
+    nameplate = 'below left',
+    quality = 'normal',
+    type = 'residential',
+    row = 3,
+    column = "L",
     world = 'Earth'
   },
   ["Alpha Prospecting"] = {
@@ -96,6 +66,36 @@ locations = {
     quality = 'normal',
     type = 'business',
     row = 6,
+    column = "G",
+    world = 'Luna'
+  },
+  ["Jacobi Miner's Co-op"] = {
+    x = -24.81,
+    z = 17.68,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'business',
+    row = 7,
+    column = "C",
+    world = 'Luna'
+  },
+  ["Armitage Software"] = {
+    x = -0.40,
+    z = 17.69,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'business',
+    row = 7,
+    column = "F",
+    world = 'Luna'
+  },
+  ["Melange Mining"] = {
+    x = 4.03,
+    z = 13.43,
+    nameplate = 'left',
+    quality = 'normal',
+    type = 'business',
+    row = 7,
     column = "G",
     world = 'Luna'
   }
