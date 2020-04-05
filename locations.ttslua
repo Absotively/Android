@@ -104,14 +104,29 @@ locations = {
 function getNPCPosition(locationName)
   data = locations[locationName]
   if data["nameplate"] == 'below' then
-    return {data.x - 2, 1.05, data.z - 1}
+    return {data.x - 1.5, 1.05, data.z - 1}
   elseif data["nameplate"] == 'above' then
-    return {data.x - 2, 1.05, data.z + 1}
+    return {data.x - 1.5, 1.05, data.z + 1}
   elseif data["nameplate"] == 'below left' then
     return {data.x - 3, 1.05, data.z - 2}
   elseif data["nameplate"] == 'below right' then
     return {data.x + 1, 1.05, data.z - 2}
   elseif data["nameplate"] == 'left' then
     return {data.x - 3, 1.05, data.z - 1}
+  end
+end
+
+function getCrimeSceneTokenPosition(locationName)
+  data = locations[locationName]
+  if data["nameplate"] == 'below' then
+    return {data.x + 2 , 1.05, data.z - 1}
+  elseif data["nameplate"] == 'above' then
+    return {data.x + 2, 1.05, data.z + 1}
+  elseif data["nameplate"] == 'below left' then
+    return {data.x - 1, 1.05, data.z - 2}
+  elseif data["nameplate"] == 'below right' then
+    return {data.x + 3, 1.05, data.z - 2}
+  elseif data["nameplate"] == 'left' then
+    return {data.x - 1, 1.05, data.z - 1}
   end
 end

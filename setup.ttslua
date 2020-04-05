@@ -68,32 +68,41 @@ function setUpMurder(murder, playerCount)
   rotation = murderTrayLiner.getRotation()
   sheet.setRotation(rotation)
   sheet.setPosition(getSheetPlacement(playerCount, 0))
-  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)
-  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)
-  suspectDeck = getObjectFromGUID(suspectDeckGUID)
-  for i = 1, playerCount + 1 do
-    suspect = murderData[murder]["suspects"][i]["id"]
-    suspectSheet = suspectDeck.takeObject({ guid = suspectData[suspect]["guids"]["sheet"] })
-    suspectSheet.setRotation(rotation)
-    suspectSheet.setPosition(getSheetPlacement(playerCount, i))
-    guiltyCard = guiltyDeck.takeObject({guid = suspectData[suspect]["guids"]["guiltyHunchCard"]})
-    guiltyDeck.putObject(guiltyCard)  -- put suspects in play on top, will destroy bottom cards before shuffling
-    innocentCard = innocentDeck.takeObject({guid = suspectData[suspect]["guids"]["innocentHunchCard"]})
-    innocentDeck.putObject(innocentCard)
-    suspectToken = getObjectFromGUID(suspectData[suspect]["guids"]["token"])
-    suspectToken.setRotation({180,0,0})
-    suspectToken.setPosition(getNPCPosition(murderData[murder]["suspects"][i]["startingLocation"]))
-  end
-  if playerCount < 5 then
-    for i = 1, 5 - playerCount do
-      guiltyDeck.takeObject({top = false}).destruct()
-      innocentDeck.takeObject({top = false}).destruct()
-    end
-  end
   murderEventsDeck = getMurderEvents(murder)
   murderEventsDeck.setPosition(murderEventsLocation)
   murderEventsDeck.setRotation({ 180, 0, 0 })
   murderEventsDeck.randomize()
+  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)
+  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)
+  suspectDeck = getObjectFromGUID(suspectDeckGUID)
+  for i = 1, 6 do
+    suspect = murderData[murder]["suspects"][i]["id"]
+    suspectSheet = getObjectFromGUID(suspectData[suspect]["guids"]["sheet"])
+    guiltyCard = guiltyDeck.takeObject({guid = suspectData[suspect]["guids"]["guiltyHunchCard"]})
+    innocentCard = innocentDeck.takeObject({guid = suspectData[suspect]["guids"]["innocentHunchCard"]})
+    suspectToken = getObjectFromGUID(suspectData[suspect]["guids"]["token"])
+    if i < playerCount + 2 then
+      suspectSheet.setRotation(rotation)
+      suspectSheet.setPosition(getSheetPlacement(playerCount, i))
+      guiltyDeck.putObject(guiltyCard)
+      innocentDeck.putObject(innocentCard)
+      suspectToken.setRotation({180,0,0})
+      suspectToken.setPosition(getNPCPosition(murderData[murder]["suspects"][i]["startingLocation"]))
+    else
+      suspectSheet.destruct()
+      guiltyCard.destruct()
+      innocentCard.destruct()
+    end
+  end
+  crimeSceneToken = getObjectFromGUID(sceneOfCrimeTokenGUID)
+  crimeSceneToken.setRotation({180,0,0})
+  crimeSceneToken.setPosition(getCrimeSceneTokenPosition(murderData[murder]["crimeScene"]))
+  Lily = getObjectFromGUID(LilyGUID)
+  Lily.setRotation({180,0,0})
+  Lily.setPosition(getNPCPosition(murderData[murder]["LilyStartingLocation"]))
+  Jimmy = getObjectFromGUID(JimmyGUID)
+  Jimmy.setRotation({180,0,0})
+  Jimmy.setPosition(getNPCPosition(murderData[murder]["JimmyStartingLocation"]))
   guiltyDeck.randomize()
   guiltyDeck.deal(1)
   innocentDeck.randomize()

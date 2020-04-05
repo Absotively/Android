@@ -23,7 +23,7 @@ murderData = {
       },
       {
         id = "Vinnie",
-        startingLocation = "EastsideTenements"
+        startingLocation = "Eastside Tenements"
       },
       {
         id = "Mark",
@@ -35,7 +35,8 @@ murderData = {
       }
     },
     LilyStartingLocation = "Rockvil Estates",
-    JimmyStartingLocation = "The Old War Memorial"
+    JimmyStartingLocation = "The Old War Memorial",
+    crimeScene = "Rockvil Estates"
   },
   ["Last Call at Roxie's"] = {
     guids = {

@@ -4,6 +4,9 @@ shiftBagGUID = '1ed1cc'
 favorBagGUID = 'bf7df8'
 baggageBagGUID = '94081d'
 genericEventDeckGUID = 'adce08'
+LilyGUID = '616920'
+JimmyGUID = 'be7e6c'
+sceneOfCrimeTokenGUID = 'bf1d9c'
 
 #include players
 #include murders
