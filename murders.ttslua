@@ -43,7 +43,36 @@ murderData = {
       bag = 'ab4664',
       sheet = '82e167',
       deck = 'ba8fac'
-    }
+    },
+    suspects = {
+      {
+        id = "Tommy",
+        startingLocation = "Roxie HT's Cabaret"
+      },
+      {
+        id = "Vinnie",
+        startingLocation = "The Speakeasy"
+      },
+      {
+        id = "Eve",
+        startingLocation = "Earthrise Hotel"
+      },
+      {
+        id = "Dejah",
+        startingLocation = "Alpha Prospecting"
+      },
+      {
+        id = "Noise",
+        startingLocation = "Olivaw Robotics"
+      },
+      {
+        id = "Mark",
+        startingLocation = "NAPD"
+      }
+    },
+    LilyStartingLocation = "Roxie HT's Cabaret",
+    JimmyStartingLocation = "Mycroft Cemetary",
+    crimeScene = "Roxie HT's Cabaret"
   },
   ["Mons Wolff Massacre"] = {
     guids = {
