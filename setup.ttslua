@@ -103,10 +103,7 @@ function setUpMurder(murder, playerCount)
   Jimmy = getObjectFromGUID(JimmyGUID)
   Jimmy.setRotation({180,0,0})
   Jimmy.setPosition(getNPCPosition(murderData[murder]["JimmyStartingLocation"]))
-  guiltyDeck.randomize()
-  guiltyDeck.deal(1)
-  innocentDeck.randomize()
-  innocentDeck.deal(1)
+  dealHunchCards()
   cleanAfterSetup(murder)
 end
 
@@ -119,4 +116,23 @@ function getSheetPlacement(playerCount, sheet)
   y = space.center.y + space.size.y / 2 + 0.1
   x = space.center.x
   return {x, y, z}
+end
+
+function dealHunchCards()
+  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)
+  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)
+  guiltyDeck.randomize()
+  innocentDeck.randomize()
+  for _, player in pairs(Player.getPlayers()) do
+    print(player.color)
+    trayLiner = getObjectFromGUID(playerObjectGUIDs[player.color]["tray"])
+    print(trayLiner.getRotation().y)
+    rotation = ({180, trayLiner.getRotation().y, 0})
+    guiltyCard = guiltyDeck.takeObject()
+    guiltyCard.setRotation(rotation)
+    guiltyCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, 1.4}))
+    innocentCard = innocentDeck.takeObject()
+    innocentCard.setRotation(rotation)
+    innocentCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, -1.4}))
+  end
 end
