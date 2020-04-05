@@ -98,7 +98,7 @@ locations = {
     row = 6,
     column = "F",
     world = 'Luna'
-  }
+  },
   ["Alpha Prospecting"] = {
     x = 0.90,
     z = 9.31,
