@@ -21,6 +21,7 @@ murderTrayZone = nil
 
 function onload()
   murderTrayLiner = getObjectFromGUID(murderTrayLinerGUID)
+  murderTrayZone = getObjectFromGUID(murderTrayZoneGUID)
   -- use existence of a puzzle piece bag to check if setup already happened
   shiftBag = getObjectFromGUID(shiftBagGUID)
   if shiftBag != nil then
