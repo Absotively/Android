@@ -19,6 +19,16 @@ locations = {
     column = "E",
     world = 'Earth'
   },
+  ["Olivaw Robotics"] = {
+    x = -11.16,
+    z = -18.16,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'business',
+    row = 2,
+    column = "E",
+    world = 'Earth'
+  },
   ["Rockvil Estates"] = {
     x = 7.34,
     z = -18.80,
@@ -27,6 +37,26 @@ locations = {
     type = 'residential',
     row = 2,
     column = "G",
+    world = 'Earth'
+  },
+  ["Roxie HT's Cabaret"] = {
+    x = -31.60,
+    z = -12.48,
+    nameplate = 'below',
+    quality = 'ritzy',
+    type = 'business',
+    row = 3,
+    column = "B",
+    world = 'Earth'
+  },
+  ["The Speakeasy"] = {
+    x = -17.77,
+    z = -6.80,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'nightlife',
+    row = 3,
+    column = "D",
     world = 'Earth'
   },
   ["The Root"] = {
@@ -59,6 +89,16 @@ locations = {
     column = "L",
     world = 'Earth'
   },
+  ["Earthrise Hotel"] = {
+    x = -4.38,
+    z = 8.96,
+    nameplate = 'below',
+    quality = 'ritzy',
+    type = 'residential',
+    row = 6,
+    column = "F",
+    world = 'Luna'
+  }
   ["Alpha Prospecting"] = {
     x = 0.90,
     z = 9.31,
@@ -97,6 +137,16 @@ locations = {
     type = 'business',
     row = 7,
     column = "G",
+    world = 'Luna'
+  },
+  ["Mycroft Cemetary"] = {
+    x = -25.10,
+    z = 21.76,
+    nameplate = 'below',
+    quality = 'seedy',
+    type = 'civic',
+    row = 8,
+    column = "C",
     world = 'Luna'
   }
 }
