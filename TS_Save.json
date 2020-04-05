@@ -3,11 +3,11 @@
   "GameMode": "Android",
   "Gravity": 0.5,
   "PlayArea": 0.5,
-  "Date": "4/5/2020 4:41:24 PM",
+  "Date": "4/5/2020 5:37:53 PM",
   "Table": "Table_Custom",
   "TableURL": "http://i.imgur.com/w9dhYha.jpg",
   "Sky": "Sky_Museum",
-  "Note": "Rulers for Floyd, Rachel and Louis - 10,5\r\nRulers for Caprice и Raymond - 13\r\nRuler for red car - 15,3\n\nHold tab to measure distances\r\n\nHover and hold Shift+Alt to peek at a facedown token\n",
+  "Note": "Rulers for Floyd, Rachel and Louis - 10,5\r\nRulers for Caprice and Raymond - 13\r\nRuler for red car - 15,3\n\nHold tab to measure distances\r\n\nHover and hold Shift+Alt to peek at a facedown token\n",
   "Rules": "",
   "XmlUI": "<!-- Xml UI. See documentation: https://api.tabletopsimulator.com/ui/introUI/ -->",
   "LuaScript": "----#include Android/global\nmurderTrayLinerGUID = 'def075'\r\nmurderTrayZoneGUID = '4693f3'\r\nevidenceBagGUID = '70acc8'\r\nshiftBagGUID = '1ed1cc'\r\nfavorBagGUID = 'bf7df8'\r\nbaggageBagGUID = '94081d'\r\ngenericEventDeckGUID = 'adce08'\r\nLilyGUID = '616920'\r\nJimmyGUID = 'be7e6c'\r\nsceneOfCrimeTokenGUID = 'bf1d9c'\r\n\r\n----#include players\nplayerObjectGUIDs = {\r\n  White = {\r\n    tray = 'ede27e',\r\n    trayLiner = '05eab9',\r\n    zone = '2a420b'\r\n  },\r\n  Red = {\r\n    tray = 'c5ccf0',\r\n    trayLiner = 'd4880b',\r\n    zone = '968c8d'\r\n  },\r\n  Green = {\r\n    tray = '8313d4',\r\n    trayLiner = '382bd8',\r\n    zone = '64c12e'\r\n  },\r\n  Blue = {\r\n    tray = '34cb12',\r\n    trayLiner = '435c47',\r\n    zone = 'f2e70a'\r\n  },\r\n  Purple = {\r\n    tray = '45461a',\r\n    trayLiner = '933cba',\r\n    zone = '7dc2c1'\r\n  }\r\n}\r\n\n----#include players\n----#include murders\n\r\nmurdersBagGUID = 'cab0ad'\r\n\r\nmurderData = {\r\n  [\"Evil at the Estates\"] = {\r\n    guids = {\r\n      bag = '061814',\r\n      sheet = '112fbf',\r\n      deck = '8d6d37'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Armitage Software\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Levy University\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Eastside Tenements\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"Melange Mining\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Jacobi Miner's Co-op\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Rockvil Estates\",\r\n    JimmyStartingLocation = \"The Old War Memorial\",\r\n    crimeScene = \"Rockvil Estates\"\r\n  },\r\n  [\"Last Call at Roxie's\"] = {\r\n    guids = {\r\n      bag = 'ab4664',\r\n      sheet = '82e167',\r\n      deck = 'ba8fac'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Roxie HT's Cabaret\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"The Speakeasy\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Earthrise Hotel\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Alpha Prospecting\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Olivaw Robotics\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Roxie HT's Cabaret\",\r\n    JimmyStartingLocation = \"Mycroft Cemetary\",\r\n    crimeScene = \"Roxie HT's Cabaret\"\r\n  },\r\n  [\"Mons Wolff Massacre\"] = {\r\n    guids = {\r\n      bag = '530b38',\r\n      sheet = 'c697d5',\r\n      deck = '22de17'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Mandela Warrens\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Roxie HT's Cabaret\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Bradbury Towers\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Castle Club\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Starlight Crusade\"\r\n      },\r\n    },\r\n    LilyStartingLocation = \"Mandela Warrens\",\r\n    JimmyStartingLocation = \"Skye Recycling\",\r\n    crimeScene = \"Mons Wolff Observatory\"\r\n  },\r\n  [\"Freetown Fright\"] = {\r\n    guids = {\r\n      bag = '6a7345',\r\n      sheet = '30ab24',\r\n      deck = '4922e0'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Skye Recycling\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Olivaw Robotics\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Starlight Crusade\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Tony's Flophouse\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Monroe & Associates\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Freetown\",\r\n    JimmyStartingLocation = \"Jacobi Miner's Co-op\",\r\n    crimeScene = \"Freetown\"\r\n  },\r\n  [\"Murder on the Midway\"] = {\r\n    guids = {\r\n      bag = '4dc198',\r\n      sheet = '31c092',\r\n      deck = '6f8060'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Cosmos Fine Dining\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Alpha Prospecting\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"Freetown\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Eliza's Toybox\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Heaven & Hell Club\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"The Midway\",\r\n    JimmyStartingLocation = \"Tony's Flophouse\",\r\n    crimeScene = \"The Midway\"\r\n  },\r\n  [\"Revenge at the Races\"] = {\r\n    guids = {\r\n      bag = '765eac',\r\n      sheet = 'a18211',\r\n      deck = '133e57'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Monroe & Associates\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Eliza's Toybox\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Levy University\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Castle Club\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Armitage Software\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Campbell Greens\",\r\n    JimmyStartingLocation = \"Eastside Tenements\",\r\n    crimeScene = \"Campbell Greens\"\r\n  }\r\n}\r\n\r\nfunction murderNameFromBag(object)\r\n  if object.tag == \"Bag\" and murderData[object.getName()] != nil then\r\n    return object.getName()\r\n  end\r\n  return nil\r\nend\r\n\r\nfunction getMurderSheet(murder)\r\n  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  return bag.takeObject({guid = murderData[murder]['guids']['sheet']})\r\nend\r\n\r\nfunction getMurderEvents(murder)\r\n  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  return bag.takeObject({guid = murderData[murder]['guids']['deck']})\r\nend\r\n\r\nfunction cleanAfterSetup(murder)\r\n  destroyObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  destroyObjectFromGUID(murdersBagGUID)\r\n  for murderName, data in pairs(murderData) do\r\n    if murderName != murder then\r\n      for item, guid in pairs(data[\"guids\"]) do\r\n        destroyObjectFromGUID(guid)\r\n      end\r\n    end\r\n  end\r\nend\r\n\n----#include murders\n----#include locations\nlocations = {\r\n  [\"The Old War Memorial\"] = {\r\n    x = -28.96,\r\n    z = -21.84,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 1,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Starlight Crusade\"] = {\r\n    x = -15.44,\r\n    z = -21.35,\r\n    nameplate = 'below left',\r\n    quality = 'ritzy',\r\n    type = 'religious',\r\n    row = 1,\r\n    column = \"D\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Levy University\"] = {\r\n    x = -7.08,\r\n    z = -21.47,\r\n    nameplate = 'left',\r\n    quality = 'ritzy',\r\n    type = 'residential',\r\n    row = 1,\r\n    column = \"E\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Olivaw Robotics\"] = {\r\n    x = -11.16,\r\n    z = -18.16,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 2,\r\n    column = \"E\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Rockvil Estates\"] = {\r\n    x = 7.34,\r\n    z = -18.80,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 2,\r\n    column = \"G\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Heaven & Hell Club\"] = {\r\n    x = 23.33,\r\n    z = -14.61,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'nightlife',\r\n    row = 2,\r\n    column = \"J\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Campbell Greens\"] = {\r\n    x = 27.19,\r\n    z = -17.70,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 2,\r\n    column = \"K\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Roxie HT's Cabaret\"] = {\r\n    x = -31.60,\r\n    z = -12.48,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 3,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"The Speakeasy\"] = {\r\n    x = -17.77,\r\n    z = -6.80,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'nightlife',\r\n    row = 3,\r\n    column = \"D\",\r\n    world = 'Earth'\r\n  },\r\n  [\"The Root\"] = {\r\n    x = -0.25,\r\n    z = -8.51,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 3,\r\n    column = \"F\",\r\n    world = 'Earth',\r\n    beanstalkStation = 1\r\n  },\r\n  [\"Bradbury Towers\"] = {\r\n    x = 4.46,\r\n    z = -8.91,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"G\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Monroe & Associates\"] = {\r\n    x = 8.59,\r\n    z = -12.64,\r\n    nameplate = 'below left',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 3,\r\n    column = \"H\",\r\n    world = 'Earth'\r\n  },\r\n  [\"NAPD\"] = {\r\n    x = 17.12,\r\n    z = -7.28,\r\n    nameplate = 'below right',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 3,\r\n    column = \"I\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Tony's Flophouse\"] = {\r\n    x = 25.34,\r\n    z = -8.79,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"J\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Eastside Tenements\"] = {\r\n    x = 37.29,\r\n    z = -10.58,\r\n    nameplate = 'below left',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"L\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Cosmos Fine Dining\"] = {\r\n    x = -26.20,\r\n    z = -6.26,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 4,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Castle Club\"] = {\r\n    x = -0.42,\r\n    z = 0.19,\r\n    nameplate = 'below right',\r\n    quality = 'ritzy',\r\n    type = 'nightlife',\r\n    row = 4,\r\n    column = \"F\",\r\n    beanstalkStation = 3\r\n  },\r\n  [\"The Midway\"] = {\r\n    x = -0.33,\r\n    z = -4.39,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 4,\r\n    column = \"F\",\r\n    beanstalkStation = 2\r\n  },\r\n  [\"Skye Recycling\"] = {\r\n    x = -9.26,\r\n    z = 8.03,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 6,\r\n    column = \"E\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Earthrise Hotel\"] = {\r\n    x = -4.38,\r\n    z = 8.96,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'residential',\r\n    row = 6,\r\n    column = \"F\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Alpha Prospecting\"] = {\r\n    x = 0.90,\r\n    z = 9.31,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 6,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Freetown\"] = {\r\n    x = -25.23,\r\n    z = 14.52,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'residential',\r\n    row = 7,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Jacobi Miner's Co-op\"] = {\r\n    x = -24.81,\r\n    z = 17.68,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Eliza's Toybox\"] = {\r\n    x = -15.05,\r\n    z = 13.73,\r\n    nameplate = 'below left',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"D\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Armitage Software\"] = {\r\n    x = -0.40,\r\n    z = 17.69,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"F\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mandela Warrens\"] = {\r\n    x = 5.09,\r\n    z = 16.67,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 7,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Melange Mining\"] = {\r\n    x = 4.03,\r\n    z = 13.43,\r\n    nameplate = 'left',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mons Wolff Observatory\"] = {\r\n    x = 8.91,\r\n    z = 17.84,\r\n    nameplate = 'above',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 7,\r\n    column = \"H\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mycroft Cemetary\"] = {\r\n    x = -25.10,\r\n    z = 21.76,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 8,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  }\r\n}\r\n\r\nfunction getNPCPosition(locationName)\r\n  data = locations[locationName]\r\n  if data[\"nameplate\"] == 'below' then\r\n    return {data.x - 1.5, 1.05, data.z - 1}\r\n  elseif data[\"nameplate\"] == 'above' then\r\n    return {data.x - 1.5, 1.05, data.z + 1}\r\n  elseif data[\"nameplate\"] == 'below left' then\r\n    return {data.x - 3, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'below right' then\r\n    return {data.x + 1, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'left' then\r\n    return {data.x - 3, 1.05, data.z - 1}\r\n  end\r\nend\r\n\r\nfunction getCrimeSceneTokenPosition(locationName)\r\n  data = locations[locationName]\r\n  if data[\"nameplate\"] == 'below' then\r\n    return {data.x + 2 , 1.05, data.z - 1}\r\n  elseif data[\"nameplate\"] == 'above' then\r\n    return {data.x + 2, 1.05, data.z + 1}\r\n  elseif data[\"nameplate\"] == 'below left' then\r\n    return {data.x - 1, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'below right' then\r\n    return {data.x + 3, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'left' then\r\n    return {data.x - 1, 1.05, data.z - 1}\r\n  end\r\nend\r\n\n----#include locations\n----#include suspects\nguiltyHunchDeckGUID = '6dc7ee'\r\ninnocentHunchDeckGUID = 'd17a2d'\r\n\r\nsuspectData = {\r\n  [\"Eve\"] = {\r\n    guids = {\r\n      sheet = 'a193b7',\r\n      token = '0e28c8',\r\n      guiltyHunchCard = 'bea687',\r\n      innocentHunchCard = '74f72d'\r\n    }\r\n  },\r\n  [\"Noise\"] = {\r\n    guids = {\r\n      sheet = '0dd696',\r\n      token = 'd3b8ae',\r\n      guiltyHunchCard = 'c1f08b',\r\n      innocentHunchCard = 'e4ae9e'\r\n    }\r\n  },\r\n  [\"Tommy\"] = {\r\n    guids = {\r\n      sheet = 'cae8bd',\r\n      token = 'f11ca0',\r\n      guiltyHunchCard = '0d50cd',\r\n      innocentHunchCard = '7ad00a'\r\n    }\r\n  },\r\n  [\"Vinnie\"] = {\r\n    guids = {\r\n      sheet = '9edd9b',\r\n      token = '3d7198',\r\n      guiltyHunchCard = '7f662c',\r\n      innocentHunchCard = '453f35'\r\n    }\r\n  },\r\n  [\"Mark\"] = {\r\n    guids = {\r\n      sheet = '4f0438',\r\n      token = '57af74',\r\n      guiltyHunchCard = '60cf05',\r\n      innocentHunchCard = 'f937a0'\r\n    }\r\n  },\r\n  [\"Dejah\"] = {\r\n    guids = {\r\n      sheet = '4b3c9a',\r\n      token = '76f1c8',\r\n      guiltyHunchCard = 'faf2eb',\r\n      innocentHunchCard = 'c7e104'\r\n    }\r\n  }\r\n}\r\n\n----#include suspects\n----#include utils\nfunction scriptingZoneForTrayLiner(linerGUID)\r\n  liner = getObjectFromGUID(linerGUID)\r\n  linerBounds = liner.getBoundsNormalized()\r\n  return spawnObject({\r\n    type = 'ScriptingTrigger',\r\n    position = {\r\n      x = linerBounds.center.x,\r\n      y = linerBounds.center.y + 2,\r\n      z = linerBounds.center.z\r\n    },\r\n    scale = {\r\n      linerBounds.size.x,\r\n      4,\r\n      linerBounds.size.z\r\n    },\r\n    rotation = liner.getRotation(),\r\n    sound = false\r\n  })\r\nend\r\n\r\nfunction destroyObjectFromGUID(guid)\r\n  object = getObjectFromGUID(guid)\r\n  if object != nil then\r\n    object.destruct()\r\n  end\r\nend\r\n\n----#include utils\n----#include setup\nmurderEventsLocation = {\r\n  x = -41.37,\r\n  y = 1.05,\r\n  z = 0.75\r\n}\r\n\r\nfunction setUp(buttonOwner)\r\n  buttonOwner.removeButton(0)\r\n  setUpPuzzlePieces(shiftBagGUID)\r\n  setUpPuzzlePieces(favorBagGUID)\r\n  setUpPuzzlePieces(baggageBagGUID)\r\n\r\n  getObjectFromGUID(evidenceBagGUID).randomize()\r\n  getObjectFromGUID(genericEventDeckGUID).randomize()\r\n\r\n  playerCount = countAndRemovePlayers()\r\n  murder = chooseMurder()\r\n  Wait.time(function() setUpMurder(murder, playerCount) end, 0.1)\r\nend\r\n\r\nfunction countAndRemovePlayers()\r\n  colors = Player.getAvailableColors()\r\n  playerCount = 0\r\n  for _, color in ipairs(colors) do\r\n    if Player[color].seated then\r\n      playerCount = playerCount + 1\r\n    else\r\n      guids = playerObjectGUIDs[color]\r\n      for item, guid in pairs(guids) do\r\n        getObjectFromGUID(guid).destruct()\r\n      end\r\n    end\r\n  end\r\n  return playerCount\r\nend\r\n\r\nfunction setUpPuzzlePieces(bagGUID)\r\n  bag = getObjectFromGUID(bagGUID)\r\n  pos = bag.getPosition()\r\n  bag.setPosition({pos.x + 5, pos.y, pos.z })\r\n  bag.randomize()\r\n  tileInfo = bag.getObjects()\r\n  for j, tile in ipairs(tileInfo) do\r\n    bag.takeObject({\r\n      position = ({pos.x, pos.y + (0.3 * j), pos.z}),\r\n      smooth = false\r\n    })\r\n  end\r\n  bag.destruct()\r\nend\r\n\r\nfunction chooseMurder()\r\n  for _, object in pairs(murderTrayZone.getObjects()) do\r\n    name = murderNameFromBag(object)\r\n    if name != nil then\r\n      return name\r\n    end\r\n  end\r\n  murdersBag = getObjectFromGUID(murdersBagGUID)\r\n  murdersBag.randomize()\r\n  murderBag = murdersBag.takeObject()\r\n  murdersBag.destruct()\r\n  return murderBag.getName()\r\nend\r\n\r\nfunction setUpMurder(murder, playerCount)\r\n  sheet = getMurderSheet(murder)\r\n  rotation = murderTrayLiner.getRotation()\r\n  sheet.setRotation(rotation)\r\n  sheet.setPosition(getSheetPlacement(playerCount, 0))\r\n  murderEventsDeck = getMurderEvents(murder)\r\n  murderEventsDeck.setPosition(murderEventsLocation)\r\n  murderEventsDeck.setRotation({ 180, 0, 0 })\r\n  murderEventsDeck.randomize()\r\n  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)\r\n  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)\r\n  suspectDeck = getObjectFromGUID(suspectDeckGUID)\r\n  for i = 1, 6 do\r\n    suspect = murderData[murder][\"suspects\"][i][\"id\"]\r\n    suspectSheet = getObjectFromGUID(suspectData[suspect][\"guids\"][\"sheet\"])\r\n    guiltyCard = guiltyDeck.takeObject({guid = suspectData[suspect][\"guids\"][\"guiltyHunchCard\"]})\r\n    innocentCard = innocentDeck.takeObject({guid = suspectData[suspect][\"guids\"][\"innocentHunchCard\"]})\r\n    suspectToken = getObjectFromGUID(suspectData[suspect][\"guids\"][\"token\"])\r\n    if i < playerCount + 2 then\r\n      suspectSheet.setRotation(rotation)\r\n      suspectSheet.setPosition(getSheetPlacement(playerCount, i))\r\n      guiltyDeck.putObject(guiltyCard)\r\n      innocentDeck.putObject(innocentCard)\r\n      suspectToken.setRotation({180,0,0})\r\n      suspectToken.setPosition(getNPCPosition(murderData[murder][\"suspects\"][i][\"startingLocation\"]))\r\n    else\r\n      suspectSheet.destruct()\r\n      guiltyCard.destruct()\r\n      innocentCard.destruct()\r\n    end\r\n  end\r\n  crimeSceneToken = getObjectFromGUID(sceneOfCrimeTokenGUID)\r\n  crimeSceneToken.setRotation({180,0,0})\r\n  crimeSceneToken.setPosition(getCrimeSceneTokenPosition(murderData[murder][\"crimeScene\"]))\r\n  Lily = getObjectFromGUID(LilyGUID)\r\n  Lily.setRotation({180,0,0})\r\n  Lily.setPosition(getNPCPosition(murderData[murder][\"LilyStartingLocation\"]))\r\n  Jimmy = getObjectFromGUID(JimmyGUID)\r\n  Jimmy.setRotation({180,0,0})\r\n  Jimmy.setPosition(getNPCPosition(murderData[murder][\"JimmyStartingLocation\"]))\r\n  dealHunchCards()\r\n  cleanAfterSetup(murder)\r\nend\r\n\r\nfunction getSheetPlacement(playerCount, sheet)\r\n  space = murderTrayLiner.getBounds()\r\n  sheetWidth = 8.74\r\n  sheetSpacing = 0.5\r\n  leftMost = space.center.z - ((playerCount+2)*sheetWidth + (playerCount+1)*sheetSpacing)/2\r\n  z = leftMost + (sheetWidth + sheetSpacing) * sheet\r\n  y = space.center.y + space.size.y / 2 + 0.1\r\n  x = space.center.x\r\n  return {x, y, z}\r\nend\r\n\r\nfunction dealHunchCards()\r\n  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)\r\n  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)\r\n  guiltyDeck.randomize()\r\n  innocentDeck.randomize()\r\n  for _, player in pairs(Player.getPlayers()) do\r\n    print(player.color)\r\n    trayLiner = getObjectFromGUID(playerObjectGUIDs[player.color][\"trayLiner\"])\r\n    print(trayLiner.getRotation().y)\r\n    rotation = ({180, trayLiner.getRotation().y, 0})\r\n    guiltyCard = guiltyDeck.takeObject()\r\n    guiltyCard.setRotation(rotation)\r\n    guiltyCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, 1.4}))\r\n    innocentCard = innocentDeck.takeObject()\r\n    innocentCard.setRotation(rotation)\r\n    innocentCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, -1.4}))\r\n  end\r\nend\r\n\n----#include setup\n\r\nplayerTrayZones = {}\r\nmurderTrayZone = nil\r\n\r\nfunction onload()\r\n  murderTrayLiner = getObjectFromGUID(murderTrayLinerGUID)\r\n  murderTrayZone = getObjectFromGUID(murderTrayZoneGUID)\r\n  -- use existence of a puzzle piece bag to check if setup already happened\r\n  shiftBag = getObjectFromGUID(shiftBagGUID)\r\n  if shiftBag != nil then\r\n    murderTrayLiner.createButton({\r\n      label = 'Set up',\r\n      click_function = 'setUp',\r\n      tooltip = 'Set up the game!',\r\n      position = {0,0.2,0},\r\n      width = 1200,\r\n      height = 500,\r\n      font_size = 300\r\n    })\r\n  end\r\nend\r\n\n----#include Android/global",
@@ -70,7 +70,7 @@
         "Color": "Red",
         "Transform": {
           "posX": -27.0000019,
-          "posY": 0.917801857,
+          "posY": 0.862977,
           "posZ": -27.9999962,
           "rotX": 0.0,
           "rotY": 0.0,
@@ -84,21 +84,21 @@
         "Color": "Purple",
         "Transform": {
           "posX": 46.0,
-          "posY": 0.917801857,
+          "posY": 0.862977,
           "posZ": 0.0,
           "rotX": 0.0,
           "rotY": 270.0,
           "rotZ": 0.0,
-          "scaleX": 12.0193825,
+          "scaleX": 12.0202532,
           "scaleY": 9.0,
-          "scaleZ": 5.00609827
+          "scaleZ": 5.006373
         }
       },
       {
         "Color": "Blue",
         "Transform": {
           "posX": 27.0000019,
-          "posY": 0.917801857,
+          "posY": 0.862977,
           "posZ": 27.9999962,
           "rotX": 0.0,
           "rotY": 180.0,
@@ -112,7 +112,7 @@
         "Color": "White",
         "Transform": {
           "posX": 27.0000019,
-          "posY": 0.917801857,
+          "posY": 0.862977,
           "posZ": -27.9999962,
           "rotX": 0.0,
           "rotY": 0.0,
@@ -126,7 +126,7 @@
         "Color": "Green",
         "Transform": {
           "posX": -27.0000019,
-          "posY": 0.917801857,
+          "posY": 0.862977,
           "posZ": 27.9999962,
           "rotX": 0.0,
           "rotY": 180.0,
@@ -161,9 +161,9 @@
         "posX": -15.9258413,
         "posY": 0.637407541,
         "posZ": 32.8537178,
-        "rotX": 9.18787237E-07,
+        "rotX": -3.60172038E-07,
         "rotY": 359.9815,
-        "rotZ": -1.235452E-07,
+        "rotZ": 8.51019664E-08,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -173,8 +173,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.9390244,
-        "g": 0.4333819,
-        "b": 0.0441699922
+        "g": 0.433381855,
+        "b": 0.04416997
       },
       "Locked": false,
       "Grid": true,
@@ -3269,12 +3269,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": -49.09548,
-        "posY": 0.6414138,
-        "posZ": 2.293854,
-        "rotX": -2.38998354E-07,
-        "rotY": 0.110885628,
-        "rotZ": 5.600579E-07,
+        "posX": -49.0954781,
+        "posY": 0.6414151,
+        "posZ": 2.29385424,
+        "rotX": -2.0733562E-06,
+        "rotY": 0.110839307,
+        "rotZ": 7.53688528E-06,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -3284,7 +3284,7 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.706116,
-        "g": 0.366882235,
+        "g": 0.3668822,
         "b": 0.0
       },
       "Locked": false,
@@ -5008,7 +5008,7 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.486326873,
-        "g": 0.2746026,
+        "g": 0.274602562,
         "b": 0.6707317
       },
       "Locked": false,
@@ -8208,11 +8208,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": 41.3575134,
-        "posY": 1.06,
+        "posY": 1.06000006,
         "posZ": -12.8110352,
-        "rotX": -3.967088E-06,
+        "rotX": -2.20587413E-06,
         "rotY": 180.00383,
-        "rotZ": -2.71840145E-06,
+        "rotZ": -1.03060484E-06,
         "scaleX": 1.216428,
         "scaleY": 1.0,
         "scaleZ": 1.216428
@@ -8255,11 +8255,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": -34.91507,
-        "posY": 1.05999982,
+        "posY": 1.06,
         "posZ": 23.5072975,
-        "rotX": -1.913671E-06,
+        "rotX": 9.399897E-07,
         "rotY": 180.0015,
-        "rotZ": -5.50420464E-06,
+        "rotZ": 1.32944274E-06,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -8304,9 +8304,9 @@
         "posX": -30.10303,
         "posY": 1.06,
         "posZ": 18.59502,
-        "rotX": -8.536985E-06,
+        "rotX": -1.32713132E-10,
         "rotY": 179.99118,
-        "rotZ": 9.767153E-06,
+        "rotZ": -1.72422233E-06,
         "scaleX": 0.5087685,
         "scaleY": 1.0,
         "scaleZ": 0.5087685
@@ -8351,12 +8351,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": 6.16594362,
-        "posY": 0.637407064,
+        "posX": 6.16594553,
+        "posY": 0.6374093,
         "posZ": 34.61595,
-        "rotX": -4.99755348E-09,
-        "rotY": 0.00557102636,
-        "rotZ": -1.03386895E-07,
+        "rotX": -8.8779725E-06,
+        "rotY": 0.005567231,
+        "rotZ": 1.23687346E-06,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -11399,12 +11399,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": -1.24547315,
-        "posY": 0.637409568,
+        "posX": -1.24547219,
+        "posY": 0.637408257,
         "posZ": 32.8880424,
-        "rotX": -8.9178875E-06,
-        "rotY": 0.03259053,
-        "rotZ": -1.5594874E-07,
+        "rotX": -8.083597E-07,
+        "rotY": 0.032545805,
+        "rotZ": -1.37593906E-06,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -11413,8 +11413,8 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.183864623,
-        "g": 0.3834263,
+        "r": 0.1838646,
+        "g": 0.383426279,
         "b": 0.663763
       },
       "Locked": false,
@@ -14360,11 +14360,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 13.2988043,
-        "posY": 0.637409,
+        "posY": 0.6374079,
         "posZ": 33.66924,
-        "rotX": 8.909052E-12,
+        "rotX": 1.24207325E-10,
         "rotY": 180.036011,
-        "rotZ": -2.834795E-08,
+        "rotZ": -3.95203784E-07,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -14374,8 +14374,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.959930241,
-        "g": 0.245835721,
-        "b": 0.245835721
+        "g": 0.245835692,
+        "b": 0.245835692
       },
       "Locked": false,
       "Grid": true,
@@ -17246,11 +17246,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": 36.31599,
-        "posY": 1.488423,
+        "posY": 1.48838282,
         "posZ": -33.90253,
-        "rotX": -2.98071882E-05,
-        "rotY": 179.970474,
-        "rotZ": 4.44711477E-05,
+        "rotX": -3.15169677E-06,
+        "rotY": 179.9705,
+        "rotZ": -8.93911347E-05,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -17293,11 +17293,11 @@
       "Name": "Custom_Token_Stack",
       "Transform": {
         "posX": -29.7782669,
-        "posY": 1.01000035,
+        "posY": 1.00999987,
         "posZ": 23.5663223,
-        "rotX": -6.175658E-06,
-        "rotY": 90.56678,
-        "rotZ": 2.22786639E-05,
+        "rotX": -2.73668775E-05,
+        "rotY": 90.5667953,
+        "rotZ": 9.370813E-06,
         "scaleX": 0.6119569,
         "scaleY": 1.0,
         "scaleZ": 0.6119569
@@ -17342,12 +17342,12 @@
     {
       "Name": "Custom_Token_Stack",
       "Transform": {
-        "posX": -29.7473717,
-        "posY": 1.01000047,
+        "posX": -29.7473736,
+        "posY": 1.00999975,
         "posZ": 21.06416,
-        "rotX": 9.187736E-06,
+        "rotX": -6.299453E-06,
         "rotY": 269.991058,
-        "rotZ": 4.709313E-07,
+        "rotZ": 2.260185E-05,
         "scaleX": 0.6119569,
         "scaleY": 1.0,
         "scaleZ": 0.6119569
@@ -17445,7 +17445,7 @@
         "posX": -30.1280384,
         "posY": 2.01000214,
         "posZ": 13.2842693,
-        "rotX": -2.02224072E-07,
+        "rotX": 2.24542916E-07,
         "rotY": 179.5266,
         "rotZ": 180.0,
         "scaleX": 0.5166697,
@@ -17494,10 +17494,10 @@
       "Transform": {
         "posX": -31.6879978,
         "posY": 1.01000023,
-        "posZ": 10.2627258,
-        "rotX": -5.12275938E-06,
+        "posZ": 10.2627268,
+        "rotX": 8.53836355E-07,
         "rotY": 179.9965,
-        "rotZ": -3.861836E-06,
+        "rotZ": 2.05770175E-06,
         "scaleX": 0.4912073,
         "scaleY": 1.0,
         "scaleZ": 0.4912073
@@ -17545,7 +17545,7 @@
         "posX": -35.90466,
         "posY": 2.110003,
         "posZ": 10.338191,
-        "rotX": 7.856141E-07,
+        "rotX": 7.873015E-07,
         "rotY": 179.978622,
         "rotZ": 180.0,
         "scaleX": 0.5166697,
@@ -17595,9 +17595,9 @@
         "posX": -33.69425,
         "posY": 1.01000023,
         "posZ": 10.2025976,
-        "rotX": -1.92168045E-06,
+        "rotX": 2.77509753E-06,
         "rotY": 180.0239,
-        "rotZ": 3.30630473E-06,
+        "rotZ": -1.59691194E-06,
         "scaleX": 0.50286305,
         "scaleY": 1.0,
         "scaleZ": 0.50286305
@@ -17643,11 +17643,11 @@
       "Name": "Custom_Token_Stack",
       "Transform": {
         "posX": -29.5907841,
-        "posY": 1.01000011,
+        "posY": 1.01000059,
         "posZ": 10.3180676,
-        "rotX": -1.28173644E-06,
+        "rotX": 8.111517E-06,
         "rotY": 179.981247,
-        "rotZ": -6.57526471E-06,
+        "rotZ": 4.072024E-06,
         "scaleX": 0.50286305,
         "scaleY": 1.0,
         "scaleZ": 0.50286305
@@ -17693,11 +17693,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": -23.8289948,
-        "posY": 1.48837316,
+        "posY": 1.48840153,
         "posZ": -34.174324,
-        "rotX": -7.9932106E-05,
-        "rotY": 179.9577,
-        "rotZ": 0.000329923962,
+        "rotX": -0.0002632373,
+        "rotY": 179.957748,
+        "rotZ": 7.022017E-05,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -17740,11 +17740,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": -35.2377625,
-        "posY": 1.48841858,
+        "posY": 1.48841155,
         "posZ": 34.02739,
-        "rotX": 4.0457242E-05,
-        "rotY": 179.977966,
-        "rotZ": 0.000148263891,
+        "rotX": 9.91663E-05,
+        "rotY": 179.977982,
+        "rotZ": 0.000245985575,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -17789,9 +17789,9 @@
         "posX": -16.5712452,
         "posY": 1.04665029,
         "posZ": 28.3146725,
-        "rotX": -1.70272415E-07,
+        "rotX": -1.71789026E-07,
         "rotY": 179.99678,
-        "rotZ": 2.34625091E-07,
+        "rotZ": 3.358706E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -17835,9 +17835,9 @@
         "posX": -14.1187277,
         "posY": 1.04665041,
         "posZ": 28.3727322,
-        "rotX": 1.59079292E-07,
+        "rotX": 1.75183885E-07,
         "rotY": 180.005966,
-        "rotZ": 8.856933E-08,
+        "rotZ": -1.513587E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -17881,9 +17881,9 @@
         "posX": -11.8861647,
         "posY": 1.04665029,
         "posZ": 28.3759575,
-        "rotX": -6.323716E-07,
+        "rotX": -7.586813E-07,
         "rotY": 180.000656,
-        "rotZ": 1.29984429E-07,
+        "rotZ": 1.14089218E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -17927,9 +17927,9 @@
         "posX": -9.92311,
         "posY": 1.04665029,
         "posZ": 28.13484,
-        "rotX": -1.393233E-07,
+        "rotX": -1.50681842E-07,
         "rotY": 179.999741,
-        "rotZ": 5.455658E-07,
+        "rotZ": 5.30659E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -17973,9 +17973,9 @@
         "posX": -7.706082,
         "posY": 1.04665041,
         "posZ": 28.2003078,
-        "rotX": -2.84597412E-08,
+        "rotX": -2.74215939E-08,
         "rotY": 180.0048,
-        "rotZ": 2.17960974E-07,
+        "rotZ": 1.42508085E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18019,9 +18019,9 @@
         "posX": -5.605491,
         "posY": 1.04665041,
         "posZ": 28.0900421,
-        "rotX": -4.23191125E-07,
+        "rotX": -4.390203E-07,
         "rotY": 180.004913,
-        "rotZ": 2.582521E-07,
+        "rotZ": 2.13528367E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18065,9 +18065,9 @@
         "posX": 3.062365,
         "posY": 1.04665029,
         "posZ": 28.0530968,
-        "rotX": -1.25884085E-07,
+        "rotX": -1.98069131E-07,
         "rotY": 180.016983,
-        "rotZ": -1.51128617E-07,
+        "rotZ": -1.02347236E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18111,9 +18111,9 @@
         "posX": 5.152316,
         "posY": 1.04665029,
         "posZ": 27.9829922,
-        "rotX": -1.43770123E-07,
+        "rotX": -1.17757139E-07,
         "rotY": 180.018066,
-        "rotZ": 2.453736E-07,
+        "rotZ": 2.60767848E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18157,9 +18157,9 @@
         "posX": 7.446503,
         "posY": 1.04665029,
         "posZ": 27.9406719,
-        "rotX": -1.56914439E-07,
+        "rotX": -2.27099491E-07,
         "rotY": 180.016632,
-        "rotZ": 1.40400772E-07,
+        "rotZ": 2.57745228E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18203,9 +18203,9 @@
         "posX": -3.41223884,
         "posY": 1.04665041,
         "posZ": 28.0197525,
-        "rotX": 8.841761E-08,
+        "rotX": 1.245301E-07,
         "rotY": 180.004761,
-        "rotZ": 3.18255559E-07,
+        "rotZ": 2.5887465E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18249,9 +18249,9 @@
         "posX": -1.30161631,
         "posY": 1.04665041,
         "posZ": 28.1028118,
-        "rotX": 2.5791897E-07,
+        "rotX": 1.52824072E-07,
         "rotY": 180.001831,
-        "rotZ": 5.309542E-07,
+        "rotZ": 4.93735854E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18295,9 +18295,9 @@
         "posX": 0.803191,
         "posY": 1.04665041,
         "posZ": 28.04751,
-        "rotX": 2.46961463E-07,
+        "rotX": 1.61213038E-07,
         "rotY": 180.002487,
-        "rotZ": 4.85551332E-08,
+        "rotZ": -2.09244959E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18341,9 +18341,9 @@
         "posX": 9.61145,
         "posY": 1.04665041,
         "posZ": 27.9454975,
-        "rotX": -1.57571037E-07,
+        "rotX": -5.225256E-08,
         "rotY": 180.003586,
-        "rotZ": -1.688387E-08,
+        "rotZ": -1.81361344E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18387,9 +18387,9 @@
         "posX": 12.0009508,
         "posY": 1.04665041,
         "posZ": 27.9911747,
-        "rotX": 2.62281475E-07,
+        "rotX": 3.939564E-07,
         "rotY": 180.005829,
-        "rotZ": -1.73494314E-07,
+        "rotZ": -2.58766647E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18433,9 +18433,9 @@
         "posX": 14.0710564,
         "posY": 1.04665041,
         "posZ": 28.0026665,
-        "rotX": 2.05059749E-07,
+        "rotX": 1.87929231E-07,
         "rotY": 179.995438,
-        "rotZ": 2.263196E-07,
+        "rotZ": 1.58158556E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18479,7 +18479,7 @@
         "posX": -35.65516,
         "posY": 3.955474,
         "posZ": 7.93362141,
-        "rotX": 7.12459E-07,
+        "rotX": 6.99445252E-07,
         "rotY": 179.954041,
         "rotZ": 180.0,
         "scaleX": 0.625,
@@ -18526,11 +18526,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 41.7728729,
-        "posY": 0.6824486,
-        "posZ": -0.8164155,
-        "rotX": -2.032753E-06,
-        "rotY": -0.005302108,
-        "rotZ": -8.203291E-07,
+        "posY": 0.682448864,
+        "posZ": -0.816415548,
+        "rotX": -4.34403233E-08,
+        "rotY": -0.00529673835,
+        "rotZ": -1.83094221E-06,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -18539,7 +18539,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.305935532,
+        "r": 0.3059355,
         "g": 0.8873836,
         "b": 1.0
       },
@@ -21252,11 +21252,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 29.9390125,
-        "posY": 1.17784929,
+        "posY": 1.17783868,
         "posZ": -31.6116943,
-        "rotX": 1.51625852E-06,
+        "rotX": 3.10247851E-05,
         "rotY": 180.013168,
-        "rotZ": -5.94836365E-06,
+        "rotZ": -0.00010851596,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21398,11 +21398,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 49.2679825,
-        "posY": 1.17784929,
-        "posZ": 0.395409375,
-        "rotX": 3.263375E-06,
+        "posY": 1.17784977,
+        "posZ": 0.395409316,
+        "rotX": 2.00511067E-06,
         "rotY": 89.97095,
-        "rotZ": -1.12171156E-05,
+        "rotZ": -7.03598653E-06,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21544,11 +21544,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 29.6993637,
-        "posY": 1.177837,
+        "posY": 1.17783773,
         "posZ": 32.0025024,
-        "rotX": 3.627564E-05,
-        "rotY": 0.003965081,
-        "rotZ": -0.000126526225,
+        "rotX": 3.44103537E-05,
+        "rotY": 0.00396588165,
+        "rotZ": -0.000119124132,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21690,11 +21690,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": -28.8602924,
-        "posY": 1.17784786,
+        "posY": 1.17784572,
         "posZ": 31.73805,
-        "rotX": 5.81668337E-06,
-        "rotY": 0.00017525717,
-        "rotZ": -2.0849051E-05,
+        "rotX": 1.23217833E-05,
+        "rotY": 0.000189336773,
+        "rotZ": -4.2396834E-05,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21836,11 +21836,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": -30.2060146,
-        "posY": 1.177836,
+        "posY": 1.17784262,
         "posZ": -31.8836441,
-        "rotX": 3.89631859E-05,
+        "rotX": 2.01963885E-05,
         "rotY": 180.012131,
-        "rotZ": -0.000134743357,
+        "rotZ": -6.97961E-05,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21982,11 +21982,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": 51.5541573,
-        "posY": 1.4884218,
-        "posZ": 6.77414942,
-        "rotX": 5.70509146E-05,
-        "rotY": 179.99173,
-        "rotZ": 0.000111852736,
+        "posY": 1.48842347,
+        "posZ": 6.77415,
+        "rotX": -2.617701E-07,
+        "rotY": 179.991684,
+        "rotZ": -5.71607743E-05,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -22029,11 +22029,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": 23.3220348,
-        "posY": 1.48837876,
+        "posY": 1.48838186,
         "posZ": 34.2922668,
-        "rotX": -0.0005208643,
+        "rotX": -0.000390552217,
         "rotY": 180.0052,
-        "rotZ": 0.000330866431,
+        "rotZ": 0.000411176035,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -22122,11 +22122,11 @@
       "Name": "Custom_Tile_Stack",
       "Transform": {
         "posX": 37.11769,
-        "posY": 0.96,
+        "posY": 0.960001469,
         "posZ": 23.6819363,
-        "rotX": -2.857286E-07,
+        "rotX": -2.20833982E-07,
         "rotY": 180.05098,
-        "rotZ": 2.289979E-06,
+        "rotZ": -1.055412E-05,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -22173,11 +22173,11 @@
       "Name": "Custom_Tile_Stack",
       "Transform": {
         "posX": 40.550087,
-        "posY": 0.9600002,
+        "posY": 0.9599998,
         "posZ": 23.7004528,
-        "rotX": -9.522474E-06,
+        "rotX": -1.82734766E-06,
         "rotY": 179.94075,
-        "rotZ": 2.25055237E-06,
+        "rotZ": 1.67048825E-07,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -22224,11 +22224,11 @@
       "Name": "Custom_Tile_Stack",
       "Transform": {
         "posX": 40.7595177,
-        "posY": 0.9600002,
+        "posY": 0.959999561,
         "posZ": 21.190012,
-        "rotX": -9.865493E-06,
+        "rotX": 9.175398E-06,
         "rotY": 180.0182,
-        "rotZ": 2.191754E-06,
+        "rotZ": 3.50311524E-07,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -22277,7 +22277,7 @@
         "posX": -31.8739967,
         "posY": 3.95547342,
         "posZ": 8.177044,
-        "rotX": 6.94578148E-07,
+        "rotX": 1.37491975E-06,
         "rotY": 179.963776,
         "rotZ": 180.0,
         "scaleX": 0.625,
@@ -22324,9 +22324,9 @@
       "Name": "Custom_Model_Stack",
       "Transform": {
         "posX": -33.69929,
-        "posY": 3.95547342,
+        "posY": 3.95547366,
         "posZ": 8.047532,
-        "rotX": 7.363479E-07,
+        "rotX": 5.69723056E-07,
         "rotY": 179.95517,
         "rotZ": 180.0,
         "scaleX": 0.625,
@@ -22375,7 +22375,7 @@
         "posX": -35.04551,
         "posY": 1.10574877,
         "posZ": 0.750584,
-        "rotX": -2.96587075E-08,
+        "rotX": 1.677003E-08,
         "rotY": 179.996353,
         "rotZ": 180.0,
         "scaleX": 2.396114,
@@ -23610,9 +23610,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.304875344,
-        "g": 0.304875344,
-        "b": 0.304875344
+        "r": 0.304875284,
+        "g": 0.304875284,
+        "b": 0.304875284
       },
       "Locked": true,
       "Grid": true,
@@ -23669,7 +23669,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.304875344,
+        "r": 0.304875284,
         "g": 0.03380437,
         "b": 0.0323999
       },
@@ -23774,9 +23774,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.202527672,
+        "r": 0.202527612,
         "g": 0.0387737267,
-        "b": 0.304875344
+        "b": 0.304875284
       },
       "Locked": true,
       "Grid": true,
@@ -23880,8 +23880,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.0351801068,
-        "g": 0.15877673,
-        "b": 0.3013911
+        "g": 0.158776671,
+        "b": 0.301391035
       },
       "Locked": true,
       "Grid": true,
@@ -23984,9 +23984,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.08145567,
-        "g": 0.2979066,
-        "b": 0.07006375
+        "r": 0.08145561,
+        "g": 0.297906548,
+        "b": 0.07006369
       },
       "Locked": true,
       "Grid": true,
@@ -24135,11 +24135,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 40.83319,
-        "posY": 0.682451248,
-        "posZ": 15.5119381,
-        "rotX": -6.45798934E-07,
-        "rotY": 0.00515331049,
-        "rotZ": 1.03669827E-05,
+        "posY": 0.6824502,
+        "posZ": 15.5119371,
+        "rotX": -1.14931072E-05,
+        "rotY": 0.005165136,
+        "rotZ": -2.55420182E-05,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -24150,7 +24150,7 @@
       "ColorDiffuse": {
         "r": 1.0,
         "g": 0.450692773,
-        "b": 0.188285828
+        "b": 0.1882858
       },
       "Locked": false,
       "Grid": true,
@@ -24527,11 +24527,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 41.16441,
-        "posY": 0.6824502,
-        "posZ": 10.9821978,
-        "rotX": -2.79995419E-07,
-        "rotY": 0.0376114622,
-        "rotZ": -5.534612E-06,
+        "posY": 0.682450652,
+        "posZ": 10.9821987,
+        "rotX": 5.576293E-07,
+        "rotY": 0.0375989079,
+        "rotZ": 8.10603E-06,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -24919,11 +24919,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 40.98218,
-        "posY": 0.6824496,
-        "posZ": 6.60127449,
-        "rotX": -2.434984E-08,
-        "rotY": 0.029714359,
-        "rotZ": 3.873658E-06,
+        "posY": 0.6824497,
+        "posZ": 6.601275,
+        "rotX": 2.73049955E-06,
+        "rotY": 0.0296924468,
+        "rotZ": 3.50918322E-06,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -24934,7 +24934,7 @@
       "ColorDiffuse": {
         "r": 0.9337694,
         "g": 1.0,
-        "b": 0.188285828
+        "b": 0.1882858
       },
       "Locked": false,
       "Grid": true,
@@ -25310,12 +25310,12 @@
     {
       "Name": "Custom_Token",
       "Transform": {
-        "posX": -81.13162,
-        "posY": -0.499999762,
-        "posZ": 52.1494331,
-        "rotX": -2.17903726E-05,
-        "rotY": 90.02004,
-        "rotZ": -6.62563571E-06,
+        "posX": -81.13163,
+        "posY": -0.49999997,
+        "posZ": 52.14946,
+        "rotX": -2.90724273E-07,
+        "rotY": 90.02026,
+        "rotZ": 2.25778649E-06,
         "scaleX": 0.6428425,
         "scaleY": 1.0,
         "scaleZ": 0.6428425
@@ -25357,12 +25357,12 @@
     {
       "Name": "Custom_Token",
       "Transform": {
-        "posX": -60.1527939,
-        "posY": -0.450000018,
-        "posZ": 50.752636,
-        "rotX": 3.77504364E-07,
-        "rotY": 90.01434,
-        "rotZ": 2.05046675E-07,
+        "posX": -60.1527863,
+        "posY": -0.45,
+        "posZ": 50.75266,
+        "rotX": 8.50350546E-09,
+        "rotY": 90.01455,
+        "rotZ": -6.790476E-07,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -25404,12 +25404,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -60.5893555,
-        "posY": -0.4788922,
-        "posZ": -46.0772324,
-        "rotX": -4.643352E-06,
-        "rotY": 89.99667,
-        "rotZ": -4.63705732E-07,
+        "posX": -60.58935,
+        "posY": -0.478892237,
+        "posZ": -46.0772552,
+        "rotX": 2.47601861E-07,
+        "rotY": 89.9968262,
+        "rotZ": 3.22929736E-06,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25450,12 +25450,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -57.8047638,
-        "posY": -0.478892267,
-        "posZ": -46.07712,
-        "rotX": -2.03455647E-06,
-        "rotY": 90.0037155,
-        "rotZ": -3.682443E-06,
+        "posX": -57.80476,
+        "posY": -0.478892237,
+        "posZ": -46.0771446,
+        "rotX": -1.98483372E-06,
+        "rotY": 90.00401,
+        "rotZ": 7.247628E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25496,12 +25496,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -57.80473,
+        "posX": -57.8047256,
         "posY": -0.478892237,
-        "posZ": -48.62037,
-        "rotX": 5.62360256E-08,
-        "rotY": 90.00369,
-        "rotZ": 1.44294114E-08,
+        "posZ": -48.62039,
+        "rotX": -2.37036784E-06,
+        "rotY": 90.0037842,
+        "rotZ": -2.67952214E-06,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25542,12 +25542,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -60.5893478,
+        "posX": -60.589344,
         "posY": -0.478892267,
-        "posZ": -51.1591835,
-        "rotX": -1.57765086E-07,
-        "rotY": 90.00936,
-        "rotZ": -3.254173E-06,
+        "posZ": -51.15921,
+        "rotX": 4.844727E-08,
+        "rotY": 90.00957,
+        "rotZ": -1.01170849E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25589,10 +25589,10 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": -60.58934,
-        "posY": -0.467885643,
-        "posZ": -48.6204948,
-        "rotX": -1.6825179E-06,
-        "rotY": 90.00825,
+        "posY": -0.467885524,
+        "posZ": -48.62052,
+        "rotX": 3.73200533E-06,
+        "rotY": 90.00826,
         "rotZ": 180.0,
         "scaleX": 0.875,
         "scaleY": 0.875,
@@ -25634,12 +25634,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -57.80475,
+        "posX": -57.8047447,
         "posY": -0.478892237,
-        "posZ": -51.15906,
-        "rotX": 4.9795208E-08,
-        "rotY": 89.9972153,
-        "rotZ": -8.14017653E-08,
+        "posZ": -51.15909,
+        "rotX": -4.062351E-06,
+        "rotY": 89.99705,
+        "rotZ": -2.40522922E-06,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25682,10 +25682,10 @@
       "Transform": {
         "posX": -80.97247,
         "posY": -0.5,
-        "posZ": 49.5629044,
-        "rotX": 1.10613337E-06,
-        "rotY": 90.01705,
-        "rotZ": -1.915474E-06,
+        "posZ": 49.5629272,
+        "rotX": 3.3365543E-06,
+        "rotY": 90.0170441,
+        "rotZ": -5.28071E-07,
         "scaleX": 0.6428425,
         "scaleY": 1.0,
         "scaleZ": 0.6428425
@@ -25729,9 +25729,9 @@
       "Transform": {
         "posX": -74.57407,
         "posY": -0.467085123,
-        "posZ": 50.6648,
-        "rotX": -5.47942456E-08,
-        "rotY": 89.999855,
+        "posZ": 50.66482,
+        "rotX": -1.29310225E-08,
+        "rotY": 89.99984,
         "rotZ": 180.0,
         "scaleX": 2.396114,
         "scaleY": 1.0,
@@ -26061,10 +26061,10 @@
       "Name": "Deck",
       "Transform": {
         "posX": -66.56079,
-        "posY": -0.4670851,
-        "posZ": 50.6114273,
-        "rotX": -1.260841E-08,
-        "rotY": 89.99993,
+        "posY": -0.467085153,
+        "posZ": 50.611454,
+        "rotX": -1.8229214E-07,
+        "rotY": 90.0,
         "rotZ": 180.0,
         "scaleX": 2.396114,
         "scaleY": 1.0,
@@ -26394,11 +26394,11 @@
       "Name": "Card",
       "Transform": {
         "posX": -77.25786,
-        "posY": -0.478214234,
-        "posZ": -48.7149429,
-        "rotX": -0.0007623827,
+        "posY": -0.478214025,
+        "posZ": -48.7149734,
+        "rotX": -0.000763779855,
         "rotY": 90.01351,
-        "rotZ": 2.58761065E-05,
+        "rotZ": 2.54201677E-05,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26441,12 +26441,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -73.88618,
-        "posY": -0.3801045,
-        "posZ": -47.92608,
-        "rotX": 0.04530122,
-        "rotY": 89.8384247,
-        "rotZ": 0.02255062,
+        "posX": -73.88613,
+        "posY": -0.383114,
+        "posZ": -47.9260864,
+        "rotX": 0.06964709,
+        "rotY": 89.83843,
+        "rotZ": 0.0280549116,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26489,12 +26489,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -75.5615,
-        "posY": -0.4301048,
-        "posZ": -49.06591,
-        "rotX": 0.0453010276,
-        "rotY": 89.9942245,
-        "rotZ": 0.0225505419,
+        "posX": -75.56149,
+        "posY": -0.428844839,
+        "posZ": -49.065937,
+        "rotX": 0.0117415823,
+        "rotY": 89.99424,
+        "rotZ": 0.003721115,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26537,12 +26537,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -72.14234,
-        "posY": -0.3330702,
-        "posZ": -48.59943,
-        "rotX": 359.993,
-        "rotY": 90.113205,
-        "rotZ": -0.004091157,
+        "posX": -72.14227,
+        "posY": -0.3337883,
+        "posZ": -48.5994339,
+        "rotX": 359.979034,
+        "rotY": 90.1132,
+        "rotZ": 359.983063,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26585,12 +26585,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -71.16962,
-        "posY": -0.2809339,
-        "posZ": -45.75311,
-        "rotX": 359.992981,
+        "posX": -71.16954,
+        "posY": -0.285843134,
+        "posZ": -45.7531128,
+        "rotX": 0.00306495745,
         "rotY": 90.08546,
-        "rotZ": -0.00406339159,
+        "rotZ": 359.980743,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26633,12 +26633,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -69.0265656,
-        "posY": -0.137184,
-        "posZ": -47.7114868,
-        "rotX": 0.008021438,
-        "rotY": 90.05778,
-        "rotZ": 359.976379,
+        "posX": -69.02648,
+        "posY": -0.140611678,
+        "posZ": -47.71151,
+        "rotX": 0.00587124564,
+        "rotY": 90.0578,
+        "rotZ": 359.9793,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
