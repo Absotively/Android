@@ -79,6 +79,35 @@ murderData = {
       bag = '530b38',
       sheet = 'c697d5',
       deck = '22de17'
+    },
+    suspects = {
+      {
+        id = "Dejah",
+        startingLocation = "Mandela Warrens"
+      },
+      {
+        id = "Mark",
+        startingLocation = "NAPD"
+      },
+      {
+        id = "Vinnie",
+        startingLocation = "Roxie HT's Cabaret"
+      },
+      {
+        id = "Noise",
+        startingLocation = "Bradbury Towers"
+      },
+      {
+        id = "Tommy",
+        startingLocation = "Castle Club"
+      },
+      {
+        id = "Eve"
+        startingLocation = "Starlight Crusade"
+      },
+      LilyStartingLocation = "Mandela Warrens",
+      JimmyStartingLocation = "Skye Recycling",
+      crimeScene = "Mons Wolff Observatory"
     }
   },
   ["Freetown Fright"] = {
