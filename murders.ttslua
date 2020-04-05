@@ -102,13 +102,13 @@ murderData = {
         startingLocation = "Castle Club"
       },
       {
-        id = "Eve"
+        id = "Eve",
         startingLocation = "Starlight Crusade"
       },
-      LilyStartingLocation = "Mandela Warrens",
-      JimmyStartingLocation = "Skye Recycling",
-      crimeScene = "Mons Wolff Observatory"
-    }
+    },
+    LilyStartingLocation = "Mandela Warrens",
+    JimmyStartingLocation = "Skye Recycling",
+    crimeScene = "Mons Wolff Observatory"
   },
   ["Freetown Fright"] = {
     guids = {

@@ -9,6 +9,16 @@ locations = {
     column = "B",
     world = 'Earth'
   },
+  ["Starlight Crusade"] = {
+    x = -15.44,
+    z = -21.35,
+    nameplate = 'below left',
+    quality = 'ritzy',
+    type = 'religious',
+    row = 1,
+    column = "D",
+    world = 'Earth'
+  },
   ["Levy University"] = {
     x = -7.08,
     z = -21.47,
@@ -67,6 +77,17 @@ locations = {
     type = 'civic',
     row = 3,
     column = "F",
+    world = 'Earth',
+    beanstalkStation = 1
+  },
+  ["Bradbury Towers"] = {
+    x = 4.46,
+    z = -8.91,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'residential',
+    row = 3,
+    column = "G",
     world = 'Earth'
   },
   ["NAPD"] = {
@@ -88,6 +109,26 @@ locations = {
     row = 3,
     column = "L",
     world = 'Earth'
+  },
+  ["Castle Club"] = {
+    x = -0.42,
+    z = 0.19,
+    nameplate = 'below right',
+    quality = 'ritzy',
+    type = 'nightlife',
+    row = 4,
+    column = "F",
+    beanstalkStation = 3
+  },
+  ["Skye Recycling"] = {
+    x = -9.26,
+    z = 8.03,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'business',
+    row = 6,
+    column = "E",
+    world = 'Luna'
   },
   ["Earthrise Hotel"] = {
     x = -4.38,
@@ -129,6 +170,16 @@ locations = {
     column = "F",
     world = 'Luna'
   },
+  ["Mandela Warrens"] = {
+    x = 5.09,
+    z = 16.67,
+    nameplate = 'below',
+    quality = 'normal',
+    type = 'residential',
+    row = 7,
+    column = "G",
+    world = 'Luna'
+  },
   ["Melange Mining"] = {
     x = 4.03,
     z = 13.43,
@@ -137,6 +188,16 @@ locations = {
     type = 'business',
     row = 7,
     column = "G",
+    world = 'Luna'
+  },
+  ["Mons Wolff Observatory"] = {
+    x = 8.91,
+    z = 17.84,
+    nameplate = 'above',
+    quality = 'normal',
+    type = 'civic',
+    row = 7,
+    column = "H",
     world = 'Luna'
   },
   ["Mycroft Cemetary"] = {
