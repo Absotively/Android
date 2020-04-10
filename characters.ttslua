@@ -93,14 +93,16 @@ function setUpCharacter(bag, tray)
   for item, location in pairs(data.startingLocations) do
     placeCharacterItemFromBag(bag, guids[item], tray, location)
   end
-  local plots = bag.takeObject({guid = guids['plots']})
-  plots.randomize()
-  Wait.time(function()
-    placePlot(plots, tray, commonCharacterItemStartingLocations['plotOne'], true)
-    if id != Caprice then
-      placePlot(plots, tray, commonCharacterItemStartingLocations['plotTwo'], false)
+  bag.takeObject({
+    guid = guids['plots'],
+    callback_function = function(plotsBag)
+      plotsBag.randomize()
+      placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotOne'], true)
+      if id != 'Caprice' then
+        placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotTwo'], false)
+      end
     end
-  end, 0.1)
+  })
 end
 
 function placeCharacterItemFromBag(bag, itemGUID, tray, location)
@@ -128,7 +130,7 @@ function placePlot(plots, tray, location, start)
   local item = plots.takeObject({
     position = locationToPosition(location, tray),
     rotation = locationToRotation(location, tray),
-    smooth = false;
+    smooth = false
   })
   if start then
     Wait.time(function()
