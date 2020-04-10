@@ -10,6 +10,7 @@ JimmyGUID = 'be7e6c'
 sceneOfCrimeTokenGUID = 'bf1d9c'
 
 #include players
+#include characters
 #include murders
 #include locations
 #include suspects
@@ -35,4 +36,6 @@ function onload()
       font_size = 300
     })
   end
+
+  math.randomseed(os.time())
 end

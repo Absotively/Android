@@ -25,3 +25,44 @@ playerObjectGUIDs = {
     zone = '7dc2c1'
   }
 }
+
+playerCharacters = {}
+
+function assignCharacters()
+  availableCharacters = {}
+  availableCharacterCount = 0
+  for id, _ in pairs(characterData) do
+    availableCharacters[id] = true
+    availableCharacterCount = availableCharacterCount + 1
+  end
+  players = Player.getPlayers()
+  for _, player in pairs(players) do
+    zone = getObjectFromGUID(playerObjectGUIDs[player.color]['zone'])
+    for _, object in pairs(zone.getObjects()) do
+      id = characterIDFromBag(object)
+      if id != nil then
+        playerCharacters[player.color] = id
+        availableCharacters[id] = nil
+        availableCharacterCount = availableCharacterCount - 1
+        break
+      end
+    end
+  end
+  if #playerCharacters < #players then
+    for _, player in pairs(players) do
+      if playerCharacters[player.color] == nil then
+        n = math.random(availableCharacterCount)
+        i = 1
+        for id, _ in pairs(availableCharacters) do
+          if i == n then
+            playerCharacters[player.color] = id
+            availableCharacters[id] = nil
+            availableCharacterCount = availableCharacterCount - 1
+            break
+          end
+          i = i + 1
+        end
+      end
+    end
+  end
+end

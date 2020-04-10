@@ -16,6 +16,9 @@ function setUp(buttonOwner)
   playerCount = countAndRemovePlayers()
   murder = chooseMurder()
   Wait.time(function() setUpMurder(murder, playerCount) end, 0.1)
+
+  assignCharacters()
+  setUpCharacters()
 end
 
 function countAndRemovePlayers()
@@ -124,9 +127,7 @@ function dealHunchCards()
   guiltyDeck.randomize()
   innocentDeck.randomize()
   for _, player in pairs(Player.getPlayers()) do
-    print(player.color)
     trayLiner = getObjectFromGUID(playerObjectGUIDs[player.color]["trayLiner"])
-    print(trayLiner.getRotation().y)
     rotation = ({180, trayLiner.getRotation().y, 0})
     guiltyCard = guiltyDeck.takeObject()
     guiltyCard.setRotation(rotation)

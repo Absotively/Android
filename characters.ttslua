@@ -1,0 +1,149 @@
+characterData = {
+  ["Caprice"] = {
+    fullName = 'Caprice Nisei',
+    guids = {
+      bag = '02124d',
+      sheet = 'f6b92e',
+      twilightMarker = '12879f',
+      tipSheet = '5d2bce',
+      plots = 'a3cdcc',
+      plotTwo = '13693b',
+      lightDeck = '711d52',
+      darkDeck = 'd77753',
+      token = '1d46ef',
+      leadOne = '84cab9',
+      leadTwo = 'f1a949',
+      heroMarkers = 'eb3cad',
+      warrants = '4f7de6',
+      favorsOne = 'f0ea7a',
+      favorsTwo = '60a79c',
+      sanityCard = '2c15ca',
+      sanityMarker = '692e4c'
+    },
+    startingLocations = {
+      token = {area = 'board', x = -17.53, y = 2.20, z = -11.21, xRot = 0, yRot = 0, zRot = 0},
+      leadOne = {area = 'board', x = -16.04, y = 1.0, z = -18.16, xRot = 0, yRot = 90, zRot = 180},
+      leadTwo = {area = 'board', x = -24.81, y = 1.0, z = -21.72, xRot = 0, yRot = 180, zRot = 0},
+      darkDeck = {area = 'board', x = -16.99, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
+      sanityCard = {area = 'tray', x = 6, y = 0.7, z = 3, xRot = 0, yRot = 180, zRot = 0, lock = true},
+      sanityMarker = {area = 'tray', x = 8.1, y = 0.8, z = 2.4, xRot = 0, yRot = 180, zRot = 180}
+    }
+  }
+}
+
+commonCharacterItemStartingLocations = {
+  sheet = {area = 'tray', x = -11.2, y = 0.8, z = 2.2, xRot = 0, yRot = 180, zRot = 0},
+  twilightMarker = {area = 'tray', x = -6, y = 0.8, z = 2, xRot = 0, yRot = 0, zRot = 0},
+  tipSheet = {area = 'tray', x = -11.2, y = 0.8, z = -2.1, xRot = 0, yRot = 180, zRot = 0},
+  plotOne = {area = 'tray', x = -2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},
+  plotTwo = {area = 'tray', x = 2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},
+  heroMarkers = {area = 'tray', x = -3.3, y = 0.8, z = 0, xRot = 0, yRot = 180, zRot = 0},
+  warrants = {area = 'tray', x = -1.5, y = 0.8, z = 0, xRot = 0, yRot = 180, zRot = 0},
+  favorsOne = {area = 'tray', x = 1, y = 0.8, z = 0, xRot = 0, yRot = 180, zRot = 0},
+  favorsTwo = {area = 'tray', x = 4, y = 0.8, z = 0, xRot = 0, yRot = 180, zRot = 0},
+  lightDeck = {area = 'tray', x = -2, y = 0.8, z = -2.5, xRot = 180, yRot = 0, zRot = 0}
+}
+
+function setUpCharacters()
+  for playerColor, characterID in pairs(playerCharacters) do
+    bag = getObjectFromGUID(characterData[characterID]['guids']['bag'])
+    tray = getObjectFromGUID(playerObjectGUIDs[playerColor]['trayLiner'])
+    setUpCharacter(bag, tray)
+  end
+  -- lock stuff after it's had time to fall
+  Wait.time(function()
+    for _, characterID in pairs(playerCharacters) do
+      data = characterData[characterID]
+      for item, location in pairs(data['startingLocations']) do
+        if location.lock == true and data['guids'][item] != nil then
+          getObjectFromGUID(data['guids'][item]).setLock(true)
+        end
+      end
+    end
+  end, 0.1)
+end
+
+function setUpCharacter(bag, tray)
+  id = bag.getName()
+  data = characterData[id]
+  if data == nil then
+    return
+  end
+  guids = data['guids']
+  for item, location in pairs(commonCharacterItemStartingLocations) do
+    placeCharacterItem(bag, guids[item], tray, location)
+  end
+  for item, location in pairs(data.startingLocations) do
+    placeCharacterItem(bag, guids[item], tray, location)
+  end
+  local plots = bag.takeObject({guid = guids['plots']})
+  plots.randomize()
+  Wait.time(function()
+    placePlot(plots, tray, commonCharacterItemStartingLocations['plotOne'], true)
+    if id != Caprice then
+      placePlot(plots, tray, commonCharacterItemStartingLocations['plotTwo'], false)
+    end
+  end, 0.1)
+end
+
+function placeCharacterItem(bag, itemGUID, tray, location)
+  if itemGUID == nil then
+    return
+  end
+  item = bag.takeObject({
+    guid = itemGUID,
+    position = locationToPosition(location, tray),
+    rotation = locationToRotation(location, tray),
+    smooth = false;
+  })
+end
+
+function placePlot(plots, tray, location, start)
+  local item = plots.takeObject({
+    position = locationToPosition(location, tray),
+    rotation = locationToRotation(location, tray),
+    smooth = false;
+  })
+  if start then
+    Wait.time(function()
+      print(item)
+      pos = item.getPosition()
+      pos.y = pos.y + 0.2
+      item.takeObject({position = pos, flip = true})
+    end, 0.1)
+  end
+end
+
+function locationToPosition(location, tray)
+  pos = {
+    x = location.x,
+    y = location.y,
+    z = location.z
+  }
+  if location.area == 'tray' then
+    pos = tray.positionToWorld(pos)
+  end
+  return pos
+end
+
+function locationToRotation(location, tray)
+  rot = {
+    x = location.xRot,
+    y = location.yRot,
+    z = location.zRot
+  }
+  if location.area == 'tray' then
+    rot.y = rot.y + tray.getRotation().y
+    if rot.y > 360 then
+      rot.y = rot.y - 360
+    end
+  end
+  return rot
+end
+
+function characterIDFromBag(object)
+  if object.tag == "Bag" and characterData[object.getName()] != nil then
+    return object.getName()
+  end
+  return nil
+end
