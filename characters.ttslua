@@ -67,8 +67,39 @@ characterData = {
       directiveOne = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
       directiveTwo = {area = 'tray', x = 8, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
       directiveThree = {area = 'tray', x = 11.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
-      hbWarrant = {area = 'board', x = -17.07, y = 1.1, z = 19.58, xRot = 0, yRot = 180, zRot = 0},
-      startingFavorOne = {area = 'tray', x = 1, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0}
+      hbWarrant = {area = 'board', x = -17.07, y = 1.1, z = 19.58, xRot = 0, yRot = 180, zRot = 0}
+    }
+  },
+  ["Louis"] = {
+    fullName = 'Louis Blaine',
+    guids = {
+      bag = '6d8d74',
+      sheet = '273c8f',
+      twilightMarker = '684399',
+      tipSheet = 'a83922',
+      plots = 'daa15d',
+      lightDeck = '85631d',
+      darkDeck = '6f9654',
+      token = 'e72d42',
+      leadOne = 'b7e58c',
+      leadTwo = '6604bb',
+      heroMarkers = '581726',
+      warrants = '435d29',
+      favorsOne = '19486b',
+      favorsTwo = 'f5b8ce',
+      statusOne = '9e4e5a',
+      statusTwo = '80efbf',
+      statusThree = '7b0395',
+      startingFavorOne = '86384a',
+      startingFavorTwo = 'dae7c5',
+      moodCard = 'a22957'
+    },
+    startingLocations = {
+      token = {area = 'board', x = 17.71, y = 2.20, z = -9.78, xRot = 0, yRot = 0, zRot = 0},
+      leadOne = {area = 'board', x = 17.66, y = 1.0, z = -15.32, xRot = 0, yRot = 90, zRot = 180},
+      leadTwo = {area = 'board', x = 31.36, y = 1.0, z = -16.08, xRot = 0, yRot = 180, zRot = 0},
+      darkDeck = {area = 'board', x = -5.12, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
+      moodCard = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0}
     }
   },
 }
@@ -84,6 +115,8 @@ commonCharacterItemStartingLocations = {
   favorsOne = {area = 'tray', x = 12, y = 0.8, z = -3.6, xRot = 0, yRot = 180, zRot = 0},
   favorsTwo = {area = 'tray', x = 14.2, y = 0.8, z = -3.6, xRot = 0, yRot = 180, zRot = 0},
   favorsThree = {area = 'tray', x = 16.4, y = 0.8, z = -3.6, xRot = 0, yRot = 180, zRot = 0},
+  startingFavorOne = {area = 'tray', x = 1, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},
+  startingFavorTwo = {area = 'tray', x = 4, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},
   statusOne = {area = 'tray', x = 1, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
   statusTwo = {area = 'tray', x = 4, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
   statusThree = {area = 'tray', x = 7, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
@@ -182,7 +215,7 @@ function placeCharacterItemFromBag(bag, itemGUID, tray, location)
   if itemGUID == nil then
     return
   end
-  item = bag.takeObject({
+  bag.takeObject({
     guid = itemGUID,
     position = locationToPosition(location, tray),
     rotation = locationToRotation(location, tray),
@@ -234,7 +267,7 @@ function locationToRotation(location, tray)
   }
   if location.area == 'tray' then
     rot.y = rot.y + tray.getRotation().y
-    if rot.y > 360 then
+    if rot.y >= 360 then
       rot.y = rot.y - 360
     end
   end
