@@ -8,6 +8,7 @@ genericEventDeckGUID = 'adce08'
 LilyGUID = '616920'
 JimmyGUID = 'be7e6c'
 sceneOfCrimeTokenGUID = 'bf1d9c'
+dropshipTokensGUID = 'a3bfa3'
 
 #include players
 #include characters

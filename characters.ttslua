@@ -156,7 +156,7 @@ characterData = {
       leadOne = {area = 'board', x = -9.07, y = 1.0, z = -14.42, xRot = 0, yRot = 90, zRot = 180},
       leadTwo = {area = 'board', x = -0.36, y = 1.3, z = -10.58, xRot = 0, yRot = 180, zRot = 0},
       darkDeck = {area = 'board', x = -23.31, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
-      startingMemoryCard = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0}
+      dropshipToken = {area = 'tray', x = -2.4, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0}
     }
   }
 }
@@ -203,7 +203,7 @@ function setUpCharacters()
   for playerColor, characterID in pairs(playerCharacters) do
     bag = getObjectFromGUID(characterData[characterID]['guids']['bag'])
     tray = getObjectFromGUID(playerObjectGUIDs[playerColor]['trayLiner'])
-    setUpCharacter(bag, tray)
+    setUpCharacter(bag, tray, playerColor)
   end
   -- wait for everything to appear/fall before this next bit
   Wait.time(function()
@@ -242,7 +242,7 @@ function setUpCharacters()
   end, 2)
 end
 
-function setUpCharacter(bag, tray)
+function setUpCharacter(bag, tray, playerColor)
   local id = bag.getName()
   local data = characterData[id]
   if data == nil then
@@ -270,6 +270,28 @@ function setUpCharacter(bag, tray)
       plotsBag.destruct()
     end
   })
+  if id == 'Raymond' then
+    -- get dropship token
+    local l = data.startingLocations.dropshipToken
+    getObjectFromGUID(dropshipTokensGUID).takeObject({
+      position = locationToPosition(l, tray),
+      rotation = locationToRotation(l, tray)
+    })
+    -- set up memory cards
+    bag.takeObject({
+      guid = data.guids.memoryDeck,
+      position = commonCharacterItemStartingLocations.specialCardTwo,
+      callback_function = function(deck)
+        deck.shuffle()
+        for _, player in pairs(Player.getPlayers()) do
+          if player.color != playerColor then
+            deck.deal(1, player.color)
+          end
+        end
+        deck.destruct()
+      end
+    })
+  end
   bag.destruct()
 end
 
