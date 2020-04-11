@@ -21,7 +21,8 @@ characterData = {
       statusTwo = 'd82d2d',
       statusThree = '0ad3f7',
       sanityCard = '2c15ca',
-      sanityMarker = '692e4c'
+      sanityMarker = '692e4c',
+      jintekiWarrant = 'c4c2dc'
     },
     startingLocations = {
       token = {area = 'board', x = -17.53, y = 2.20, z = -11.21, xRot = 0, yRot = 0, zRot = 0},
@@ -29,7 +30,8 @@ characterData = {
       leadTwo = {area = 'board', x = -24.81, y = 1.0, z = -21.72, xRot = 0, yRot = 180, zRot = 0},
       darkDeck = {area = 'board', x = -16.99, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
       sanityCard = {area = 'tray', x = 6, y = 0.7, z = 3, xRot = 0, yRot = 180, zRot = 0, lock = true},
-      sanityMarker = {area = 'tray', x = 8.2, y = 0.8, z = 2.4, xRot = 0, yRot = 180, zRot = 180}
+      sanityMarker = {area = 'tray', x = 8.2, y = 0.8, z = 2.4, xRot = 0, yRot = 180, zRot = 180},
+      jintekiWarrant = {area = 'board', x = -15.03, y = 1.1, z = -9.64, xRot = 0, yRot = 180, zRot = 0},
     }
   }
 }
