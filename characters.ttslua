@@ -53,9 +53,9 @@ characterData = {
       statusOne = '8a9a22',
       statusTwo = 'df45f8',
       statusThree = '085735',
-      directiveOne = '1e5705',
-      directiveTwo = 'c84713',
-      directiveThree = '826556',
+      specialCardOne = '1e5705',
+      specialCardTwo = 'c84713',
+      specialCardThree = '826556',
       hbWarrant = '6e33c6',
       startingFavorOne = '3b87f5'
     },
@@ -64,9 +64,6 @@ characterData = {
       leadOne = {area = 'board', x = -20.11, y = 1.0, z = 15.66, xRot = 0, yRot = 90, zRot = 180},
       leadTwo = {area = 'board', x = -14.81, y = 1.0, z = 5.32, xRot = 0, yRot = 180, zRot = 0},
       darkDeck = {area = 'board', x = -29.22, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
-      directiveOne = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
-      directiveTwo = {area = 'tray', x = 8, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
-      directiveThree = {area = 'tray', x = 11.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
       hbWarrant = {area = 'board', x = -17.07, y = 1.1, z = 19.58, xRot = 0, yRot = 180, zRot = 0}
     }
   },
@@ -92,14 +89,13 @@ characterData = {
       statusThree = '7b0395',
       startingFavorOne = '86384a',
       startingFavorTwo = 'dae7c5',
-      moodCard = 'a22957'
+      specialCardOne = 'a22957'
     },
     startingLocations = {
       token = {area = 'board', x = 17.71, y = 2.20, z = -9.78, xRot = 0, yRot = 0, zRot = 0},
       leadOne = {area = 'board', x = 17.66, y = 1.0, z = -15.32, xRot = 0, yRot = 90, zRot = 180},
       leadTwo = {area = 'board', x = 31.36, y = 1.0, z = -16.08, xRot = 0, yRot = 180, zRot = 0},
-      darkDeck = {area = 'board', x = -5.12, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
-      moodCard = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0}
+      darkDeck = {area = 'board', x = -5.12, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180}
     }
   },
   ["Rachel"] = {
@@ -122,7 +118,7 @@ characterData = {
       statusOne = '9ef393',
       statusTwo = '78e0e6',
       statusThree = 'a51099',
-      moneyCard = 'b99bc8',
+      specialCardOne = 'b99bc8',
       moneyMarker = 'a2a9da'
     },
     startingLocations = {
@@ -130,7 +126,6 @@ characterData = {
       leadOne = {area = 'board', x = 5.69, y = 1.0, z = 4.44, xRot = 0, yRot = 90, zRot = 180},
       leadTwo = {area = 'board', x = -4.89, y = 1.0, z = 11.19, xRot = 0, yRot = 180, zRot = 0},
       darkDeck = {area = 'board', x = -10.86, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
-      moneyCard = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
       moneyMarker = {area = 'tray', x = 7, y = 0.8, z = 3.14, xRot = 0, yRot = 180, zRot = 180}
     }
   },
@@ -153,7 +148,7 @@ characterData = {
       statusOne = '7ec446',
       statusTwo = '661873',
       statusThree = '66b770',
-      startingMemoryCard = 'd940f4',
+      specialCardOne = 'd940f4',
       memoryDeck = '7556ad'
     },
     startingLocations = {
@@ -182,7 +177,10 @@ commonCharacterItemStartingLocations = {
   statusOne = {area = 'tray', x = 1, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
   statusTwo = {area = 'tray', x = 4, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
   statusThree = {area = 'tray', x = 7, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
-  lightDeck = {area = 'tray', x = -2, y = 0.8, z = -2.75, xRot = 180, yRot = 0, zRot = 0}
+  lightDeck = {area = 'tray', x = -2, y = 0.8, z = -2.75, xRot = 180, yRot = 0, zRot = 0},
+  specialCardOne = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
+  specialCardTwo = {area = 'tray', x = 8.5, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
+  specialCardThree = {area = 'tray', x = 12.25, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0}
 }
 
 itemNotInBags = {
