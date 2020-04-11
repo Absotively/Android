@@ -113,17 +113,36 @@ function setUpCharacters()
   -- wait for everything to appear/fall before this next bit
   Wait.time(function()
     local i = 1
-    for _, characterID in pairs(playerCharacters) do
-      data = characterData[characterID]
+    for playerColor, characterID in pairs(playerCharacters) do
+      -- lock some things in place
+      local data = characterData[characterID]
       for item, location in pairs(data['startingLocations']) do
         if location.lock == true and data['guids'][item] != nil then
           getObjectFromGUID(data['guids'][item]).setLock(true)
         end
       end
-      markers = getObjectFromGUID(characterData[characterID]['guids']['heroMarkers'])
+      -- puzzle piece markers
+      markers = getObjectFromGUID(data['guids']['heroMarkers'])
       l = startingPuzzleMarkerLocations[i]
       markers.takeObject({position = {l.x, l.y, l.z}, rotation = {l.xRot, l.yRot, l.zRot}})
       i = i + 1
+      -- shuffle things! deal light cards!
+      lightDeck = getObjectFromGUID(data['guids']['lightDeck'])
+      lightDeck.shuffle()
+      lightDeck.deal(2, playerColor)
+      getObjectFromGUID(data['guids']['darkDeck']).shuffle()
+    end
+    local turnOrder = Turns.order
+    for i = 5, 1, -1 do
+      if Player[turnOrder[i]].seated == false then
+        table.remove(turnOrder, i)
+      end
+    end
+    for i, color in pairs(turnOrder) do
+      nextColor = turnOrder[i + 1]
+      if nextColor == nil then nextColor = turnOrder[1] end
+      darkDeck = getObjectFromGUID(characterData[playerCharacters[nextColor]]['guids']['darkDeck'])
+      darkDeck.deal(1, color)
     end
   end, 1)
 end
