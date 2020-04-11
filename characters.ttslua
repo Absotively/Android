@@ -102,6 +102,38 @@ characterData = {
       moodCard = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0}
     }
   },
+  ["Rachel"] = {
+    fullName = 'Rachel Beckmann',
+    guids = {
+      bag = '42c8a2',
+      sheet = '6b8674',
+      twilightMarker = '81d1dd',
+      tipSheet = 'acb65e',
+      plots = '9a5121',
+      lightDeck = 'af0855',
+      darkDeck = 'ca2290',
+      token = 'e9fa3e',
+      leadOne = '16b73e',
+      leadTwo = 'be9234',
+      heroMarkers = 'b193d6',
+      warrants = '4937a5',
+      favorsOne = '667f6a',
+      favorsThree = '5c984c',
+      statusOne = '9ef393',
+      statusTwo = '78e0e6',
+      statusThree = 'a51099',
+      moneyCard = 'b99bc8',
+      moneyMarker = 'a2a9da'
+    },
+    startingLocations = {
+      token = {area = 'board', x = 6.48, y = 2.20, z = 22.62, xRot = 0, yRot = 0, zRot = 0},
+      leadOne = {area = 'board', x = 5.69, y = 1.0, z = 4.44, xRot = 0, yRot = 90, zRot = 180},
+      leadTwo = {area = 'board', x = -4.89, y = 1.0, z = 11.19, xRot = 0, yRot = 180, zRot = 0},
+      darkDeck = {area = 'board', x = -10.86, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
+      moneyCard = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
+      moneyMarker = {area = 'tray', x = 7, y = 0.8, z = 3.14, xRot = 0, yRot = 180, zRot = 180}
+    }
+  },
 }
 
 commonCharacterItemStartingLocations = {
