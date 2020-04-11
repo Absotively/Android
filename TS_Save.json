@@ -3,14 +3,14 @@
   "GameMode": "Android",
   "Gravity": 0.5,
   "PlayArea": 0.5,
-  "Date": "4/10/2020 6:02:59 PM",
+  "Date": "4/10/2020 6:44:51 PM",
   "Table": "Table_Custom",
   "TableURL": "http://i.imgur.com/w9dhYha.jpg",
   "Sky": "Sky_Museum",
   "Note": "Rulers for Floyd, Rachel and Louis - 10,5\r\nRulers for Caprice and Raymond - 13\r\nRuler for red car - 15,3\n\nHold tab to measure distances\r\n\nHover and hold Shift+Alt to peek at a facedown token\n",
   "Rules": "",
   "XmlUI": "<!-- Xml UI. See documentation: https://api.tabletopsimulator.com/ui/introUI/ -->",
-  "LuaScript": "----#include Android/global\nmurderTrayLinerGUID = 'def075'\r\nmurderTrayZoneGUID = '4693f3'\r\nevidenceBagGUID = '70acc8'\r\nshiftBagGUID = '1ed1cc'\r\nfavorBagGUID = 'bf7df8'\r\nbaggageBagGUID = '94081d'\r\ngenericEventDeckGUID = 'adce08'\r\nLilyGUID = '616920'\r\nJimmyGUID = 'be7e6c'\r\nsceneOfCrimeTokenGUID = 'bf1d9c'\r\n\r\n----#include players\nplayerObjectGUIDs = {\r\n  White = {\r\n    tray = 'ede27e',\r\n    trayLiner = '05eab9',\r\n    zone = '2a420b'\r\n  },\r\n  Red = {\r\n    tray = 'c5ccf0',\r\n    trayLiner = 'd4880b',\r\n    zone = '968c8d'\r\n  },\r\n  Green = {\r\n    tray = '8313d4',\r\n    trayLiner = '382bd8',\r\n    zone = '64c12e'\r\n  },\r\n  Blue = {\r\n    tray = '34cb12',\r\n    trayLiner = '435c47',\r\n    zone = 'f2e70a'\r\n  },\r\n  Purple = {\r\n    tray = '45461a',\r\n    trayLiner = '933cba',\r\n    zone = '7dc2c1'\r\n  }\r\n}\r\n\r\nplayerCharacters = {}\r\n\r\nfunction assignCharacters()\r\n  availableCharacters = {}\r\n  availableCharacterCount = 0\r\n  for id, _ in pairs(characterData) do\r\n    availableCharacters[id] = true\r\n    availableCharacterCount = availableCharacterCount + 1\r\n  end\r\n  players = Player.getPlayers()\r\n  for _, player in pairs(players) do\r\n    zone = getObjectFromGUID(playerObjectGUIDs[player.color]['zone'])\r\n    for _, object in pairs(zone.getObjects()) do\r\n      id = characterIDFromBag(object)\r\n      if id != nil then\r\n        playerCharacters[player.color] = id\r\n        availableCharacters[id] = nil\r\n        availableCharacterCount = availableCharacterCount - 1\r\n        break\r\n      end\r\n    end\r\n  end\r\n  if #playerCharacters < #players then\r\n    for _, player in pairs(players) do\r\n      if playerCharacters[player.color] == nil then\r\n        n = math.random(availableCharacterCount)\r\n        i = 1\r\n        for id, _ in pairs(availableCharacters) do\r\n          if i == n then\r\n            playerCharacters[player.color] = id\r\n            availableCharacters[id] = nil\r\n            availableCharacterCount = availableCharacterCount - 1\r\n            break\r\n          end\r\n          i = i + 1\r\n        end\r\n      end\r\n    end\r\n  end\r\nend\r\n\n----#include players\n----#include characters\ncharacterData = {\r\n  [\"Caprice\"] = {\r\n    fullName = 'Caprice Nisei',\r\n    guids = {\r\n      bag = '02124d',\r\n      sheet = 'f6b92e',\r\n      twilightMarker = '12879f',\r\n      tipSheet = '5d2bce',\r\n      plots = 'a3cdcc',\r\n      plotTwo = '13693b',\r\n      lightDeck = '711d52',\r\n      darkDeck = 'd77753',\r\n      token = '1d46ef',\r\n      leadOne = '84cab9',\r\n      leadTwo = 'f1a949',\r\n      heroMarkers = 'eb3cad',\r\n      warrants = '4f7de6',\r\n      favorsOne = 'f0ea7a',\r\n      favorsThree = '60a79c',\r\n      statusOne = 'a27b9d',\r\n      statusTwo = 'd82d2d',\r\n      statusThree = '0ad3f7',\r\n      sanityCard = '2c15ca',\r\n      sanityMarker = '692e4c',\r\n      jintekiWarrant = 'c4c2dc'\r\n    },\r\n    startingLocations = {\r\n      token = {area = 'board', x = -17.53, y = 2.20, z = -11.21, xRot = 0, yRot = 0, zRot = 0},\r\n      leadOne = {area = 'board', x = -16.04, y = 1.0, z = -18.16, xRot = 0, yRot = 90, zRot = 180},\r\n      leadTwo = {area = 'board', x = -24.81, y = 1.0, z = -21.72, xRot = 0, yRot = 180, zRot = 0},\r\n      darkDeck = {area = 'board', x = -16.99, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},\r\n      sanityCard = {area = 'tray', x = 6, y = 0.7, z = 3, xRot = 0, yRot = 180, zRot = 0, lock = true},\r\n      sanityMarker = {area = 'tray', x = 8.2, y = 0.8, z = 2.4, xRot = 0, yRot = 180, zRot = 180},\r\n      jintekiWarrant = {area = 'board', x = -15.03, y = 1.1, z = -9.64, xRot = 0, yRot = 180, zRot = 0},\r\n    }\r\n  }\r\n}\r\n\r\ncommonCharacterItemStartingLocations = {\r\n  sheet = {area = 'tray', x = -11.2, y = 0.8, z = 2.2, xRot = 0, yRot = 180, zRot = 0},\r\n  twilightMarker = {area = 'tray', x = -11.2, y = 0.8, z = 1.4, xRot = 0, yRot = 0, zRot = 0},\r\n  tipSheet = {area = 'tray', x = -11.2, y = 0.8, z = -2.1, xRot = 0, yRot = 180, zRot = 0},\r\n  plotOne = {area = 'tray', x = -2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},\r\n  plotTwo = {area = 'tray', x = 2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},\r\n  heroMarkers = {area = 'tray', x = -3.3, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  warrants = {area = 'tray', x = -1.5, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  favorsOne = {area = 'tray', x = 1, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  favorsTwo = {area = 'tray', x = 4, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  favorsThree = {area = 'tray', x = 7, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  statusOne = {area = 'tray', x = 1, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},\r\n  statusTwo = {area = 'tray', x = 4, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},\r\n  statusThree = {area = 'tray', x = 7, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},\r\n  lightDeck = {area = 'tray', x = -2, y = 0.8, z = -2.75, xRot = 180, yRot = 0, zRot = 0}\r\n}\r\n\r\nitemNotInBags = {\r\n  statusOne = true,\r\n  statusTwo = true,\r\n  statusThree = true\r\n}\r\n\r\nfunction setUpCharacters()\r\n  for playerColor, characterID in pairs(playerCharacters) do\r\n    bag = getObjectFromGUID(characterData[characterID]['guids']['bag'])\r\n    tray = getObjectFromGUID(playerObjectGUIDs[playerColor]['trayLiner'])\r\n    setUpCharacter(bag, tray)\r\n  end\r\n  -- lock stuff after it's had time to fall\r\n  Wait.time(function()\r\n    for _, characterID in pairs(playerCharacters) do\r\n      data = characterData[characterID]\r\n      for item, location in pairs(data['startingLocations']) do\r\n        if location.lock == true and data['guids'][item] != nil then\r\n          getObjectFromGUID(data['guids'][item]).setLock(true)\r\n        end\r\n      end\r\n    end\r\n  end, 1)\r\nend\r\n\r\nfunction setUpCharacter(bag, tray)\r\n  id = bag.getName()\r\n  data = characterData[id]\r\n  if data == nil then\r\n    return\r\n  end\r\n  guids = data['guids']\r\n  for item, location in pairs(commonCharacterItemStartingLocations) do\r\n    if itemNotInBags[item] then\r\n      placeCharacterItem(guids[item], tray, location)\r\n    else\r\n      placeCharacterItemFromBag(bag, guids[item], tray, location)\r\n    end\r\n  end\r\n  for item, location in pairs(data.startingLocations) do\r\n    placeCharacterItemFromBag(bag, guids[item], tray, location)\r\n  end\r\n  bag.takeObject({\r\n    guid = guids['plots'],\r\n    callback_function = function(plotsBag)\r\n      plotsBag.randomize()\r\n      placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotOne'], true)\r\n      if id != 'Caprice' then\r\n        placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotTwo'], false)\r\n      end\r\n    end\r\n  })\r\nend\r\n\r\nfunction placeCharacterItemFromBag(bag, itemGUID, tray, location)\r\n  if itemGUID == nil then\r\n    return\r\n  end\r\n  item = bag.takeObject({\r\n    guid = itemGUID,\r\n    position = locationToPosition(location, tray),\r\n    rotation = locationToRotation(location, tray),\r\n    smooth = false;\r\n  })\r\nend\r\n\r\nfunction placeCharacterItem(itemGUID, tray, location)\r\n  if itemGUID == nil then\r\n    return\r\n  end\r\n  item = getObjectFromGUID(itemGUID)\r\n  item.setPosition(locationToPosition(location, tray))\r\n  item.setRotation(locationToRotation(location, tray))\r\nend\r\n\r\nfunction placePlot(plots, tray, location, start)\r\n  local item = plots.takeObject({\r\n    position = locationToPosition(location, tray),\r\n    rotation = locationToRotation(location, tray),\r\n    smooth = false\r\n  })\r\n  if start then\r\n    Wait.time(function()\r\n      pos = item.getPosition()\r\n      pos.y = pos.y + 0.2\r\n      item.takeObject({position = pos, flip = true})\r\n    end, 0.1)\r\n  end\r\nend\r\n\r\nfunction locationToPosition(location, tray)\r\n  pos = {\r\n    x = location.x,\r\n    y = location.y,\r\n    z = location.z\r\n  }\r\n  if location.area == 'tray' then\r\n    pos = tray.positionToWorld(pos)\r\n  end\r\n  return pos\r\nend\r\n\r\nfunction locationToRotation(location, tray)\r\n  rot = {\r\n    x = location.xRot,\r\n    y = location.yRot,\r\n    z = location.zRot\r\n  }\r\n  if location.area == 'tray' then\r\n    rot.y = rot.y + tray.getRotation().y\r\n    if rot.y > 360 then\r\n      rot.y = rot.y - 360\r\n    end\r\n  end\r\n  return rot\r\nend\r\n\r\nfunction characterIDFromBag(object)\r\n  if object.tag == \"Bag\" and characterData[object.getName()] != nil then\r\n    return object.getName()\r\n  end\r\n  return nil\r\nend\r\n\n----#include characters\n----#include murders\n\r\nmurdersBagGUID = 'cab0ad'\r\n\r\nmurderData = {\r\n  [\"Evil at the Estates\"] = {\r\n    guids = {\r\n      bag = '061814',\r\n      sheet = '112fbf',\r\n      deck = '8d6d37'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Armitage Software\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Levy University\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Eastside Tenements\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"Melange Mining\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Jacobi Miner's Co-op\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Rockvil Estates\",\r\n    JimmyStartingLocation = \"The Old War Memorial\",\r\n    crimeScene = \"Rockvil Estates\"\r\n  },\r\n  [\"Last Call at Roxie's\"] = {\r\n    guids = {\r\n      bag = 'ab4664',\r\n      sheet = '82e167',\r\n      deck = 'ba8fac'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Roxie HT's Cabaret\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"The Speakeasy\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Earthrise Hotel\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Alpha Prospecting\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Olivaw Robotics\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Roxie HT's Cabaret\",\r\n    JimmyStartingLocation = \"Mycroft Cemetary\",\r\n    crimeScene = \"Roxie HT's Cabaret\"\r\n  },\r\n  [\"Mons Wolff Massacre\"] = {\r\n    guids = {\r\n      bag = '530b38',\r\n      sheet = 'c697d5',\r\n      deck = '22de17'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Mandela Warrens\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Roxie HT's Cabaret\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Bradbury Towers\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Castle Club\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Starlight Crusade\"\r\n      },\r\n    },\r\n    LilyStartingLocation = \"Mandela Warrens\",\r\n    JimmyStartingLocation = \"Skye Recycling\",\r\n    crimeScene = \"Mons Wolff Observatory\"\r\n  },\r\n  [\"Freetown Fright\"] = {\r\n    guids = {\r\n      bag = '6a7345',\r\n      sheet = '30ab24',\r\n      deck = '4922e0'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Skye Recycling\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Olivaw Robotics\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Starlight Crusade\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Tony's Flophouse\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Monroe & Associates\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Freetown\",\r\n    JimmyStartingLocation = \"Jacobi Miner's Co-op\",\r\n    crimeScene = \"Freetown\"\r\n  },\r\n  [\"Murder on the Midway\"] = {\r\n    guids = {\r\n      bag = '4dc198',\r\n      sheet = '31c092',\r\n      deck = '6f8060'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Cosmos Fine Dining\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Alpha Prospecting\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"Freetown\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Eliza's Toybox\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Heaven & Hell Club\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"The Midway\",\r\n    JimmyStartingLocation = \"Tony's Flophouse\",\r\n    crimeScene = \"The Midway\"\r\n  },\r\n  [\"Revenge at the Races\"] = {\r\n    guids = {\r\n      bag = '765eac',\r\n      sheet = 'a18211',\r\n      deck = '133e57'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Monroe & Associates\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Eliza's Toybox\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Levy University\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Castle Club\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Armitage Software\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Campbell Greens\",\r\n    JimmyStartingLocation = \"Eastside Tenements\",\r\n    crimeScene = \"Campbell Greens\"\r\n  }\r\n}\r\n\r\nfunction murderNameFromBag(object)\r\n  if object.tag == \"Bag\" and murderData[object.getName()] != nil then\r\n    return object.getName()\r\n  end\r\n  return nil\r\nend\r\n\r\nfunction getMurderSheet(murder)\r\n  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  return bag.takeObject({guid = murderData[murder]['guids']['sheet']})\r\nend\r\n\r\nfunction getMurderEvents(murder)\r\n  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  return bag.takeObject({guid = murderData[murder]['guids']['deck']})\r\nend\r\n\r\nfunction cleanAfterSetup(murder)\r\n  destroyObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  destroyObjectFromGUID(murdersBagGUID)\r\n  for murderName, data in pairs(murderData) do\r\n    if murderName != murder then\r\n      for item, guid in pairs(data[\"guids\"]) do\r\n        destroyObjectFromGUID(guid)\r\n      end\r\n    end\r\n  end\r\nend\r\n\n----#include murders\n----#include locations\nlocations = {\r\n  [\"The Old War Memorial\"] = {\r\n    x = -28.96,\r\n    z = -21.84,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 1,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Starlight Crusade\"] = {\r\n    x = -15.44,\r\n    z = -21.35,\r\n    nameplate = 'below left',\r\n    quality = 'ritzy',\r\n    type = 'religious',\r\n    row = 1,\r\n    column = \"D\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Levy University\"] = {\r\n    x = -7.08,\r\n    z = -21.47,\r\n    nameplate = 'left',\r\n    quality = 'ritzy',\r\n    type = 'residential',\r\n    row = 1,\r\n    column = \"E\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Olivaw Robotics\"] = {\r\n    x = -11.16,\r\n    z = -18.16,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 2,\r\n    column = \"E\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Rockvil Estates\"] = {\r\n    x = 7.34,\r\n    z = -18.80,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 2,\r\n    column = \"G\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Heaven & Hell Club\"] = {\r\n    x = 23.33,\r\n    z = -14.61,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'nightlife',\r\n    row = 2,\r\n    column = \"J\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Campbell Greens\"] = {\r\n    x = 27.19,\r\n    z = -17.70,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 2,\r\n    column = \"K\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Roxie HT's Cabaret\"] = {\r\n    x = -31.60,\r\n    z = -12.48,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 3,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"The Speakeasy\"] = {\r\n    x = -17.77,\r\n    z = -6.80,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'nightlife',\r\n    row = 3,\r\n    column = \"D\",\r\n    world = 'Earth'\r\n  },\r\n  [\"The Root\"] = {\r\n    x = -0.25,\r\n    z = -8.51,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 3,\r\n    column = \"F\",\r\n    world = 'Earth',\r\n    beanstalkStation = 1\r\n  },\r\n  [\"Bradbury Towers\"] = {\r\n    x = 4.46,\r\n    z = -8.91,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"G\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Monroe & Associates\"] = {\r\n    x = 8.59,\r\n    z = -12.64,\r\n    nameplate = 'below left',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 3,\r\n    column = \"H\",\r\n    world = 'Earth'\r\n  },\r\n  [\"NAPD\"] = {\r\n    x = 17.12,\r\n    z = -7.28,\r\n    nameplate = 'below right',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 3,\r\n    column = \"I\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Tony's Flophouse\"] = {\r\n    x = 25.34,\r\n    z = -8.79,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"J\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Eastside Tenements\"] = {\r\n    x = 37.29,\r\n    z = -10.58,\r\n    nameplate = 'below left',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"L\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Cosmos Fine Dining\"] = {\r\n    x = -26.20,\r\n    z = -6.26,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 4,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Castle Club\"] = {\r\n    x = -0.42,\r\n    z = 0.19,\r\n    nameplate = 'below right',\r\n    quality = 'ritzy',\r\n    type = 'nightlife',\r\n    row = 4,\r\n    column = \"F\",\r\n    beanstalkStation = 3\r\n  },\r\n  [\"The Midway\"] = {\r\n    x = -0.33,\r\n    z = -4.39,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 4,\r\n    column = \"F\",\r\n    beanstalkStation = 2\r\n  },\r\n  [\"Skye Recycling\"] = {\r\n    x = -9.26,\r\n    z = 8.03,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 6,\r\n    column = \"E\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Earthrise Hotel\"] = {\r\n    x = -4.38,\r\n    z = 8.96,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'residential',\r\n    row = 6,\r\n    column = \"F\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Alpha Prospecting\"] = {\r\n    x = 0.90,\r\n    z = 9.31,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 6,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Freetown\"] = {\r\n    x = -25.23,\r\n    z = 14.52,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'residential',\r\n    row = 7,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Jacobi Miner's Co-op\"] = {\r\n    x = -24.81,\r\n    z = 17.68,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Eliza's Toybox\"] = {\r\n    x = -15.05,\r\n    z = 13.73,\r\n    nameplate = 'below left',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"D\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Armitage Software\"] = {\r\n    x = -0.40,\r\n    z = 17.69,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"F\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mandela Warrens\"] = {\r\n    x = 5.09,\r\n    z = 16.67,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 7,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Melange Mining\"] = {\r\n    x = 4.03,\r\n    z = 13.43,\r\n    nameplate = 'left',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mons Wolff Observatory\"] = {\r\n    x = 8.91,\r\n    z = 17.84,\r\n    nameplate = 'above',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 7,\r\n    column = \"H\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mycroft Cemetary\"] = {\r\n    x = -25.10,\r\n    z = 21.76,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 8,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  }\r\n}\r\n\r\nfunction getNPCPosition(locationName)\r\n  data = locations[locationName]\r\n  if data[\"nameplate\"] == 'below' then\r\n    return {data.x - 1.5, 1.05, data.z - 1}\r\n  elseif data[\"nameplate\"] == 'above' then\r\n    return {data.x - 1.5, 1.05, data.z + 1}\r\n  elseif data[\"nameplate\"] == 'below left' then\r\n    return {data.x - 3, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'below right' then\r\n    return {data.x + 1, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'left' then\r\n    return {data.x - 3, 1.05, data.z - 1}\r\n  end\r\nend\r\n\r\nfunction getCrimeSceneTokenPosition(locationName)\r\n  data = locations[locationName]\r\n  if data[\"nameplate\"] == 'below' then\r\n    return {data.x + 2 , 1.05, data.z - 1}\r\n  elseif data[\"nameplate\"] == 'above' then\r\n    return {data.x + 2, 1.05, data.z + 1}\r\n  elseif data[\"nameplate\"] == 'below left' then\r\n    return {data.x - 1, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'below right' then\r\n    return {data.x + 3, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'left' then\r\n    return {data.x - 1, 1.05, data.z - 1}\r\n  end\r\nend\r\n\n----#include locations\n----#include suspects\nguiltyHunchDeckGUID = '6dc7ee'\r\ninnocentHunchDeckGUID = 'd17a2d'\r\n\r\nsuspectData = {\r\n  [\"Eve\"] = {\r\n    guids = {\r\n      sheet = 'a193b7',\r\n      token = '0e28c8',\r\n      guiltyHunchCard = 'bea687',\r\n      innocentHunchCard = '74f72d'\r\n    }\r\n  },\r\n  [\"Noise\"] = {\r\n    guids = {\r\n      sheet = '0dd696',\r\n      token = 'd3b8ae',\r\n      guiltyHunchCard = 'c1f08b',\r\n      innocentHunchCard = 'e4ae9e'\r\n    }\r\n  },\r\n  [\"Tommy\"] = {\r\n    guids = {\r\n      sheet = 'cae8bd',\r\n      token = 'f11ca0',\r\n      guiltyHunchCard = '0d50cd',\r\n      innocentHunchCard = '7ad00a'\r\n    }\r\n  },\r\n  [\"Vinnie\"] = {\r\n    guids = {\r\n      sheet = '9edd9b',\r\n      token = '3d7198',\r\n      guiltyHunchCard = '7f662c',\r\n      innocentHunchCard = '453f35'\r\n    }\r\n  },\r\n  [\"Mark\"] = {\r\n    guids = {\r\n      sheet = '4f0438',\r\n      token = '57af74',\r\n      guiltyHunchCard = '60cf05',\r\n      innocentHunchCard = 'f937a0'\r\n    }\r\n  },\r\n  [\"Dejah\"] = {\r\n    guids = {\r\n      sheet = '4b3c9a',\r\n      token = '76f1c8',\r\n      guiltyHunchCard = 'faf2eb',\r\n      innocentHunchCard = 'c7e104'\r\n    }\r\n  }\r\n}\r\n\n----#include suspects\n----#include utils\nfunction scriptingZoneForTrayLiner(linerGUID)\r\n  liner = getObjectFromGUID(linerGUID)\r\n  linerBounds = liner.getBoundsNormalized()\r\n  return spawnObject({\r\n    type = 'ScriptingTrigger',\r\n    position = {\r\n      x = linerBounds.center.x,\r\n      y = linerBounds.center.y + 2,\r\n      z = linerBounds.center.z\r\n    },\r\n    scale = {\r\n      linerBounds.size.x,\r\n      4,\r\n      linerBounds.size.z\r\n    },\r\n    rotation = liner.getRotation(),\r\n    sound = false\r\n  })\r\nend\r\n\r\nfunction destroyObjectFromGUID(guid)\r\n  object = getObjectFromGUID(guid)\r\n  if object != nil then\r\n    object.destruct()\r\n  end\r\nend\r\n\n----#include utils\n----#include setup\nmurderEventsLocation = {\r\n  x = -41.37,\r\n  y = 1.05,\r\n  z = 0.75\r\n}\r\n\r\nfunction setUp(buttonOwner)\r\n  buttonOwner.removeButton(0)\r\n  setUpPuzzlePieces(shiftBagGUID)\r\n  setUpPuzzlePieces(favorBagGUID)\r\n  setUpPuzzlePieces(baggageBagGUID)\r\n\r\n  getObjectFromGUID(evidenceBagGUID).randomize()\r\n  getObjectFromGUID(genericEventDeckGUID).randomize()\r\n\r\n  playerCount = countAndRemovePlayers()\r\n  murder = chooseMurder()\r\n  Wait.time(function() setUpMurder(murder, playerCount) end, 0.1)\r\n\r\n  assignCharacters()\r\n  setUpCharacters()\r\nend\r\n\r\nfunction countAndRemovePlayers()\r\n  colors = Player.getAvailableColors()\r\n  playerCount = 0\r\n  for _, color in ipairs(colors) do\r\n    if Player[color].seated then\r\n      playerCount = playerCount + 1\r\n    else\r\n      guids = playerObjectGUIDs[color]\r\n      for item, guid in pairs(guids) do\r\n        getObjectFromGUID(guid).destruct()\r\n      end\r\n    end\r\n  end\r\n  return playerCount\r\nend\r\n\r\nfunction setUpPuzzlePieces(bagGUID)\r\n  bag = getObjectFromGUID(bagGUID)\r\n  pos = bag.getPosition()\r\n  bag.setPosition({pos.x + 5, pos.y, pos.z })\r\n  bag.randomize()\r\n  tileInfo = bag.getObjects()\r\n  for j, tile in ipairs(tileInfo) do\r\n    bag.takeObject({\r\n      position = ({pos.x, pos.y + (0.3 * j), pos.z}),\r\n      smooth = false\r\n    })\r\n  end\r\n  bag.destruct()\r\nend\r\n\r\nfunction chooseMurder()\r\n  for _, object in pairs(murderTrayZone.getObjects()) do\r\n    name = murderNameFromBag(object)\r\n    if name != nil then\r\n      return name\r\n    end\r\n  end\r\n  murdersBag = getObjectFromGUID(murdersBagGUID)\r\n  murdersBag.randomize()\r\n  murderBag = murdersBag.takeObject()\r\n  murdersBag.destruct()\r\n  return murderBag.getName()\r\nend\r\n\r\nfunction setUpMurder(murder, playerCount)\r\n  sheet = getMurderSheet(murder)\r\n  rotation = murderTrayLiner.getRotation()\r\n  sheet.setRotation(rotation)\r\n  sheet.setPosition(getSheetPlacement(playerCount, 0))\r\n  murderEventsDeck = getMurderEvents(murder)\r\n  murderEventsDeck.setPosition(murderEventsLocation)\r\n  murderEventsDeck.setRotation({ 180, 0, 0 })\r\n  murderEventsDeck.randomize()\r\n  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)\r\n  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)\r\n  suspectDeck = getObjectFromGUID(suspectDeckGUID)\r\n  for i = 1, 6 do\r\n    suspect = murderData[murder][\"suspects\"][i][\"id\"]\r\n    suspectSheet = getObjectFromGUID(suspectData[suspect][\"guids\"][\"sheet\"])\r\n    guiltyCard = guiltyDeck.takeObject({guid = suspectData[suspect][\"guids\"][\"guiltyHunchCard\"]})\r\n    innocentCard = innocentDeck.takeObject({guid = suspectData[suspect][\"guids\"][\"innocentHunchCard\"]})\r\n    suspectToken = getObjectFromGUID(suspectData[suspect][\"guids\"][\"token\"])\r\n    if i < playerCount + 2 then\r\n      suspectSheet.setRotation(rotation)\r\n      suspectSheet.setPosition(getSheetPlacement(playerCount, i))\r\n      guiltyDeck.putObject(guiltyCard)\r\n      innocentDeck.putObject(innocentCard)\r\n      suspectToken.setRotation({180,0,0})\r\n      suspectToken.setPosition(getNPCPosition(murderData[murder][\"suspects\"][i][\"startingLocation\"]))\r\n    else\r\n      suspectSheet.destruct()\r\n      guiltyCard.destruct()\r\n      innocentCard.destruct()\r\n    end\r\n  end\r\n  crimeSceneToken = getObjectFromGUID(sceneOfCrimeTokenGUID)\r\n  crimeSceneToken.setRotation({180,0,0})\r\n  crimeSceneToken.setPosition(getCrimeSceneTokenPosition(murderData[murder][\"crimeScene\"]))\r\n  Lily = getObjectFromGUID(LilyGUID)\r\n  Lily.setRotation({180,0,0})\r\n  Lily.setPosition(getNPCPosition(murderData[murder][\"LilyStartingLocation\"]))\r\n  Jimmy = getObjectFromGUID(JimmyGUID)\r\n  Jimmy.setRotation({180,0,0})\r\n  Jimmy.setPosition(getNPCPosition(murderData[murder][\"JimmyStartingLocation\"]))\r\n  dealHunchCards()\r\n  cleanAfterSetup(murder)\r\nend\r\n\r\nfunction getSheetPlacement(playerCount, sheet)\r\n  space = murderTrayLiner.getBounds()\r\n  sheetWidth = 8.74\r\n  sheetSpacing = 0.5\r\n  leftMost = space.center.z - ((playerCount+2)*sheetWidth + (playerCount+1)*sheetSpacing)/2\r\n  z = leftMost + (sheetWidth + sheetSpacing) * sheet\r\n  y = space.center.y + space.size.y / 2 + 0.1\r\n  x = space.center.x\r\n  return {x, y, z}\r\nend\r\n\r\nfunction dealHunchCards()\r\n  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)\r\n  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)\r\n  guiltyDeck.randomize()\r\n  innocentDeck.randomize()\r\n  for _, player in pairs(Player.getPlayers()) do\r\n    trayLiner = getObjectFromGUID(playerObjectGUIDs[player.color][\"trayLiner\"])\r\n    rotation = ({180, trayLiner.getRotation().y, 0})\r\n    guiltyCard = guiltyDeck.takeObject()\r\n    guiltyCard.setRotation(rotation)\r\n    guiltyCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, 1.4}))\r\n    innocentCard = innocentDeck.takeObject()\r\n    innocentCard.setRotation(rotation)\r\n    innocentCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, -1.4}))\r\n  end\r\nend\r\n\n----#include setup\n\r\nplayerTrayZones = {}\r\nmurderTrayZone = nil\r\n\r\nfunction onload()\r\n  murderTrayLiner = getObjectFromGUID(murderTrayLinerGUID)\r\n  murderTrayZone = getObjectFromGUID(murderTrayZoneGUID)\r\n  -- use existence of a puzzle piece bag to check if setup already happened\r\n  shiftBag = getObjectFromGUID(shiftBagGUID)\r\n  if shiftBag != nil then\r\n    murderTrayLiner.createButton({\r\n      label = 'Set up',\r\n      click_function = 'setUp',\r\n      tooltip = 'Set up the game!',\r\n      position = {0,0.2,0},\r\n      width = 1200,\r\n      height = 500,\r\n      font_size = 300\r\n    })\r\n  end\r\n\r\n  math.randomseed(os.time())\r\nend\r\n\n----#include Android/global",
+  "LuaScript": "----#include Android/global\nmurderTrayLinerGUID = 'def075'\r\nmurderTrayZoneGUID = '4693f3'\r\nevidenceBagGUID = '70acc8'\r\nshiftBagGUID = '1ed1cc'\r\nfavorBagGUID = 'bf7df8'\r\nbaggageBagGUID = '94081d'\r\ngenericEventDeckGUID = 'adce08'\r\nLilyGUID = '616920'\r\nJimmyGUID = 'be7e6c'\r\nsceneOfCrimeTokenGUID = 'bf1d9c'\r\n\r\n----#include players\nplayerObjectGUIDs = {\r\n  White = {\r\n    tray = 'ede27e',\r\n    trayLiner = '05eab9',\r\n    zone = '2a420b'\r\n  },\r\n  Red = {\r\n    tray = 'c5ccf0',\r\n    trayLiner = 'd4880b',\r\n    zone = '968c8d'\r\n  },\r\n  Green = {\r\n    tray = '8313d4',\r\n    trayLiner = '382bd8',\r\n    zone = '64c12e'\r\n  },\r\n  Blue = {\r\n    tray = '34cb12',\r\n    trayLiner = '435c47',\r\n    zone = 'f2e70a'\r\n  },\r\n  Purple = {\r\n    tray = '45461a',\r\n    trayLiner = '933cba',\r\n    zone = '7dc2c1'\r\n  }\r\n}\r\n\r\nplayerCharacters = {}\r\n\r\nfunction assignCharacters()\r\n  availableCharacters = {}\r\n  availableCharacterCount = 0\r\n  for id, _ in pairs(characterData) do\r\n    availableCharacters[id] = true\r\n    availableCharacterCount = availableCharacterCount + 1\r\n  end\r\n  players = Player.getPlayers()\r\n  for _, player in pairs(players) do\r\n    zone = getObjectFromGUID(playerObjectGUIDs[player.color]['zone'])\r\n    for _, object in pairs(zone.getObjects()) do\r\n      id = characterIDFromBag(object)\r\n      if id != nil then\r\n        playerCharacters[player.color] = id\r\n        availableCharacters[id] = nil\r\n        availableCharacterCount = availableCharacterCount - 1\r\n        break\r\n      end\r\n    end\r\n  end\r\n  if #playerCharacters < #players then\r\n    for _, player in pairs(players) do\r\n      if playerCharacters[player.color] == nil then\r\n        n = math.random(availableCharacterCount)\r\n        i = 1\r\n        for id, _ in pairs(availableCharacters) do\r\n          if i == n then\r\n            playerCharacters[player.color] = id\r\n            availableCharacters[id] = nil\r\n            availableCharacterCount = availableCharacterCount - 1\r\n            break\r\n          end\r\n          i = i + 1\r\n        end\r\n      end\r\n    end\r\n  end\r\nend\r\n\n----#include players\n----#include characters\ncharacterData = {\r\n  [\"Caprice\"] = {\r\n    fullName = 'Caprice Nisei',\r\n    guids = {\r\n      bag = '02124d',\r\n      sheet = 'f6b92e',\r\n      twilightMarker = '12879f',\r\n      tipSheet = '5d2bce',\r\n      plots = 'a3cdcc',\r\n      plotTwo = '13693b',\r\n      lightDeck = '711d52',\r\n      darkDeck = 'd77753',\r\n      token = '1d46ef',\r\n      leadOne = '84cab9',\r\n      leadTwo = 'f1a949',\r\n      heroMarkers = 'eb3cad',\r\n      warrants = '4f7de6',\r\n      favorsOne = 'f0ea7a',\r\n      favorsThree = '60a79c',\r\n      statusOne = 'a27b9d',\r\n      statusTwo = 'd82d2d',\r\n      statusThree = '0ad3f7',\r\n      sanityCard = '2c15ca',\r\n      sanityMarker = '692e4c',\r\n      jintekiWarrant = 'c4c2dc'\r\n    },\r\n    startingLocations = {\r\n      token = {area = 'board', x = -17.53, y = 2.20, z = -11.21, xRot = 0, yRot = 0, zRot = 0},\r\n      leadOne = {area = 'board', x = -16.04, y = 1.0, z = -18.16, xRot = 0, yRot = 90, zRot = 180},\r\n      leadTwo = {area = 'board', x = -24.81, y = 1.0, z = -21.72, xRot = 0, yRot = 180, zRot = 0},\r\n      darkDeck = {area = 'board', x = -16.99, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},\r\n      sanityCard = {area = 'tray', x = 6, y = 0.7, z = 3, xRot = 0, yRot = 180, zRot = 0, lock = true},\r\n      sanityMarker = {area = 'tray', x = 8.2, y = 0.8, z = 2.4, xRot = 0, yRot = 180, zRot = 180},\r\n      jintekiWarrant = {area = 'board', x = -15.03, y = 1.1, z = -9.64, xRot = 0, yRot = 180, zRot = 0},\r\n    }\r\n  },\r\n  [\"Floyd\"] = {\r\n    fullName = 'Floyd 2X3A7C',\r\n    guids = {\r\n      bag = '83215a',\r\n      sheet = '18cd23',\r\n      twilightMarker = 'a4a35e',\r\n      tipSheet = '047dce',\r\n      plots = 'bcc8be',\r\n      lightDeck = '33735a',\r\n      darkDeck = '241520',\r\n      token = '4fd00f',\r\n      leadOne = 'e20c25',\r\n      leadTwo = '2a6fdc',\r\n      heroMarkers = 'f90713',\r\n      warrants = '865768',\r\n      favorsOne = '34dc5e',\r\n      statusOne = '8a9a22',\r\n      statusTwo = 'df45f8',\r\n      statusThree = '085735',\r\n      directiveOne = '1e5705',\r\n      directiveTwo = 'c84713',\r\n      directiveThree = '826556',\r\n      hbWarrant = '6e33c6'\r\n    },\r\n    startingLocations = {\r\n      token = {area = 'board', x = -19.58, y = 2.20, z = 21.24, xRot = 0, yRot = 0, zRot = 0},\r\n      leadOne = {area = 'board', x = -20.11, y = 1.0, z = 15.66, xRot = 0, yRot = 90, zRot = 180},\r\n      leadTwo = {area = 'board', x = -14.81, y = 1.0, z = 5.32, xRot = 0, yRot = 180, zRot = 0},\r\n      darkDeck = {area = 'board', x = -29.22, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},\r\n      hbWarrant = {area = 'board', x = -17.07, y = 1.1, z = 19.58, xRot = 0, yRot = 180, zRot = 0},\r\n    }\r\n  },\r\n}\r\n\r\ncommonCharacterItemStartingLocations = {\r\n  sheet = {area = 'tray', x = -11.2, y = 0.8, z = 2.2, xRot = 0, yRot = 180, zRot = 0},\r\n  twilightMarker = {area = 'tray', x = -11.2, y = 0.8, z = 1.4, xRot = 0, yRot = 0, zRot = 0},\r\n  tipSheet = {area = 'tray', x = -11.2, y = 0.8, z = -2.1, xRot = 0, yRot = 180, zRot = 0},\r\n  plotOne = {area = 'tray', x = -2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},\r\n  plotTwo = {area = 'tray', x = 2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},\r\n  heroMarkers = {area = 'tray', x = -3.3, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  warrants = {area = 'tray', x = -1.5, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  favorsOne = {area = 'tray', x = 1, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  favorsTwo = {area = 'tray', x = 4, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  favorsThree = {area = 'tray', x = 7, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},\r\n  statusOne = {area = 'tray', x = 1, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},\r\n  statusTwo = {area = 'tray', x = 4, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},\r\n  statusThree = {area = 'tray', x = 7, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},\r\n  lightDeck = {area = 'tray', x = -2, y = 0.8, z = -2.75, xRot = 180, yRot = 0, zRot = 0}\r\n}\r\n\r\nitemNotInBags = {\r\n  statusOne = true,\r\n  statusTwo = true,\r\n  statusThree = true\r\n}\r\n\r\nstartingPuzzleMarkerLocations = {\r\n  {x = 45.44, y = 1.01, z = 14.94, xRot = 0, yRot = 180, zRot = 180},\r\n  {x = 45.44, y = 1.01, z = 16.81, xRot = 0, yRot = 180, zRot = 180},\r\n  {x = 49.17, y = 1.01, z = 14.94, xRot = 0, yRot = 180, zRot = 180},\r\n  {x = 49.17, y = 1.01, z = 16.81, xRot = 0, yRot = 180, zRot = 180},\r\n  {x = 47.44, y = 1.01, z = 15.83, xRot = 0, yRot = 180, zRot = 180}\r\n}\r\n\r\nfunction setUpCharacters()\r\n  for playerColor, characterID in pairs(playerCharacters) do\r\n    bag = getObjectFromGUID(characterData[characterID]['guids']['bag'])\r\n    tray = getObjectFromGUID(playerObjectGUIDs[playerColor]['trayLiner'])\r\n    setUpCharacter(bag, tray)\r\n  end\r\n  -- wait for everything to appear/fall before this next bit\r\n  Wait.time(function()\r\n    local i = 1\r\n    for _, characterID in pairs(playerCharacters) do\r\n      data = characterData[characterID]\r\n      for item, location in pairs(data['startingLocations']) do\r\n        if location.lock == true and data['guids'][item] != nil then\r\n          getObjectFromGUID(data['guids'][item]).setLock(true)\r\n        end\r\n      end\r\n      markers = getObjectFromGUID(characterData[characterID]['guids']['heroMarkers'])\r\n      l = startingPuzzleMarkerLocations[i]\r\n      print(markers)\r\n      markers.takeObject({position = {l.x, l.y, l.z}, rotation = {l.xRot, l.yRot, l.zRot}})\r\n      i = i + 1\r\n    end\r\n  end, 1)\r\nend\r\n\r\nfunction setUpCharacter(bag, tray)\r\n  id = bag.getName()\r\n  data = characterData[id]\r\n  if data == nil then\r\n    return\r\n  end\r\n  guids = data['guids']\r\n  for item, location in pairs(commonCharacterItemStartingLocations) do\r\n    if itemNotInBags[item] then\r\n      placeCharacterItem(guids[item], tray, location)\r\n    else\r\n      placeCharacterItemFromBag(bag, guids[item], tray, location)\r\n    end\r\n  end\r\n  for item, location in pairs(data.startingLocations) do\r\n    placeCharacterItemFromBag(bag, guids[item], tray, location)\r\n  end\r\n  bag.takeObject({\r\n    guid = guids['plots'],\r\n    callback_function = function(plotsBag)\r\n      plotsBag.randomize()\r\n      placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotOne'], true)\r\n      if id != 'Caprice' then\r\n        placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotTwo'], false)\r\n      end\r\n      plotsBag.destruct()\r\n    end\r\n  })\r\n  bag.destruct()\r\nend\r\n\r\nfunction placeCharacterItemFromBag(bag, itemGUID, tray, location)\r\n  if itemGUID == nil then\r\n    return\r\n  end\r\n  item = bag.takeObject({\r\n    guid = itemGUID,\r\n    position = locationToPosition(location, tray),\r\n    rotation = locationToRotation(location, tray),\r\n    smooth = false;\r\n  })\r\nend\r\n\r\nfunction placeCharacterItem(itemGUID, tray, location)\r\n  if itemGUID == nil then\r\n    return\r\n  end\r\n  item = getObjectFromGUID(itemGUID)\r\n  item.setPosition(locationToPosition(location, tray))\r\n  item.setRotation(locationToRotation(location, tray))\r\nend\r\n\r\nfunction placePlot(plots, tray, location, start)\r\n  local item = plots.takeObject({\r\n    position = locationToPosition(location, tray),\r\n    rotation = locationToRotation(location, tray),\r\n    smooth = false\r\n  })\r\n  if start then\r\n    Wait.time(function()\r\n      pos = item.getPosition()\r\n      pos.y = pos.y + 0.2\r\n      item.takeObject({position = pos, flip = true})\r\n    end, 0.1)\r\n  end\r\nend\r\n\r\nfunction locationToPosition(location, tray)\r\n  pos = {\r\n    x = location.x,\r\n    y = location.y,\r\n    z = location.z\r\n  }\r\n  if location.area == 'tray' then\r\n    pos = tray.positionToWorld(pos)\r\n  end\r\n  return pos\r\nend\r\n\r\nfunction locationToRotation(location, tray)\r\n  rot = {\r\n    x = location.xRot,\r\n    y = location.yRot,\r\n    z = location.zRot\r\n  }\r\n  if location.area == 'tray' then\r\n    rot.y = rot.y + tray.getRotation().y\r\n    if rot.y > 360 then\r\n      rot.y = rot.y - 360\r\n    end\r\n  end\r\n  return rot\r\nend\r\n\r\nfunction characterIDFromBag(object)\r\n  if object.tag == \"Bag\" and characterData[object.getName()] != nil then\r\n    return object.getName()\r\n  end\r\n  return nil\r\nend\r\n\n----#include characters\n----#include murders\n\r\nmurdersBagGUID = 'cab0ad'\r\n\r\nmurderData = {\r\n  [\"Evil at the Estates\"] = {\r\n    guids = {\r\n      bag = '061814',\r\n      sheet = '112fbf',\r\n      deck = '8d6d37'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Armitage Software\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Levy University\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Eastside Tenements\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"Melange Mining\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Jacobi Miner's Co-op\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Rockvil Estates\",\r\n    JimmyStartingLocation = \"The Old War Memorial\",\r\n    crimeScene = \"Rockvil Estates\"\r\n  },\r\n  [\"Last Call at Roxie's\"] = {\r\n    guids = {\r\n      bag = 'ab4664',\r\n      sheet = '82e167',\r\n      deck = 'ba8fac'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Roxie HT's Cabaret\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"The Speakeasy\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Earthrise Hotel\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Alpha Prospecting\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Olivaw Robotics\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Roxie HT's Cabaret\",\r\n    JimmyStartingLocation = \"Mycroft Cemetary\",\r\n    crimeScene = \"Roxie HT's Cabaret\"\r\n  },\r\n  [\"Mons Wolff Massacre\"] = {\r\n    guids = {\r\n      bag = '530b38',\r\n      sheet = 'c697d5',\r\n      deck = '22de17'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Mandela Warrens\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Roxie HT's Cabaret\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Bradbury Towers\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Castle Club\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Starlight Crusade\"\r\n      },\r\n    },\r\n    LilyStartingLocation = \"Mandela Warrens\",\r\n    JimmyStartingLocation = \"Skye Recycling\",\r\n    crimeScene = \"Mons Wolff Observatory\"\r\n  },\r\n  [\"Freetown Fright\"] = {\r\n    guids = {\r\n      bag = '6a7345',\r\n      sheet = '30ab24',\r\n      deck = '4922e0'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Skye Recycling\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Olivaw Robotics\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Starlight Crusade\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Tony's Flophouse\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Monroe & Associates\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Freetown\",\r\n    JimmyStartingLocation = \"Jacobi Miner's Co-op\",\r\n    crimeScene = \"Freetown\"\r\n  },\r\n  [\"Murder on the Midway\"] = {\r\n    guids = {\r\n      bag = '4dc198',\r\n      sheet = '31c092',\r\n      deck = '6f8060'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Cosmos Fine Dining\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Alpha Prospecting\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"Freetown\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Eliza's Toybox\"\r\n      },\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Heaven & Hell Club\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"The Midway\",\r\n    JimmyStartingLocation = \"Tony's Flophouse\",\r\n    crimeScene = \"The Midway\"\r\n  },\r\n  [\"Revenge at the Races\"] = {\r\n    guids = {\r\n      bag = '765eac',\r\n      sheet = 'a18211',\r\n      deck = '133e57'\r\n    },\r\n    suspects = {\r\n      {\r\n        id = \"Vinnie\",\r\n        startingLocation = \"Monroe & Associates\"\r\n      },\r\n      {\r\n        id = \"Eve\",\r\n        startingLocation = \"Eliza's Toybox\"\r\n      },\r\n      {\r\n        id = \"Mark\",\r\n        startingLocation = \"NAPD\"\r\n      },\r\n      {\r\n        id = \"Tommy\",\r\n        startingLocation = \"Levy University\"\r\n      },\r\n      {\r\n        id = \"Dejah\",\r\n        startingLocation = \"Castle Club\"\r\n      },\r\n      {\r\n        id = \"Noise\",\r\n        startingLocation = \"Armitage Software\"\r\n      }\r\n    },\r\n    LilyStartingLocation = \"Campbell Greens\",\r\n    JimmyStartingLocation = \"Eastside Tenements\",\r\n    crimeScene = \"Campbell Greens\"\r\n  }\r\n}\r\n\r\nfunction murderNameFromBag(object)\r\n  if object.tag == \"Bag\" and murderData[object.getName()] != nil then\r\n    return object.getName()\r\n  end\r\n  return nil\r\nend\r\n\r\nfunction getMurderSheet(murder)\r\n  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  return bag.takeObject({guid = murderData[murder]['guids']['sheet']})\r\nend\r\n\r\nfunction getMurderEvents(murder)\r\n  bag = getObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  return bag.takeObject({guid = murderData[murder]['guids']['deck']})\r\nend\r\n\r\nfunction cleanAfterSetup(murder)\r\n  destroyObjectFromGUID(murderData[murder]['guids']['bag'])\r\n  destroyObjectFromGUID(murdersBagGUID)\r\n  for murderName, data in pairs(murderData) do\r\n    if murderName != murder then\r\n      for item, guid in pairs(data[\"guids\"]) do\r\n        destroyObjectFromGUID(guid)\r\n      end\r\n    end\r\n  end\r\nend\r\n\n----#include murders\n----#include locations\nlocations = {\r\n  [\"The Old War Memorial\"] = {\r\n    x = -28.96,\r\n    z = -21.84,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 1,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Starlight Crusade\"] = {\r\n    x = -15.44,\r\n    z = -21.35,\r\n    nameplate = 'below left',\r\n    quality = 'ritzy',\r\n    type = 'religious',\r\n    row = 1,\r\n    column = \"D\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Levy University\"] = {\r\n    x = -7.08,\r\n    z = -21.47,\r\n    nameplate = 'left',\r\n    quality = 'ritzy',\r\n    type = 'residential',\r\n    row = 1,\r\n    column = \"E\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Olivaw Robotics\"] = {\r\n    x = -11.16,\r\n    z = -18.16,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 2,\r\n    column = \"E\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Rockvil Estates\"] = {\r\n    x = 7.34,\r\n    z = -18.80,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 2,\r\n    column = \"G\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Heaven & Hell Club\"] = {\r\n    x = 23.33,\r\n    z = -14.61,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'nightlife',\r\n    row = 2,\r\n    column = \"J\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Campbell Greens\"] = {\r\n    x = 27.19,\r\n    z = -17.70,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 2,\r\n    column = \"K\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Roxie HT's Cabaret\"] = {\r\n    x = -31.60,\r\n    z = -12.48,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 3,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"The Speakeasy\"] = {\r\n    x = -17.77,\r\n    z = -6.80,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'nightlife',\r\n    row = 3,\r\n    column = \"D\",\r\n    world = 'Earth'\r\n  },\r\n  [\"The Root\"] = {\r\n    x = -0.25,\r\n    z = -8.51,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 3,\r\n    column = \"F\",\r\n    world = 'Earth',\r\n    beanstalkStation = 1\r\n  },\r\n  [\"Bradbury Towers\"] = {\r\n    x = 4.46,\r\n    z = -8.91,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"G\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Monroe & Associates\"] = {\r\n    x = 8.59,\r\n    z = -12.64,\r\n    nameplate = 'below left',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 3,\r\n    column = \"H\",\r\n    world = 'Earth'\r\n  },\r\n  [\"NAPD\"] = {\r\n    x = 17.12,\r\n    z = -7.28,\r\n    nameplate = 'below right',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 3,\r\n    column = \"I\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Tony's Flophouse\"] = {\r\n    x = 25.34,\r\n    z = -8.79,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"J\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Eastside Tenements\"] = {\r\n    x = 37.29,\r\n    z = -10.58,\r\n    nameplate = 'below left',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 3,\r\n    column = \"L\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Cosmos Fine Dining\"] = {\r\n    x = -26.20,\r\n    z = -6.26,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 4,\r\n    column = \"B\",\r\n    world = 'Earth'\r\n  },\r\n  [\"Castle Club\"] = {\r\n    x = -0.42,\r\n    z = 0.19,\r\n    nameplate = 'below right',\r\n    quality = 'ritzy',\r\n    type = 'nightlife',\r\n    row = 4,\r\n    column = \"F\",\r\n    beanstalkStation = 3\r\n  },\r\n  [\"The Midway\"] = {\r\n    x = -0.33,\r\n    z = -4.39,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 4,\r\n    column = \"F\",\r\n    beanstalkStation = 2\r\n  },\r\n  [\"Skye Recycling\"] = {\r\n    x = -9.26,\r\n    z = 8.03,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 6,\r\n    column = \"E\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Earthrise Hotel\"] = {\r\n    x = -4.38,\r\n    z = 8.96,\r\n    nameplate = 'below',\r\n    quality = 'ritzy',\r\n    type = 'residential',\r\n    row = 6,\r\n    column = \"F\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Alpha Prospecting\"] = {\r\n    x = 0.90,\r\n    z = 9.31,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 6,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Freetown\"] = {\r\n    x = -25.23,\r\n    z = 14.52,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'residential',\r\n    row = 7,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Jacobi Miner's Co-op\"] = {\r\n    x = -24.81,\r\n    z = 17.68,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Eliza's Toybox\"] = {\r\n    x = -15.05,\r\n    z = 13.73,\r\n    nameplate = 'below left',\r\n    quality = 'ritzy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"D\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Armitage Software\"] = {\r\n    x = -0.40,\r\n    z = 17.69,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"F\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mandela Warrens\"] = {\r\n    x = 5.09,\r\n    z = 16.67,\r\n    nameplate = 'below',\r\n    quality = 'normal',\r\n    type = 'residential',\r\n    row = 7,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Melange Mining\"] = {\r\n    x = 4.03,\r\n    z = 13.43,\r\n    nameplate = 'left',\r\n    quality = 'normal',\r\n    type = 'business',\r\n    row = 7,\r\n    column = \"G\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mons Wolff Observatory\"] = {\r\n    x = 8.91,\r\n    z = 17.84,\r\n    nameplate = 'above',\r\n    quality = 'normal',\r\n    type = 'civic',\r\n    row = 7,\r\n    column = \"H\",\r\n    world = 'Luna'\r\n  },\r\n  [\"Mycroft Cemetary\"] = {\r\n    x = -25.10,\r\n    z = 21.76,\r\n    nameplate = 'below',\r\n    quality = 'seedy',\r\n    type = 'civic',\r\n    row = 8,\r\n    column = \"C\",\r\n    world = 'Luna'\r\n  }\r\n}\r\n\r\nfunction getNPCPosition(locationName)\r\n  data = locations[locationName]\r\n  if data[\"nameplate\"] == 'below' then\r\n    return {data.x - 1.5, 1.05, data.z - 1}\r\n  elseif data[\"nameplate\"] == 'above' then\r\n    return {data.x - 1.5, 1.05, data.z + 1}\r\n  elseif data[\"nameplate\"] == 'below left' then\r\n    return {data.x - 3, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'below right' then\r\n    return {data.x + 1, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'left' then\r\n    return {data.x - 3, 1.05, data.z - 1}\r\n  end\r\nend\r\n\r\nfunction getCrimeSceneTokenPosition(locationName)\r\n  data = locations[locationName]\r\n  if data[\"nameplate\"] == 'below' then\r\n    return {data.x + 2 , 1.05, data.z - 1}\r\n  elseif data[\"nameplate\"] == 'above' then\r\n    return {data.x + 2, 1.05, data.z + 1}\r\n  elseif data[\"nameplate\"] == 'below left' then\r\n    return {data.x - 1, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'below right' then\r\n    return {data.x + 3, 1.05, data.z - 2}\r\n  elseif data[\"nameplate\"] == 'left' then\r\n    return {data.x - 1, 1.05, data.z - 1}\r\n  end\r\nend\r\n\n----#include locations\n----#include suspects\nguiltyHunchDeckGUID = '6dc7ee'\r\ninnocentHunchDeckGUID = 'd17a2d'\r\n\r\nsuspectData = {\r\n  [\"Eve\"] = {\r\n    guids = {\r\n      sheet = 'a193b7',\r\n      token = '0e28c8',\r\n      guiltyHunchCard = 'bea687',\r\n      innocentHunchCard = '74f72d'\r\n    }\r\n  },\r\n  [\"Noise\"] = {\r\n    guids = {\r\n      sheet = '0dd696',\r\n      token = 'd3b8ae',\r\n      guiltyHunchCard = 'c1f08b',\r\n      innocentHunchCard = 'e4ae9e'\r\n    }\r\n  },\r\n  [\"Tommy\"] = {\r\n    guids = {\r\n      sheet = 'cae8bd',\r\n      token = 'f11ca0',\r\n      guiltyHunchCard = '0d50cd',\r\n      innocentHunchCard = '7ad00a'\r\n    }\r\n  },\r\n  [\"Vinnie\"] = {\r\n    guids = {\r\n      sheet = '9edd9b',\r\n      token = '3d7198',\r\n      guiltyHunchCard = '7f662c',\r\n      innocentHunchCard = '453f35'\r\n    }\r\n  },\r\n  [\"Mark\"] = {\r\n    guids = {\r\n      sheet = '4f0438',\r\n      token = '57af74',\r\n      guiltyHunchCard = '60cf05',\r\n      innocentHunchCard = 'f937a0'\r\n    }\r\n  },\r\n  [\"Dejah\"] = {\r\n    guids = {\r\n      sheet = '4b3c9a',\r\n      token = '76f1c8',\r\n      guiltyHunchCard = 'faf2eb',\r\n      innocentHunchCard = 'c7e104'\r\n    }\r\n  }\r\n}\r\n\n----#include suspects\n----#include utils\nfunction scriptingZoneForTrayLiner(linerGUID)\r\n  liner = getObjectFromGUID(linerGUID)\r\n  linerBounds = liner.getBoundsNormalized()\r\n  return spawnObject({\r\n    type = 'ScriptingTrigger',\r\n    position = {\r\n      x = linerBounds.center.x,\r\n      y = linerBounds.center.y + 2,\r\n      z = linerBounds.center.z\r\n    },\r\n    scale = {\r\n      linerBounds.size.x,\r\n      4,\r\n      linerBounds.size.z\r\n    },\r\n    rotation = liner.getRotation(),\r\n    sound = false\r\n  })\r\nend\r\n\r\nfunction destroyObjectFromGUID(guid)\r\n  object = getObjectFromGUID(guid)\r\n  if object != nil then\r\n    object.destruct()\r\n  end\r\nend\r\n\n----#include utils\n----#include setup\nmurderEventsLocation = {\r\n  x = -41.37,\r\n  y = 1.05,\r\n  z = 0.75\r\n}\r\n\r\nfunction setUp(buttonOwner)\r\n  buttonOwner.removeButton(0)\r\n  setUpPuzzlePieces(shiftBagGUID)\r\n  setUpPuzzlePieces(favorBagGUID)\r\n  setUpPuzzlePieces(baggageBagGUID)\r\n\r\n  getObjectFromGUID(evidenceBagGUID).randomize()\r\n  getObjectFromGUID(genericEventDeckGUID).randomize()\r\n\r\n  playerCount = countAndRemovePlayers()\r\n  murder = chooseMurder()\r\n  Wait.time(function() setUpMurder(murder, playerCount) end, 0.1)\r\n\r\n  assignCharacters()\r\n  setUpCharacters()\r\nend\r\n\r\nfunction countAndRemovePlayers()\r\n  colors = Player.getAvailableColors()\r\n  playerCount = 0\r\n  for _, color in ipairs(colors) do\r\n    if Player[color].seated then\r\n      playerCount = playerCount + 1\r\n    else\r\n      guids = playerObjectGUIDs[color]\r\n      for item, guid in pairs(guids) do\r\n        getObjectFromGUID(guid).destruct()\r\n      end\r\n    end\r\n  end\r\n  return playerCount\r\nend\r\n\r\nfunction setUpPuzzlePieces(bagGUID)\r\n  bag = getObjectFromGUID(bagGUID)\r\n  pos = bag.getPosition()\r\n  bag.setPosition({pos.x + 5, pos.y, pos.z })\r\n  bag.randomize()\r\n  tileInfo = bag.getObjects()\r\n  for j, tile in ipairs(tileInfo) do\r\n    bag.takeObject({\r\n      position = ({pos.x, pos.y + (0.3 * j), pos.z}),\r\n      smooth = false\r\n    })\r\n  end\r\n  bag.destruct()\r\nend\r\n\r\nfunction chooseMurder()\r\n  for _, object in pairs(murderTrayZone.getObjects()) do\r\n    name = murderNameFromBag(object)\r\n    if name != nil then\r\n      return name\r\n    end\r\n  end\r\n  murdersBag = getObjectFromGUID(murdersBagGUID)\r\n  murdersBag.randomize()\r\n  murderBag = murdersBag.takeObject()\r\n  murdersBag.destruct()\r\n  return murderBag.getName()\r\nend\r\n\r\nfunction setUpMurder(murder, playerCount)\r\n  sheet = getMurderSheet(murder)\r\n  rotation = murderTrayLiner.getRotation()\r\n  sheet.setRotation(rotation)\r\n  sheet.setPosition(getSheetPlacement(playerCount, 0))\r\n  murderEventsDeck = getMurderEvents(murder)\r\n  murderEventsDeck.setPosition(murderEventsLocation)\r\n  murderEventsDeck.setRotation({ 180, 0, 0 })\r\n  murderEventsDeck.randomize()\r\n  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)\r\n  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)\r\n  suspectDeck = getObjectFromGUID(suspectDeckGUID)\r\n  for i = 1, 6 do\r\n    suspect = murderData[murder][\"suspects\"][i][\"id\"]\r\n    suspectSheet = getObjectFromGUID(suspectData[suspect][\"guids\"][\"sheet\"])\r\n    guiltyCard = guiltyDeck.takeObject({guid = suspectData[suspect][\"guids\"][\"guiltyHunchCard\"]})\r\n    innocentCard = innocentDeck.takeObject({guid = suspectData[suspect][\"guids\"][\"innocentHunchCard\"]})\r\n    suspectToken = getObjectFromGUID(suspectData[suspect][\"guids\"][\"token\"])\r\n    if i < playerCount + 2 then\r\n      suspectSheet.setRotation(rotation)\r\n      suspectSheet.setPosition(getSheetPlacement(playerCount, i))\r\n      guiltyDeck.putObject(guiltyCard)\r\n      innocentDeck.putObject(innocentCard)\r\n      suspectToken.setRotation({180,0,0})\r\n      suspectToken.setPosition(getNPCPosition(murderData[murder][\"suspects\"][i][\"startingLocation\"]))\r\n    else\r\n      suspectSheet.destruct()\r\n      guiltyCard.destruct()\r\n      innocentCard.destruct()\r\n    end\r\n  end\r\n  crimeSceneToken = getObjectFromGUID(sceneOfCrimeTokenGUID)\r\n  crimeSceneToken.setRotation({180,0,0})\r\n  crimeSceneToken.setPosition(getCrimeSceneTokenPosition(murderData[murder][\"crimeScene\"]))\r\n  Lily = getObjectFromGUID(LilyGUID)\r\n  Lily.setRotation({180,0,0})\r\n  Lily.setPosition(getNPCPosition(murderData[murder][\"LilyStartingLocation\"]))\r\n  Jimmy = getObjectFromGUID(JimmyGUID)\r\n  Jimmy.setRotation({180,0,0})\r\n  Jimmy.setPosition(getNPCPosition(murderData[murder][\"JimmyStartingLocation\"]))\r\n  dealHunchCards()\r\n  cleanAfterSetup(murder)\r\nend\r\n\r\nfunction getSheetPlacement(playerCount, sheet)\r\n  space = murderTrayLiner.getBounds()\r\n  sheetWidth = 8.74\r\n  sheetSpacing = 0.5\r\n  leftMost = space.center.z - ((playerCount+2)*sheetWidth + (playerCount+1)*sheetSpacing)/2\r\n  z = leftMost + (sheetWidth + sheetSpacing) * sheet\r\n  y = space.center.y + space.size.y / 2 + 0.1\r\n  x = space.center.x\r\n  return {x, y, z}\r\nend\r\n\r\nfunction dealHunchCards()\r\n  guiltyDeck = getObjectFromGUID(guiltyHunchDeckGUID)\r\n  innocentDeck = getObjectFromGUID(innocentHunchDeckGUID)\r\n  guiltyDeck.randomize()\r\n  innocentDeck.randomize()\r\n  for _, player in pairs(Player.getPlayers()) do\r\n    trayLiner = getObjectFromGUID(playerObjectGUIDs[player.color][\"trayLiner\"])\r\n    rotation = ({180, trayLiner.getRotation().y, 0})\r\n    guiltyCard = guiltyDeck.takeObject()\r\n    guiltyCard.setRotation(rotation)\r\n    guiltyCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, 1.4}))\r\n    innocentCard = innocentDeck.takeObject()\r\n    innocentCard.setRotation(rotation)\r\n    innocentCard.setPosition(trayLiner.positionToWorld({15.8, 0.1, -1.4}))\r\n  end\r\nend\r\n\n----#include setup\n\r\nplayerTrayZones = {}\r\nmurderTrayZone = nil\r\n\r\nfunction onload()\r\n  murderTrayLiner = getObjectFromGUID(murderTrayLinerGUID)\r\n  murderTrayZone = getObjectFromGUID(murderTrayZoneGUID)\r\n  -- use existence of a puzzle piece bag to check if setup already happened\r\n  shiftBag = getObjectFromGUID(shiftBagGUID)\r\n  if shiftBag != nil then\r\n    murderTrayLiner.createButton({\r\n      label = 'Set up',\r\n      click_function = 'setUp',\r\n      tooltip = 'Set up the game!',\r\n      position = {0,0.2,0},\r\n      width = 1200,\r\n      height = 500,\r\n      font_size = 300\r\n    })\r\n  end\r\n\r\n  math.randomseed(os.time())\r\nend\r\n\n----#include Android/global",
   "LuaScriptState": "",
   "Grid": {
     "Type": 0,
@@ -70,7 +70,7 @@
         "Color": "Red",
         "Transform": {
           "posX": -27.0000019,
-          "posY": 0.588852167,
+          "posY": 0.259902477,
           "posZ": -27.9999962,
           "rotX": 0.0,
           "rotY": 0.0,
@@ -84,21 +84,21 @@
         "Color": "Purple",
         "Transform": {
           "posX": 46.0,
-          "posY": 0.588852167,
+          "posY": 0.259902477,
           "posZ": 0.0,
           "rotX": 0.0,
           "rotY": 270.0,
           "rotZ": 0.0,
-          "scaleX": 12.0211267,
+          "scaleX": 12.022191,
           "scaleY": 9.0,
-          "scaleZ": 5.00664759
+          "scaleZ": 5.00698233
         }
       },
       {
         "Color": "Blue",
         "Transform": {
           "posX": 27.0000019,
-          "posY": 0.588852167,
+          "posY": 0.259902477,
           "posZ": 27.9999962,
           "rotX": 0.0,
           "rotY": 180.0,
@@ -112,7 +112,7 @@
         "Color": "White",
         "Transform": {
           "posX": 27.0000019,
-          "posY": 0.588852167,
+          "posY": 0.259902477,
           "posZ": -27.9999962,
           "rotX": 0.0,
           "rotY": 0.0,
@@ -126,7 +126,7 @@
         "Color": "Green",
         "Transform": {
           "posX": -27.0000019,
-          "posY": 0.588852167,
+          "posY": 0.259902477,
           "posZ": 27.9999962,
           "rotX": 0.0,
           "rotY": 180.0,
@@ -158,12 +158,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": -15.9258385,
-        "posY": 0.6374086,
+        "posX": -15.9258366,
+        "posY": 0.6374072,
         "posZ": 32.8537178,
-        "rotX": -9.028248E-06,
-        "rotY": 359.9812,
-        "rotZ": -1.57600039E-06,
+        "rotX": -1.53287388E-07,
+        "rotY": 359.981079,
+        "rotZ": 7.57082432E-07,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -173,8 +173,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.9390244,
-        "g": 0.4333817,
-        "b": 0.044169873
+        "g": 0.433381528,
+        "b": 0.0441697538
       },
       "Locked": false,
       "Grid": true,
@@ -3407,12 +3407,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": -49.0954781,
-        "posY": 0.6414149,
-        "posZ": 2.293854,
-        "rotX": 3.47201052E-07,
-        "rotY": 0.110887177,
-        "rotZ": 1.35603568E-06,
+        "posX": -49.09547,
+        "posY": 0.641414642,
+        "posZ": 2.293853,
+        "rotX": -7.04364E-07,
+        "rotY": 0.110894404,
+        "rotZ": 6.89674664E-07,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -3422,7 +3422,7 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.706116,
-        "g": 0.366882056,
+        "g": 0.366881847,
         "b": 0.0
       },
       "Locked": false,
@@ -5131,12 +5131,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": -8.09880352,
+        "posX": -8.098813,
         "posY": 0.6374073,
         "posZ": 34.30794,
-        "rotX": -8.67114736E-08,
-        "rotY": 0.00104762032,
-        "rotZ": 1.00043671E-08,
+        "rotX": 7.170612E-08,
+        "rotY": 0.0004516863,
+        "rotZ": -6.26989731E-07,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -5146,7 +5146,7 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.486326873,
-        "g": 0.274602383,
+        "g": 0.2746022,
         "b": 0.6707317
       },
       "Locked": false,
@@ -5168,12 +5168,12 @@
         {
           "Name": "Custom_Model",
           "Transform": {
-            "posX": 44.3188248,
-            "posY": 2.37946987,
-            "posZ": -13.9387007,
-            "rotX": -1.10557544E-07,
-            "rotY": 180.003571,
-            "rotZ": 1.45164108E-07,
+            "posX": -5.961863,
+            "posY": 4.801027,
+            "posZ": 39.7544556,
+            "rotX": 359.955841,
+            "rotY": 180.001709,
+            "rotZ": 0.0103803324,
             "scaleX": 1.5,
             "scaleY": 1.5,
             "scaleZ": 1.5
@@ -5182,9 +5182,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.9999999,
-            "g": 0.992162347,
-            "b": 0.9999999
+            "r": 0.9999998,
+            "g": 0.9921623,
+            "b": 0.9999998
           },
           "Locked": false,
           "Grid": true,
@@ -5194,6 +5194,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "CustomMesh": {
             "MeshURL": "http://pastebin.com/raw/r7mNXuJf",
             "DiffuseURL": "http://i.imgur.com/2YjtPkg.jpg",
@@ -5212,12 +5214,12 @@
         {
           "Name": "Custom_Token_Stack",
           "Transform": {
-            "posX": 8.245244,
-            "posY": 2.25772643,
-            "posZ": -19.4437447,
-            "rotX": 3.08157469E-05,
-            "rotY": 179.984512,
-            "rotZ": 1.3064534E-05,
+            "posX": -8.215702,
+            "posY": 4.387284,
+            "posZ": 36.9825745,
+            "rotX": 359.847,
+            "rotY": 180.000168,
+            "rotZ": 359.982544,
             "scaleX": 0.875,
             "scaleY": 1.0,
             "scaleZ": 0.875
@@ -5226,9 +5228,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.99999994,
-            "g": 0.99999994,
-            "b": 0.99999994
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
           },
           "Locked": false,
           "Grid": true,
@@ -5238,6 +5240,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "MaterialIndex": -1,
           "MeshIndex": -1,
           "Number": 3,
@@ -5258,14 +5262,14 @@
           "GUID": "34dc5e"
         },
         {
-          "Name": "Custom_Token_Stack",
+          "Name": "Custom_Token",
           "Transform": {
-            "posX": -18.6236973,
-            "posY": 4.07892942,
-            "posZ": -14.0323229,
-            "rotX": 11.3365917,
-            "rotY": 175.777054,
-            "rotZ": 13.9695377,
+            "posX": -7.49025154,
+            "posY": 4.64853334,
+            "posZ": 35.7534065,
+            "rotX": 359.935974,
+            "rotY": 179.992752,
+            "rotZ": 0.08977868,
             "scaleX": 0.5373748,
             "scaleY": 1.0,
             "scaleZ": 0.5373748
@@ -5274,9 +5278,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.99999994,
-            "g": 0.99999994,
-            "b": 0.99999994
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
           },
           "Locked": false,
           "Grid": true,
@@ -5286,9 +5290,55 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
-          "MaterialIndex": -1,
-          "MeshIndex": -1,
-          "Number": 2,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "http://i.imgur.com/nvEk4XZ.png",
+            "ImageSecondaryURL": "",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomToken": {
+              "Thickness": 0.2,
+              "MergeDistancePixels": 15.0,
+              "Stackable": true
+            }
+          },
+          "XmlUI": "",
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "GUID": "865768"
+        },
+        {
+          "Name": "Custom_Token",
+          "Transform": {
+            "posX": -6.75404644,
+            "posY": 4.45780039,
+            "posZ": 35.8041725,
+            "rotX": 359.69046,
+            "rotY": 179.98439,
+            "rotZ": 0.628123641,
+            "scaleX": 0.5373748,
+            "scaleY": 1.0,
+            "scaleZ": 0.5373748
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "CustomImage": {
             "ImageURL": "http://i.imgur.com/nvEk4XZ.png",
             "ImageSecondaryURL": "",
@@ -5308,12 +5358,12 @@
         {
           "Name": "Custom_Token_Stack",
           "Transform": {
-            "posX": 11.8012018,
-            "posY": 2.016998,
-            "posZ": 14.9558792,
-            "rotX": -0.000274689053,
-            "rotY": 179.990479,
-            "rotZ": 0.000149916712,
+            "posX": -6.7316494,
+            "posY": 4.48039532,
+            "posZ": 35.1835327,
+            "rotX": 358.8146,
+            "rotY": 179.674438,
+            "rotZ": 0.9384766,
             "scaleX": 0.50286305,
             "scaleY": 1.0,
             "scaleZ": 0.50286305
@@ -5322,9 +5372,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.99999994,
-            "g": 0.99999994,
-            "b": 0.99999994
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
           },
           "Locked": false,
           "Grid": true,
@@ -5334,6 +5384,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "MaterialIndex": -1,
           "MeshIndex": -1,
           "Number": 5,
@@ -5354,14 +5406,14 @@
           "GUID": "f90713"
         },
         {
-          "Name": "Deck",
+          "Name": "Card",
           "Transform": {
-            "posX": -19.0435066,
-            "posY": 4.637989,
-            "posZ": -13.4975033,
-            "rotX": 0.7006427,
-            "rotY": 180.0315,
-            "rotZ": 359.5774,
+            "posX": -5.91655,
+            "posY": 4.655952,
+            "posZ": 36.70789,
+            "rotX": 359.962036,
+            "rotY": 179.9995,
+            "rotZ": 0.0835255161,
             "scaleX": 2.396114,
             "scaleY": 1.0,
             "scaleZ": 2.396114
@@ -5382,176 +5434,34 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": true,
+          "CardID": 1457,
           "SidewaysCard": false,
-          "DeckIDs": [
-            1457,
-            1456,
-            1455
-          ],
           "CustomDeck": {
             "14": {
               "FaceURL": "http://i.imgur.com/QdpRHV8.jpg",
-              "BackURL": "http://i.imgur.com/jZEH5zw.jpg{Unique}",
+              "BackURL": "http://i.imgur.com/jZEH5zw.jpg",
               "NumWidth": 10,
               "NumHeight": 7,
               "BackIsHidden": true,
-              "UniqueBack": false
+              "UniqueBack": true
             }
           },
           "XmlUI": "",
           "LuaScript": "",
           "LuaScriptState": "",
-          "ContainedObjects": [
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": 14.5502243,
-                "posY": 1.19157839,
-                "posZ": -1.67132223,
-                "rotX": 0.002616801,
-                "rotY": 179.969055,
-                "rotZ": 179.985153,
-                "scaleX": 1.0,
-                "scaleY": 1.0,
-                "scaleZ": 1.0
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.713243067,
-                "g": 0.713243067,
-                "b": 0.713243067
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 1457,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "14": {
-                  "FaceURL": "http://i.imgur.com/QdpRHV8.jpg",
-                  "BackURL": "http://i.imgur.com/jZEH5zw.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "c84713"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": 14.5473051,
-                "posY": 1.17416143,
-                "posZ": -1.69249487,
-                "rotX": -0.005697017,
-                "rotY": 179.972672,
-                "rotZ": 179.980042,
-                "scaleX": 1.0,
-                "scaleY": 1.0,
-                "scaleZ": 1.0
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.713243067,
-                "g": 0.713243067,
-                "b": 0.713243067
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 1456,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "14": {
-                  "FaceURL": "http://i.imgur.com/QdpRHV8.jpg",
-                  "BackURL": "http://i.imgur.com/jZEH5zw.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "826556"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": 14.6936436,
-                "posY": 1.03138876,
-                "posZ": -1.57289493,
-                "rotX": -0.00441851933,
-                "rotY": 180.0106,
-                "rotZ": 179.9824,
-                "scaleX": 1.0,
-                "scaleY": 1.0,
-                "scaleZ": 1.0
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.713243067,
-                "g": 0.713243067,
-                "b": 0.713243067
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 1455,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "14": {
-                  "FaceURL": "http://i.imgur.com/QdpRHV8.jpg",
-                  "BackURL": "http://i.imgur.com/jZEH5zw.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "1e5705"
-            }
-          ],
-          "GUID": "789b3a"
+          "GUID": "c84713"
         },
         {
-          "Name": "Deck",
+          "Name": "Card",
           "Transform": {
-            "posX": -17.970108,
-            "posY": 4.613608,
-            "posZ": -12.78748,
-            "rotX": 359.952728,
-            "rotY": 179.998886,
-            "rotZ": 1.99087214,
+            "posX": -5.364106,
+            "posY": 4.122539,
+            "posZ": 37.9267769,
+            "rotX": 359.51825,
+            "rotY": 179.956024,
+            "rotZ": 11.0420971,
             "scaleX": 2.396114,
             "scaleY": 1.0,
             "scaleZ": 2.396114
@@ -5560,9 +5470,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.713270366,
-            "g": 0.713270366,
-            "b": 0.713270366
+            "r": 0.7132586,
+            "g": 0.7132586,
+            "b": 0.7132586
           },
           "Locked": false,
           "Grid": true,
@@ -5572,176 +5482,34 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": true,
+          "CardID": 1456,
           "SidewaysCard": false,
-          "DeckIDs": [
-            4429,
-            4430,
-            4431
-          ],
           "CustomDeck": {
-            "44": {
-              "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-              "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+            "14": {
+              "FaceURL": "http://i.imgur.com/QdpRHV8.jpg",
+              "BackURL": "http://i.imgur.com/jZEH5zw.jpg",
               "NumWidth": 10,
               "NumHeight": 7,
               "BackIsHidden": true,
-              "UniqueBack": false
+              "UniqueBack": true
             }
           },
           "XmlUI": "",
           "LuaScript": "",
           "LuaScriptState": "",
-          "ContainedObjects": [
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -34.3997421,
-                "posY": 1.18929255,
-                "posZ": -4.91488361,
-                "rotX": 0.0214474052,
-                "rotY": 179.975037,
-                "rotZ": 179.957321,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4429,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "1c59e6"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -35.0656662,
-                "posY": 1.17443013,
-                "posZ": -5.165417,
-                "rotX": 0.002063609,
-                "rotY": 180.021484,
-                "rotZ": 179.989792,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4430,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "fe0939"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -35.27373,
-                "posY": 1.0314647,
-                "posZ": -5.08662271,
-                "rotX": 0.00152468,
-                "rotY": 179.936615,
-                "rotZ": 179.989456,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4431,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "840972"
-            }
-          ],
-          "GUID": "ff419d"
+          "GUID": "826556"
         },
         {
-          "Name": "Deck",
+          "Name": "Card",
           "Transform": {
-            "posX": -18.72437,
-            "posY": 4.6253953,
-            "posZ": -12.0490475,
-            "rotX": 358.9791,
-            "rotY": 179.991623,
-            "rotZ": 0.526656747,
+            "posX": -8.077296,
+            "posY": 4.65931654,
+            "posZ": 35.452755,
+            "rotX": 359.933472,
+            "rotY": 179.9835,
+            "rotZ": -0.000896862,
             "scaleX": 2.396114,
             "scaleY": 1.0,
             "scaleZ": 2.396114
@@ -5750,9 +5518,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.713270366,
-            "g": 0.713270366,
-            "b": 0.713270366
+            "r": 0.7132586,
+            "g": 0.7132586,
+            "b": 0.7132586
           },
           "Locked": false,
           "Grid": true,
@@ -5762,187 +5530,45 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": true,
+          "CardID": 1455,
           "SidewaysCard": false,
-          "DeckIDs": [
-            4432,
-            4433,
-            4434
-          ],
           "CustomDeck": {
-            "44": {
-              "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-              "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+            "14": {
+              "FaceURL": "http://i.imgur.com/QdpRHV8.jpg",
+              "BackURL": "http://i.imgur.com/jZEH5zw.jpg",
               "NumWidth": 10,
               "NumHeight": 7,
               "BackIsHidden": true,
-              "UniqueBack": false
+              "UniqueBack": true
             }
           },
           "XmlUI": "",
           "LuaScript": "",
           "LuaScriptState": "",
-          "ContainedObjects": [
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -22.835783,
-                "posY": 1.19065619,
-                "posZ": 0.473196656,
-                "rotX": 0.0008376289,
-                "rotY": 179.95874,
-                "rotZ": 180.0011,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4432,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "e8b6d2"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -22.0373478,
-                "posY": 1.17421448,
-                "posZ": 0.0545863248,
-                "rotX": 0.000616002246,
-                "rotY": 179.9616,
-                "rotZ": 180.003342,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4433,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "256a77"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -22.13663,
-                "posY": 1.03146029,
-                "posZ": 0.274396479,
-                "rotX": 2.96745256E-05,
-                "rotY": 180.023224,
-                "rotZ": 180.00383,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4434,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "a44fc0"
-            }
-          ],
-          "GUID": "fb33b2"
+          "GUID": "1e5705"
         },
         {
-          "Name": "Deck",
+          "Name": "Bag",
           "Transform": {
-            "posX": -19.1811352,
-            "posY": 4.640977,
-            "posZ": -12.1887894,
-            "rotX": 359.338074,
-            "rotY": 180.001389,
-            "rotZ": 0.2575774,
-            "scaleX": 2.396114,
+            "posX": -7.54021358,
+            "posY": 4.28863859,
+            "posZ": 35.80345,
+            "rotX": 0.226137564,
+            "rotY": 0.0155664664,
+            "rotZ": 359.8456,
+            "scaleX": 1.0,
             "scaleY": 1.0,
-            "scaleZ": 2.396114
+            "scaleZ": 1.0
           },
-          "Nickname": "",
+          "Nickname": "Plots",
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.713270366,
-            "g": 0.713270366,
-            "b": 0.713270366
+            "r": 0.7058823,
+            "g": 0.366520882,
+            "b": 0.0
           },
           "Locked": false,
           "Grid": true,
@@ -5952,35 +5578,23 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
-          "SidewaysCard": false,
-          "DeckIDs": [
-            4435,
-            4436,
-            4437
-          ],
-          "CustomDeck": {
-            "44": {
-              "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-              "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-              "NumWidth": 10,
-              "NumHeight": 7,
-              "BackIsHidden": true,
-              "UniqueBack": false
-            }
-          },
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
           "XmlUI": "",
           "LuaScript": "",
           "LuaScriptState": "",
           "ContainedObjects": [
             {
-              "Name": "Card",
+              "Name": "Deck",
               "Transform": {
-                "posX": -18.6104183,
-                "posY": 1.19152808,
-                "posZ": -1.51342332,
-                "rotX": 0.00262244325,
-                "rotY": 179.976013,
-                "rotZ": 180.0034,
+                "posX": -6.35324955,
+                "posY": 1.589306,
+                "posZ": 47.8368759,
+                "rotX": 359.945,
+                "rotY": 179.99939,
+                "rotZ": 0.0801993757,
                 "scaleX": 2.396114,
                 "scaleY": 1.0,
                 "scaleZ": 2.396114
@@ -5989,9 +5603,9 @@
               "Description": "",
               "GMNotes": "",
               "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
+                "r": 0.713270366,
+                "g": 0.713270366,
+                "b": 0.713270366
               },
               "Locked": false,
               "Grid": true,
@@ -6001,222 +5615,235 @@
               "Sticky": true,
               "Tooltip": true,
               "GridProjection": false,
-              "CardID": 4435,
+              "HideWhenFaceDown": false,
+              "Hands": false,
               "SidewaysCard": false,
+              "DeckIDs": [
+                4435,
+                4436,
+                4437,
+                4302
+              ],
               "CustomDeck": {
                 "44": {
                   "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
                   "NumWidth": 10,
                   "NumHeight": 7,
                   "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "0832c7"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -19.8026218,
-                "posY": 1.17435586,
-                "posZ": -1.23264754,
-                "rotX": -0.00476593,
-                "rotY": 180.037933,
-                "rotZ": 179.981308,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4436,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "9721e4"
-            },
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -20.3024178,
-                "posY": 1.03145945,
-                "posZ": -0.794053,
-                "rotX": -0.00569924,
-                "rotY": 179.922287,
-                "rotZ": 179.980331,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.7132586,
-                "g": 0.7132586,
-                "b": 0.7132586
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4437,
-              "SidewaysCard": false,
-              "CustomDeck": {
-                "44": {
-                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-                  "NumWidth": 10,
-                  "NumHeight": 7,
-                  "BackIsHidden": true,
-                  "UniqueBack": false
-                }
-              },
-              "XmlUI": "",
-              "LuaScript": "",
-              "LuaScriptState": "",
-              "GUID": "b4ab82"
-            }
-          ],
-          "GUID": "268c0d"
-        },
-        {
-          "Name": "Deck",
-          "Transform": {
-            "posX": -19.0381527,
-            "posY": 4.629662,
-            "posZ": -11.2799358,
-            "rotX": 358.9957,
-            "rotY": 180.002151,
-            "rotZ": 179.751419,
-            "scaleX": 2.396114,
-            "scaleY": 1.0,
-            "scaleZ": 2.396114
-          },
-          "Nickname": "",
-          "Description": "",
-          "GMNotes": "",
-          "ColorDiffuse": {
-            "r": 0.7132782,
-            "g": 0.7132782,
-            "b": 0.7132782
-          },
-          "Locked": false,
-          "Grid": true,
-          "Snap": true,
-          "IgnoreFoW": false,
-          "Autoraise": true,
-          "Sticky": true,
-          "Tooltip": true,
-          "GridProjection": false,
-          "SidewaysCard": false,
-          "DeckIDs": [
-            4302,
-            4301,
-            4300
-          ],
-          "CustomDeck": {
-            "43": {
-              "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-              "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
-              "NumWidth": 10,
-              "NumHeight": 7,
-              "BackIsHidden": true,
-              "UniqueBack": false
-            }
-          },
-          "XmlUI": "",
-          "LuaScript": "",
-          "LuaScriptState": "",
-          "ContainedObjects": [
-            {
-              "Name": "Card",
-              "Transform": {
-                "posX": -10.3253183,
-                "posY": 1.02833474,
-                "posZ": -6.606696,
-                "rotX": -0.00130354473,
-                "rotY": 179.99913,
-                "rotZ": -0.00324475486,
-                "scaleX": 2.396114,
-                "scaleY": 1.0,
-                "scaleZ": 2.396114
-              },
-              "Nickname": "",
-              "Description": "",
-              "GMNotes": "",
-              "ColorDiffuse": {
-                "r": 0.71327424,
-                "g": 0.71327424,
-                "b": 0.71327424
-              },
-              "Locked": false,
-              "Grid": true,
-              "Snap": true,
-              "IgnoreFoW": false,
-              "Autoraise": true,
-              "Sticky": true,
-              "Tooltip": true,
-              "GridProjection": false,
-              "CardID": 4302,
-              "SidewaysCard": false,
-              "CustomDeck": {
+                  "UniqueBack": true
+                },
                 "43": {
                   "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
                   "NumWidth": 10,
                   "NumHeight": 7,
                   "BackIsHidden": true,
-                  "UniqueBack": false
+                  "UniqueBack": true
                 }
               },
               "XmlUI": "",
               "LuaScript": "",
               "LuaScriptState": "",
-              "GUID": "fc5dbd"
+              "ContainedObjects": [
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -18.6104183,
+                    "posY": 1.19152808,
+                    "posZ": -1.51342332,
+                    "rotX": 0.00262244325,
+                    "rotY": 179.976013,
+                    "rotZ": 180.0034,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 4435,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "0832c7"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -19.8026218,
+                    "posY": 1.17435586,
+                    "posZ": -1.23264754,
+                    "rotX": -0.00476593,
+                    "rotY": 180.037933,
+                    "rotZ": 179.981308,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 4436,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "9721e4"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -20.3024178,
+                    "posY": 1.03145945,
+                    "posZ": -0.794053,
+                    "rotX": -0.00569924,
+                    "rotY": 179.922287,
+                    "rotZ": 179.980331,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 4437,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "b4ab82"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -5.71941233,
+                    "posY": -0.318052739,
+                    "posZ": 51.38403,
+                    "rotX": -0.000201219766,
+                    "rotY": 179.9945,
+                    "rotZ": 0.00184407434,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132782,
+                    "g": 0.7132782,
+                    "b": 0.7132782
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "HideWhenFaceDown": false,
+                  "Hands": true,
+                  "CardID": 4302,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "43": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": true
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "fc5dbd"
+                }
+              ],
+              "GUID": "268c0d"
             },
             {
-              "Name": "Card",
+              "Name": "Deck",
               "Transform": {
-                "posX": -7.036019,
-                "posY": 1.02888238,
-                "posZ": 1.56649077,
-                "rotX": -0.000429718377,
-                "rotY": 179.994141,
-                "rotZ": -0.0045777997,
+                "posX": -7.892211,
+                "posY": 1.62317729,
+                "posZ": 47.9090462,
+                "rotX": 359.469757,
+                "rotY": 179.966339,
+                "rotZ": 13.4758415,
                 "scaleX": 2.396114,
                 "scaleY": 1.0,
                 "scaleZ": 2.396114
@@ -6225,9 +5852,9 @@
               "Description": "",
               "GMNotes": "",
               "ColorDiffuse": {
-                "r": 0.71327424,
-                "g": 0.71327424,
-                "b": 0.71327424
+                "r": 0.713270366,
+                "g": 0.713270366,
+                "b": 0.713270366
               },
               "Locked": false,
               "Grid": true,
@@ -6237,32 +5864,235 @@
               "Sticky": true,
               "Tooltip": true,
               "GridProjection": false,
-              "CardID": 4301,
+              "HideWhenFaceDown": false,
+              "Hands": false,
               "SidewaysCard": false,
+              "DeckIDs": [
+                211432,
+                211433,
+                211434,
+                4301
+              ],
               "CustomDeck": {
-                "43": {
+                "2114": {
                   "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
                   "NumWidth": 10,
                   "NumHeight": 7,
                   "BackIsHidden": true,
-                  "UniqueBack": false
+                  "UniqueBack": true
+                },
+                "43": {
+                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
+                  "NumWidth": 10,
+                  "NumHeight": 7,
+                  "BackIsHidden": true,
+                  "UniqueBack": true
                 }
               },
               "XmlUI": "",
               "LuaScript": "",
               "LuaScriptState": "",
-              "GUID": "37bb26"
+              "ContainedObjects": [
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -22.835783,
+                    "posY": 1.19065619,
+                    "posZ": 0.473196656,
+                    "rotX": 0.0008376289,
+                    "rotY": 179.95874,
+                    "rotZ": 180.0011,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 211432,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "e8b6d2"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -22.0373478,
+                    "posY": 1.17421448,
+                    "posZ": 0.0545863248,
+                    "rotX": 0.000616002246,
+                    "rotY": 179.9616,
+                    "rotZ": 180.003342,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 211433,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "256a77"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -22.13663,
+                    "posY": 1.03146029,
+                    "posZ": 0.274396479,
+                    "rotX": 2.96745256E-05,
+                    "rotY": 180.023224,
+                    "rotZ": 180.00383,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 211434,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "a44fc0"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -0.436297357,
+                    "posY": 0.7683743,
+                    "posZ": 52.079792,
+                    "rotX": -0.001659604,
+                    "rotY": 180.000183,
+                    "rotZ": 0.3415432,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132782,
+                    "g": 0.7132782,
+                    "b": 0.7132782
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "HideWhenFaceDown": false,
+                  "Hands": true,
+                  "CardID": 4301,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "43": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": true
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "37bb26"
+                }
+              ],
+              "GUID": "fb33b2"
             },
             {
-              "Name": "Card",
+              "Name": "Deck",
               "Transform": {
-                "posX": -7.012201,
-                "posY": 1.213242,
-                "posZ": 0.9860458,
-                "rotX": 359.2205,
-                "rotY": 180.002823,
-                "rotZ": 359.748932,
+                "posX": -9.421646,
+                "posY": 1.59333408,
+                "posZ": 45.7217636,
+                "rotX": 0.0469609872,
+                "rotY": 179.999451,
+                "rotZ": 359.966827,
                 "scaleX": 2.396114,
                 "scaleY": 1.0,
                 "scaleZ": 2.396114
@@ -6271,9 +6101,9 @@
               "Description": "",
               "GMNotes": "",
               "ColorDiffuse": {
-                "r": 0.71327424,
-                "g": 0.71327424,
-                "b": 0.71327424
+                "r": 0.713270366,
+                "g": 0.713270366,
+                "b": 0.713270366
               },
               "Locked": false,
               "Grid": true,
@@ -6283,35 +6113,238 @@
               "Sticky": true,
               "Tooltip": true,
               "GridProjection": false,
-              "CardID": 4300,
+              "HideWhenFaceDown": false,
+              "Hands": false,
               "SidewaysCard": false,
+              "DeckIDs": [
+                211529,
+                211530,
+                211531,
+                4300
+              ],
               "CustomDeck": {
-                "43": {
+                "2115": {
                   "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
-                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
                   "NumWidth": 10,
                   "NumHeight": 7,
                   "BackIsHidden": true,
-                  "UniqueBack": false
+                  "UniqueBack": true
+                },
+                "43": {
+                  "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                  "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
+                  "NumWidth": 10,
+                  "NumHeight": 7,
+                  "BackIsHidden": true,
+                  "UniqueBack": true
                 }
               },
               "XmlUI": "",
               "LuaScript": "",
               "LuaScriptState": "",
-              "GUID": "f2c339"
+              "ContainedObjects": [
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -34.3997421,
+                    "posY": 1.18929255,
+                    "posZ": -4.91488361,
+                    "rotX": 0.0214474052,
+                    "rotY": 179.975037,
+                    "rotZ": 179.957321,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 211529,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "1c59e6"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -35.0656662,
+                    "posY": 1.17443013,
+                    "posZ": -5.165417,
+                    "rotX": 0.002063609,
+                    "rotY": 180.021484,
+                    "rotZ": 179.989792,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 211530,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "fe0939"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": -35.27373,
+                    "posY": 1.0314647,
+                    "posZ": -5.08662271,
+                    "rotX": 0.00152468,
+                    "rotY": 179.936615,
+                    "rotZ": 179.989456,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.7132586,
+                    "g": 0.7132586,
+                    "b": 0.7132586
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "CardID": 211531,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "44": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg{Unique}",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": false
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "840972"
+                },
+                {
+                  "Name": "Card",
+                  "Transform": {
+                    "posX": 6.168804,
+                    "posY": -0.09318205,
+                    "posZ": 52.38989,
+                    "rotX": 0.000374418974,
+                    "rotY": 179.992981,
+                    "rotZ": 351.464874,
+                    "scaleX": 2.396114,
+                    "scaleY": 1.0,
+                    "scaleZ": 2.396114
+                  },
+                  "Nickname": "",
+                  "Description": "",
+                  "GMNotes": "",
+                  "ColorDiffuse": {
+                    "r": 0.713270366,
+                    "g": 0.713270366,
+                    "b": 0.713270366
+                  },
+                  "Locked": false,
+                  "Grid": true,
+                  "Snap": true,
+                  "IgnoreFoW": false,
+                  "Autoraise": true,
+                  "Sticky": true,
+                  "Tooltip": true,
+                  "GridProjection": false,
+                  "HideWhenFaceDown": false,
+                  "Hands": true,
+                  "CardID": 4300,
+                  "SidewaysCard": false,
+                  "CustomDeck": {
+                    "43": {
+                      "FaceURL": "http://i.imgur.com/wjqsDzp.jpg",
+                      "BackURL": "http://i.imgur.com/GsIeF9i.jpg",
+                      "NumWidth": 10,
+                      "NumHeight": 7,
+                      "BackIsHidden": true,
+                      "UniqueBack": true
+                    }
+                  },
+                  "XmlUI": "",
+                  "LuaScript": "",
+                  "LuaScriptState": "",
+                  "GUID": "f2c339"
+                }
+              ],
+              "GUID": "ff419d"
             }
           ],
-          "GUID": "c0c74c"
+          "GUID": "bcc8be"
         },
         {
           "Name": "Custom_Model",
           "Transform": {
-            "posX": -18.1107,
-            "posY": 4.55170441,
-            "posZ": -12.5615187,
-            "rotX": 354.929077,
-            "rotY": 269.993927,
-            "rotZ": 179.070221,
+            "posX": -7.00429964,
+            "posY": 4.58173227,
+            "posZ": 35.37523,
+            "rotX": 359.75705,
+            "rotY": 179.978439,
+            "rotZ": 0.167089239,
             "scaleX": 0.875,
             "scaleY": 0.875,
             "scaleZ": 0.875
@@ -6320,9 +6353,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.9999999,
-            "g": 0.9921694,
-            "b": 0.9999999
+            "r": 0.9999998,
+            "g": 0.9921693,
+            "b": 0.9999998
           },
           "Locked": false,
           "Grid": true,
@@ -6332,6 +6365,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "CustomMesh": {
             "MeshURL": "http://pastebin.com/raw/YEUgwvw9",
             "DiffuseURL": "http://i.imgur.com/5eZp4Ca.jpg",
@@ -6350,12 +6385,12 @@
         {
           "Name": "Custom_Model",
           "Transform": {
-            "posX": -17.7983017,
-            "posY": 4.49505234,
-            "posZ": -12.2750177,
-            "rotX": 356.898346,
-            "rotY": 270.052521,
-            "rotZ": 355.181427,
+            "posX": -7.389468,
+            "posY": 4.55546,
+            "posZ": 35.291317,
+            "rotX": 359.81424,
+            "rotY": 269.944641,
+            "rotZ": 179.649368,
             "scaleX": 0.75,
             "scaleY": 0.75,
             "scaleZ": 0.75
@@ -6364,9 +6399,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.9999999,
-            "g": 0.9921664,
-            "b": 0.9999999
+            "r": 0.9999998,
+            "g": 0.99216634,
+            "b": 0.9999998
           },
           "Locked": false,
           "Grid": true,
@@ -6376,6 +6411,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "CustomMesh": {
             "MeshURL": "http://pastebin.com/raw/rtajq6wT",
             "DiffuseURL": "http://i.imgur.com/qYGKV4n.png",
@@ -6394,12 +6431,12 @@
         {
           "Name": "DeckCustom",
           "Transform": {
-            "posX": 5.36342573,
-            "posY": 2.334794,
-            "posZ": -8.05015,
-            "rotX": -1.344144E-07,
-            "rotY": 179.9677,
-            "rotZ": 180.0,
+            "posX": -7.58679628,
+            "posY": 4.720482,
+            "posZ": 36.7161064,
+            "rotX": 359.92334,
+            "rotY": 179.9984,
+            "rotZ": 180.039383,
             "scaleX": 2.396114,
             "scaleY": 1.0,
             "scaleZ": 2.396114
@@ -6420,6 +6457,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": true,
+          "Hands": false,
           "SidewaysCard": false,
           "DeckIDs": [
             20000,
@@ -6461,23 +6500,23 @@
             {
               "Name": "Card",
               "Transform": {
-                "posX": 2.82265628E-05,
-                "posY": 1.041931,
-                "posZ": -0.0006906173,
-                "rotX": 2.08729219E-07,
-                "rotY": 179.9631,
-                "rotZ": 180.0,
-                "scaleX": 1.0,
+                "posX": -22.382906,
+                "posY": -0.247018978,
+                "posZ": 52.2308159,
+                "rotX": 0.00405197,
+                "rotY": 179.967712,
+                "rotZ": 179.9989,
+                "scaleX": 2.396114,
                 "scaleY": 1.0,
-                "scaleZ": 1.0
+                "scaleZ": 2.396114
               },
               "Nickname": "",
               "Description": "",
               "GMNotes": "",
               "ColorDiffuse": {
-                "r": 0.713239133,
-                "g": 0.713239133,
-                "b": 0.713239133
+                "r": 0.713243067,
+                "g": 0.713243067,
+                "b": 0.713243067
               },
               "Locked": false,
               "Grid": true,
@@ -6487,13 +6526,24 @@
               "Sticky": true,
               "Tooltip": true,
               "GridProjection": false,
+              "HideWhenFaceDown": true,
+              "Hands": true,
               "CardID": 20000,
               "SidewaysCard": false,
+              "CustomDeck": {
+                "200": {
+                  "FaceURL": "http://i.imgur.com/U3bDkP1.jpg",
+                  "BackURL": "http://i.imgur.com/t0yiLUVl.jpg",
+                  "NumWidth": 10,
+                  "NumHeight": 7,
+                  "BackIsHidden": true,
+                  "UniqueBack": false
+                }
+              },
               "XmlUI": "",
               "LuaScript": "",
               "LuaScriptState": "",
-              "ContainedObjects": [],
-              "GUID": "241520"
+              "GUID": "d18c55"
             },
             {
               "Name": "Card",
@@ -7241,12 +7291,12 @@
         {
           "Name": "DeckCustom",
           "Transform": {
-            "posX": 19.0013218,
-            "posY": 2.10209084,
-            "posZ": -1.52697992,
-            "rotX": 8.276532E-07,
-            "rotY": 179.965836,
-            "rotZ": 180.0,
+            "posX": -8.535084,
+            "posY": 4.684691,
+            "posZ": 38.39411,
+            "rotX": 0.0581825934,
+            "rotY": 180.00563,
+            "rotZ": 180.268463,
             "scaleX": 2.396114,
             "scaleY": 1.0,
             "scaleZ": 2.396114
@@ -7267,6 +7317,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": true,
+          "Hands": false,
           "SidewaysCard": false,
           "DeckIDs": [
             20500,
@@ -8088,12 +8140,12 @@
         {
           "Name": "Custom_Model",
           "Transform": {
-            "posX": 26.26977,
-            "posY": 3.211929,
-            "posZ": 52.5196037,
-            "rotX": 3.44634645E-05,
-            "rotY": 180.031952,
-            "rotZ": -5.368553E-07,
+            "posX": -7.953602,
+            "posY": 5.83369446,
+            "posZ": 34.43947,
+            "rotX": 359.964844,
+            "rotY": 179.990128,
+            "rotZ": 0.0297653917,
             "scaleX": 1.75,
             "scaleY": 1.75,
             "scaleZ": 1.75
@@ -8102,9 +8154,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.9999999,
+            "r": 0.9999998,
             "g": 0.9921635,
-            "b": 0.9999999
+            "b": 0.9999998
           },
           "Locked": false,
           "Grid": true,
@@ -8114,6 +8166,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "CustomMesh": {
             "MeshURL": "http://pastebin.com/raw/j0M8Ux36",
             "DiffuseURL": "http://i.imgur.com/O0B8LSb.jpg",
@@ -8132,12 +8186,12 @@
         {
           "Name": "Custom_Tile",
           "Transform": {
-            "posX": -19.5940475,
-            "posY": 4.36059332,
-            "posZ": -13.9371443,
-            "rotX": 4.909645,
-            "rotY": 179.873718,
-            "rotZ": 356.706482,
+            "posX": -8.141614,
+            "posY": 4.385758,
+            "posZ": 35.67831,
+            "rotX": 359.517975,
+            "rotY": 180.0082,
+            "rotZ": 359.970032,
             "scaleX": 0.6428425,
             "scaleY": 1.0,
             "scaleZ": 0.6428425
@@ -8146,9 +8200,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.99999994,
-            "g": 0.99999994,
-            "b": 0.99999994
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
           },
           "Locked": false,
           "Grid": true,
@@ -8158,6 +8212,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "CustomImage": {
             "ImageURL": "http://i.imgur.com/oYEFY96.png",
             "ImageSecondaryURL": "",
@@ -8178,12 +8234,12 @@
         {
           "Name": "Custom_Model",
           "Transform": {
-            "posX": -11.411685,
-            "posY": 4.741901,
-            "posZ": 39.9772644,
-            "rotX": 359.1991,
-            "rotY": 179.995728,
-            "rotZ": -0.0010560865,
+            "posX": -10.9326735,
+            "posY": 4.490252,
+            "posZ": 41.499855,
+            "rotX": 359.959534,
+            "rotY": 180.005844,
+            "rotZ": 359.9907,
             "scaleX": 1.75,
             "scaleY": 1.75,
             "scaleZ": 1.75
@@ -8192,9 +8248,9 @@
           "Description": "",
           "GMNotes": "",
           "ColorDiffuse": {
-            "r": 0.9999999,
+            "r": 0.9999998,
             "g": 0.992161334,
-            "b": 0.9999999
+            "b": 0.9999998
           },
           "Locked": false,
           "Grid": true,
@@ -8204,6 +8260,8 @@
           "Sticky": true,
           "Tooltip": true,
           "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
           "CustomMesh": {
             "MeshURL": "http://pastebin.com/raw/CGx9ZFvb",
             "DiffuseURL": "http://i.imgur.com/aLmeQY6.jpg",
@@ -8255,89 +8313,6 @@
               }
             }
           ]
-        },
-        {
-          "Name": "Custom_Model",
-          "Transform": {
-            "posX": -0.2466007,
-            "posY": 4.87929,
-            "posZ": 39.0556946,
-            "rotX": 0.4059855,
-            "rotY": 179.982849,
-            "rotZ": 0.0109326122,
-            "scaleX": 1.75,
-            "scaleY": 1.75,
-            "scaleZ": 1.75
-          },
-          "Nickname": "",
-          "Description": "",
-          "GMNotes": "",
-          "ColorDiffuse": {
-            "r": 0.9999998,
-            "g": 0.992161334,
-            "b": 0.9999998
-          },
-          "Locked": false,
-          "Grid": true,
-          "Snap": true,
-          "IgnoreFoW": false,
-          "Autoraise": true,
-          "Sticky": true,
-          "Tooltip": true,
-          "GridProjection": false,
-          "HideWhenFaceDown": false,
-          "Hands": false,
-          "CustomMesh": {
-            "MeshURL": "http://pastebin.com/raw/CGx9ZFvb",
-            "DiffuseURL": "http://i.imgur.com/mOqlMjW.jpg",
-            "NormalURL": "",
-            "ColliderURL": "",
-            "Convex": true,
-            "MaterialIndex": 3,
-            "TypeIndex": 0,
-            "CastShadows": true
-          },
-          "XmlUI": "",
-          "LuaScript": "",
-          "LuaScriptState": "",
-          "GUID": "273c8f",
-          "AttachedSnapPoints": [
-            {
-              "Position": {
-                "x": 3.16777515,
-                "y": 0.140383542,
-                "z": 2.4158802
-              }
-            },
-            {
-              "Position": {
-                "x": -0.035436,
-                "y": 0.140383616,
-                "z": 1.29951632
-              }
-            },
-            {
-              "Position": {
-                "x": 1.64828658,
-                "y": 0.140383527,
-                "z": 1.60214388
-              }
-            },
-            {
-              "Position": {
-                "x": -1.84115064,
-                "y": 0.140383616,
-                "z": 1.62284136
-              }
-            },
-            {
-              "Position": {
-                "x": -3.23852348,
-                "y": 0.140383616,
-                "z": 2.41447568
-              }
-            }
-          ]
         }
       ],
       "GUID": "83215a"
@@ -8346,11 +8321,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": 41.3575134,
-        "posY": 1.06000006,
+        "posY": 1.06,
         "posZ": -12.8110352,
-        "rotX": -1.667204E-06,
+        "rotX": 6.457096E-07,
         "rotY": 180.00383,
-        "rotZ": -1.39672227E-06,
+        "rotZ": 3.15664181E-07,
         "scaleX": 1.216428,
         "scaleY": 1.0,
         "scaleZ": 1.216428
@@ -8393,11 +8368,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": -34.91507,
-        "posY": 1.0600003,
+        "posY": 1.06,
         "posZ": 23.5072975,
-        "rotX": 1.40411848E-05,
+        "rotX": -2.5840875E-06,
         "rotY": 180.001511,
-        "rotZ": 1.2175492E-05,
+        "rotZ": -4.44405168E-06,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -8440,11 +8415,11 @@
       "Name": "Custom_Token_Stack",
       "Transform": {
         "posX": -30.10303,
-        "posY": 1.06,
+        "posY": 1.06000006,
         "posZ": 18.59502,
-        "rotX": -6.41089741E-07,
-        "rotY": 179.99118,
-        "rotZ": -9.867644E-06,
+        "rotX": -1.60073887E-05,
+        "rotY": 179.9912,
+        "rotZ": 1.12996613E-05,
         "scaleX": 0.5087685,
         "scaleY": 1.0,
         "scaleZ": 0.5087685
@@ -8489,12 +8464,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": 6.16594458,
-        "posY": 0.6374078,
-        "posZ": 34.61595,
-        "rotX": -1.93117921E-05,
-        "rotY": 0.00554311136,
-        "rotZ": 3.4575155E-06,
+        "posX": 6.165922,
+        "posY": 0.637406945,
+        "posZ": 34.6159477,
+        "rotX": -2.918119E-07,
+        "rotY": 0.005475216,
+        "rotZ": -1.10070694E-07,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -11537,12 +11512,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": -1.24547088,
-        "posY": 0.6374074,
+        "posX": -1.24547458,
+        "posY": 0.637408257,
         "posZ": 32.8880424,
-        "rotX": -1.08241693E-05,
-        "rotY": 0.0324916244,
-        "rotZ": 8.907252E-07,
+        "rotX": -1.01032638E-05,
+        "rotY": 0.0323602743,
+        "rotZ": -9.93364E-07,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -11551,8 +11526,8 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.183864444,
-        "g": 0.38342613,
+        "r": 0.183864266,
+        "g": 0.383425921,
         "b": 0.663763
       },
       "Locked": false,
@@ -14490,6 +14465,89 @@
           "LuaScript": "",
           "LuaScriptState": "",
           "GUID": "684399"
+        },
+        {
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 3.52329826,
+            "posY": 4.84396267,
+            "posZ": 27.0698166,
+            "rotX": 0.0060022776,
+            "rotY": 180.007355,
+            "rotZ": -1.79959977E-06,
+            "scaleX": 1.75,
+            "scaleY": 1.75,
+            "scaleZ": 1.75
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "ColorDiffuse": {
+            "r": 0.9999998,
+            "g": 0.992161334,
+            "b": 0.9999998
+          },
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "http://pastebin.com/raw/CGx9ZFvb",
+            "DiffuseURL": "http://i.imgur.com/mOqlMjW.jpg",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 3,
+            "TypeIndex": 0,
+            "CastShadows": true
+          },
+          "XmlUI": "",
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "GUID": "273c8f",
+          "AttachedSnapPoints": [
+            {
+              "Position": {
+                "x": 3.16777515,
+                "y": 0.140383542,
+                "z": 2.4158802
+              }
+            },
+            {
+              "Position": {
+                "x": -0.035436,
+                "y": 0.140383616,
+                "z": 1.29951632
+              }
+            },
+            {
+              "Position": {
+                "x": 1.64828658,
+                "y": 0.140383527,
+                "z": 1.60214388
+              }
+            },
+            {
+              "Position": {
+                "x": -1.84115064,
+                "y": 0.140383616,
+                "z": 1.62284136
+              }
+            },
+            {
+              "Position": {
+                "x": -3.23852348,
+                "y": 0.140383616,
+                "z": 2.41447568
+              }
+            }
+          ]
         }
       ],
       "GUID": "6d8d74"
@@ -14498,11 +14556,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 13.2988043,
-        "posY": 0.637406349,
+        "posY": 0.63740766,
         "posZ": 33.66924,
-        "rotX": 4.26848572E-07,
+        "rotX": 4.26875772E-07,
         "rotY": 180.036011,
-        "rotZ": 1.21863607E-07,
+        "rotZ": 3.51522225E-08,
         "scaleX": 1.75,
         "scaleY": 1.75,
         "scaleZ": 1.75
@@ -14512,8 +14570,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.959930241,
-        "g": 0.245835543,
-        "b": 0.245835543
+        "g": 0.245835364,
+        "b": 0.245835364
       },
       "Locked": false,
       "Grid": true,
@@ -17384,11 +17442,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": 36.31599,
-        "posY": 1.48839879,
+        "posY": 1.48840725,
         "posZ": -33.90253,
-        "rotX": 0.000462393422,
-        "rotY": 179.970612,
-        "rotZ": 0.000130079439,
+        "rotX": 0.000192988809,
+        "rotY": 179.970673,
+        "rotZ": 0.00049961335,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -17431,11 +17489,11 @@
       "Name": "Custom_Token_Stack",
       "Transform": {
         "posX": -29.7782669,
-        "posY": 1.01000047,
-        "posZ": 23.5663223,
-        "rotX": -5.415177E-06,
-        "rotY": 90.56693,
-        "rotZ": -1.60865948E-05,
+        "posY": 1.01000035,
+        "posZ": 23.5663242,
+        "rotX": -6.086285E-07,
+        "rotY": 90.56679,
+        "rotZ": -2.42766564E-05,
         "scaleX": 0.6119569,
         "scaleY": 1.0,
         "scaleZ": 0.6119569
@@ -17480,12 +17538,12 @@
     {
       "Name": "Custom_Token_Stack",
       "Transform": {
-        "posX": -29.7473755,
+        "posX": -29.7473736,
         "posY": 1.01,
-        "posZ": 21.06416,
-        "rotX": 6.46201158E-07,
-        "rotY": 269.9911,
-        "rotZ": 5.612106E-07,
+        "posZ": 21.0641632,
+        "rotX": -2.73310718E-07,
+        "rotY": 269.991455,
+        "rotZ": 3.29212139E-06,
         "scaleX": 0.6119569,
         "scaleY": 1.0,
         "scaleZ": 0.6119569
@@ -17531,9 +17589,9 @@
       "Name": "Custom_Token_Stack",
       "Transform": {
         "posX": -30.1698818,
-        "posY": 2.210003,
+        "posY": 2.21000314,
         "posZ": 15.7763433,
-        "rotX": 1.80155212E-07,
+        "rotX": 1.86762946E-07,
         "rotY": 179.933029,
         "rotZ": 180.0,
         "scaleX": 0.5166697,
@@ -17583,7 +17641,7 @@
         "posX": -30.1280384,
         "posY": 2.010003,
         "posZ": 13.2842693,
-        "rotX": 3.8725485E-08,
+        "rotX": 1.45330063E-07,
         "rotY": 179.5266,
         "rotZ": 180.0,
         "scaleX": 0.5166697,
@@ -17631,11 +17689,11 @@
       "Name": "Custom_Token_Stack",
       "Transform": {
         "posX": -31.6879978,
-        "posY": 1.01000023,
-        "posZ": 10.2627277,
-        "rotX": 4.26900351E-06,
-        "rotY": 179.9965,
-        "rotZ": 4.43215549E-06,
+        "posY": 1.01,
+        "posZ": 10.2627268,
+        "rotX": -7.683983E-06,
+        "rotY": 179.99649,
+        "rotZ": -6.934556E-07,
         "scaleX": 0.4912073,
         "scaleY": 1.0,
         "scaleZ": 0.4912073
@@ -17683,7 +17741,7 @@
         "posX": -35.90466,
         "posY": 2.110003,
         "posZ": 10.338191,
-        "rotX": 3.419126E-07,
+        "rotX": 3.52851032E-07,
         "rotY": 179.978622,
         "rotZ": 180.0,
         "scaleX": 0.5166697,
@@ -17733,9 +17791,9 @@
         "posX": -33.69425,
         "posY": 1.01000011,
         "posZ": 10.2025976,
-        "rotX": -1.36613926E-05,
-        "rotY": 180.0239,
-        "rotZ": 4.86466161E-06,
+        "rotX": -2.56226531E-06,
+        "rotY": 180.02388,
+        "rotZ": 4.53013627E-06,
         "scaleX": 0.50286305,
         "scaleY": 1.0,
         "scaleZ": 0.50286305
@@ -17781,11 +17839,11 @@
       "Name": "Custom_Token_Stack",
       "Transform": {
         "posX": -29.5907841,
-        "posY": 1.00999987,
+        "posY": 1.01000011,
         "posZ": 10.3180676,
-        "rotX": 1.7078497E-05,
-        "rotY": 179.981277,
-        "rotZ": 1.85134268E-05,
+        "rotX": -3.842135E-06,
+        "rotY": 179.981232,
+        "rotZ": -9.369378E-07,
         "scaleX": 0.50286305,
         "scaleY": 1.0,
         "scaleZ": 0.50286305
@@ -17831,11 +17889,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": -23.82899,
-        "posY": 1.48835146,
-        "posZ": -34.174324,
-        "rotX": 0.0002763093,
-        "rotY": 179.957748,
-        "rotZ": 0.0002089241,
+        "posY": 1.488349,
+        "posZ": -34.1743279,
+        "rotX": 0.000369487883,
+        "rotY": 179.957764,
+        "rotZ": 0.0001227862,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -17878,11 +17936,11 @@
       "Name": "Custom_Token",
       "Transform": {
         "posX": -35.2377625,
-        "posY": 1.48840928,
+        "posY": 1.48840606,
         "posZ": 34.02739,
-        "rotX": 5.20233261E-05,
-        "rotY": 179.978088,
-        "rotZ": -0.000264716771,
+        "rotX": 6.604478E-05,
+        "rotY": 179.978333,
+        "rotZ": -0.000303402368,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -17925,11 +17983,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": -16.5712452,
-        "posY": 1.04665029,
+        "posY": 1.04665053,
         "posZ": 28.3146725,
-        "rotX": -1.12088451E-07,
+        "rotX": 1.0558972E-07,
         "rotY": 179.99678,
-        "rotZ": 1.96045931E-07,
+        "rotZ": -3.7507283E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -17973,9 +18031,9 @@
         "posX": -14.1187277,
         "posY": 1.04665041,
         "posZ": 28.3727322,
-        "rotX": 1.75442253E-07,
+        "rotX": 1.13677849E-07,
         "rotY": 180.005966,
-        "rotZ": -3.223572E-08,
+        "rotZ": 5.71966723E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18019,9 +18077,9 @@
         "posX": -11.8861647,
         "posY": 1.04665029,
         "posZ": 28.3759575,
-        "rotX": -5.49802166E-07,
+        "rotX": -5.148015E-07,
         "rotY": 180.000656,
-        "rotZ": 1.120164E-07,
+        "rotZ": 6.926736E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18063,11 +18121,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": -9.92311,
-        "posY": 1.04665029,
+        "posY": 1.04665041,
         "posZ": 28.13484,
-        "rotX": -4.15754862E-08,
+        "rotX": -1.7110149E-07,
         "rotY": 179.999741,
-        "rotZ": -2.16348788E-08,
+        "rotZ": 7.65116752E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18111,9 +18169,9 @@
         "posX": -7.706082,
         "posY": 1.04665041,
         "posZ": 28.2003078,
-        "rotX": -1.25468233E-07,
+        "rotX": -3.821183E-09,
         "rotY": 180.0048,
-        "rotZ": 9.140472E-08,
+        "rotZ": 1.46249448E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18157,9 +18215,9 @@
         "posX": -5.605491,
         "posY": 1.04665041,
         "posZ": 28.0900421,
-        "rotX": -3.04444058E-07,
+        "rotX": -3.398741E-07,
         "rotY": 180.004913,
-        "rotZ": 1.08892586E-07,
+        "rotZ": 2.58432181E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18203,9 +18261,9 @@
         "posX": 3.062365,
         "posY": 1.04665029,
         "posZ": 28.0530968,
-        "rotX": 6.833939E-08,
+        "rotX": -1.10999423E-07,
         "rotY": 180.016983,
-        "rotZ": -2.20435567E-07,
+        "rotZ": -3.62725E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18249,9 +18307,9 @@
         "posX": 5.152316,
         "posY": 1.04665029,
         "posZ": 27.9829922,
-        "rotX": -7.40360662E-08,
+        "rotX": -1.17982765E-07,
         "rotY": 180.018066,
-        "rotZ": 2.96779035E-07,
+        "rotZ": 2.59288356E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18295,9 +18353,9 @@
         "posX": 7.446503,
         "posY": 1.04665029,
         "posZ": 27.9406719,
-        "rotX": -1.33966012E-07,
+        "rotX": -1.60807787E-07,
         "rotY": 180.016632,
-        "rotZ": 1.774278E-07,
+        "rotZ": 1.699577E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18341,9 +18399,9 @@
         "posX": -3.41223884,
         "posY": 1.04665041,
         "posZ": 28.0197525,
-        "rotX": 3.97933029E-08,
+        "rotX": 1.68627025E-07,
         "rotY": 180.004761,
-        "rotZ": 3.12122921E-07,
+        "rotZ": 2.96261078E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18387,9 +18445,9 @@
         "posX": -1.30161631,
         "posY": 1.04665041,
         "posZ": 28.1028118,
-        "rotX": 5.93784932E-07,
+        "rotX": 2.30565561E-07,
         "rotY": 180.001831,
-        "rotZ": 4.67597886E-07,
+        "rotZ": 4.21461948E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18433,9 +18491,9 @@
         "posX": 0.803191,
         "posY": 1.04665041,
         "posZ": 28.04751,
-        "rotX": 2.26196477E-07,
+        "rotX": 1.84594668E-07,
         "rotY": 180.002487,
-        "rotZ": -1.89665741E-08,
+        "rotZ": 5.7954237E-09,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18479,9 +18537,9 @@
         "posX": 9.61145,
         "posY": 1.04665041,
         "posZ": 27.9454975,
-        "rotX": -1.01461623E-07,
+        "rotX": -1.17171709E-07,
         "rotY": 180.003586,
-        "rotZ": -9.690406E-08,
+        "rotZ": 1.876624E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18523,11 +18581,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 12.0009508,
-        "posY": 1.04665029,
+        "posY": 1.04665041,
         "posZ": 27.9911747,
-        "rotX": 1.73493845E-07,
+        "rotX": 2.23493558E-07,
         "rotY": 180.005829,
-        "rotZ": 1.70311387E-06,
+        "rotZ": -6.63533E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18571,9 +18629,9 @@
         "posX": 14.0710564,
         "posY": 1.04665041,
         "posZ": 28.0026665,
-        "rotX": -5.44645431E-08,
+        "rotX": 1.40656539E-07,
         "rotY": 179.995438,
-        "rotZ": -8.72263044E-08,
+        "rotZ": 2.61661768E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -18617,8 +18675,8 @@
         "posX": -35.65516,
         "posY": 3.955474,
         "posZ": 7.93362141,
-        "rotX": -2.18590571E-06,
-        "rotY": 179.954025,
+        "rotX": 3.75444671E-07,
+        "rotY": 179.95401,
         "rotZ": 180.0,
         "scaleX": 0.625,
         "scaleY": 0.625,
@@ -18664,11 +18722,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 41.7728729,
-        "posY": 0.6824508,
-        "posZ": -0.816415668,
-        "rotX": -6.70658665E-06,
-        "rotY": -0.00533355633,
-        "rotZ": 4.39924725E-06,
+        "posY": 0.6824486,
+        "posZ": -0.8164163,
+        "rotX": -1.02046863E-06,
+        "rotY": -0.00529298326,
+        "rotZ": 1.24902465E-06,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -18677,7 +18735,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.305935353,
+        "r": 0.305935144,
         "g": 0.8873836,
         "b": 1.0
       },
@@ -21390,11 +21448,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 29.9390125,
-        "posY": 1.177842,
+        "posY": 1.17784393,
         "posZ": -31.6116943,
-        "rotX": 2.20071488E-05,
+        "rotX": 1.66858972E-05,
         "rotY": 180.013168,
-        "rotZ": -7.662035E-05,
+        "rotZ": -5.728299E-05,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21536,11 +21594,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 49.2679825,
-        "posY": 1.17784584,
-        "posZ": 0.395408124,
-        "rotX": 1.30191329E-05,
+        "posY": 1.17783582,
+        "posZ": 0.395407319,
+        "rotX": 4.173646E-05,
         "rotY": 89.97095,
-        "rotZ": -4.469426E-05,
+        "rotZ": -0.0001424397,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21682,11 +21740,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 29.6993637,
-        "posY": 1.177848,
+        "posY": 1.17784488,
         "posZ": 32.0025024,
-        "rotX": 5.634278E-06,
-        "rotY": 0.003966524,
-        "rotZ": -1.95954854E-05,
+        "rotX": 1.43842235E-05,
+        "rotY": 0.0039822855,
+        "rotZ": -5.015107E-05,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21828,11 +21886,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": -28.8602924,
-        "posY": 1.177845,
+        "posY": 1.177844,
         "posZ": 31.73805,
-        "rotX": 1.42766712E-05,
-        "rotY": 0.000204110387,
-        "rotZ": -4.9109407E-05,
+        "rotX": 1.70316562E-05,
+        "rotY": 0.00023263933,
+        "rotZ": -5.83358742E-05,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -21974,11 +22032,11 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": -30.2060146,
-        "posY": 1.17783177,
+        "posY": 1.17783141,
         "posZ": -31.8836441,
-        "rotX": 5.02239782E-05,
+        "rotX": 5.149375E-05,
         "rotY": 180.012131,
-        "rotZ": -0.0001744025,
+        "rotZ": -0.000179211944,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -22119,12 +22177,12 @@
     {
       "Name": "Custom_Token",
       "Transform": {
-        "posX": 51.55416,
-        "posY": 1.48841071,
-        "posZ": 6.774153,
-        "rotX": 0.000201474148,
-        "rotY": 179.991776,
-        "rotZ": -0.000102259874,
+        "posX": 51.5541649,
+        "posY": 1.48837078,
+        "posZ": 6.77415752,
+        "rotX": -0.00030089097,
+        "rotY": 179.991714,
+        "rotZ": 0.0006705613,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -22166,12 +22224,12 @@
     {
       "Name": "Custom_Token",
       "Transform": {
-        "posX": 23.3220329,
-        "posY": 1.488419,
-        "posZ": 34.2922668,
-        "rotX": 8.726446E-05,
-        "rotY": 180.0053,
-        "rotZ": -3.599895E-05,
+        "posX": 23.322031,
+        "posY": 1.488409,
+        "posZ": 34.29227,
+        "rotX": -0.000402960781,
+        "rotY": 180.00531,
+        "rotZ": 5.53557365E-05,
         "scaleX": 0.440247148,
         "scaleY": 1.0,
         "scaleZ": 0.440247148
@@ -22260,11 +22318,11 @@
       "Name": "Custom_Tile_Stack",
       "Transform": {
         "posX": 37.11769,
-        "posY": 0.910000265,
+        "posY": 0.910000741,
         "posZ": 23.6819363,
-        "rotX": 7.839667E-09,
+        "rotX": 4.735052E-10,
         "rotY": 180.05098,
-        "rotZ": 6.343543E-08,
+        "rotZ": 1.92736422E-07,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -22311,11 +22369,11 @@
       "Name": "Custom_Tile_Stack",
       "Transform": {
         "posX": 40.550087,
-        "posY": 0.910000265,
+        "posY": 0.910000145,
         "posZ": 23.7004528,
-        "rotX": 3.806054E-08,
+        "rotX": 5.95470055E-08,
         "rotY": 179.94075,
-        "rotZ": 1.64228226E-07,
+        "rotZ": 2.41614657E-07,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -22362,11 +22420,11 @@
       "Name": "Custom_Tile_Stack",
       "Transform": {
         "posX": 40.7595177,
-        "posY": 0.9099997,
+        "posY": 0.9100002,
         "posZ": 21.190012,
-        "rotX": -1.90453122E-07,
+        "rotX": -1.23102195E-08,
         "rotY": 180.0182,
-        "rotZ": 1.31502915E-07,
+        "rotZ": 1.24787888E-07,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -22415,8 +22473,8 @@
         "posX": -31.8739967,
         "posY": 3.95547342,
         "posZ": 8.177044,
-        "rotX": 9.534857E-07,
-        "rotY": 179.963776,
+        "rotX": 8.42583063E-07,
+        "rotY": 179.963745,
         "rotZ": 180.0,
         "scaleX": 0.625,
         "scaleY": 0.625,
@@ -22462,9 +22520,9 @@
       "Name": "Custom_Model_Stack",
       "Transform": {
         "posX": -33.69929,
-        "posY": 3.95547342,
+        "posY": 3.95547366,
         "posZ": 8.047532,
-        "rotX": 2.90827671E-07,
+        "rotX": 7.931228E-07,
         "rotY": 179.95517,
         "rotZ": 180.0,
         "scaleX": 0.625,
@@ -22513,7 +22571,7 @@
         "posX": -35.04551,
         "posY": 1.10574877,
         "posZ": 0.750584,
-        "rotX": -3.980728E-08,
+        "rotX": -3.136554E-08,
         "rotY": 179.996353,
         "rotZ": 180.0,
         "scaleX": 2.396114,
@@ -23748,9 +23806,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.304875,
-        "g": 0.304875,
-        "b": 0.304875
+        "r": 0.3048746,
+        "g": 0.3048746,
+        "b": 0.3048746
       },
       "Locked": true,
       "Grid": true,
@@ -23807,7 +23865,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.304875,
+        "r": 0.3048746,
         "g": 0.03380437,
         "b": 0.0323999
       },
@@ -23912,9 +23970,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.202527314,
+        "r": 0.202526957,
         "g": 0.0387737267,
-        "b": 0.304875
+        "b": 0.3048746
       },
       "Locked": true,
       "Grid": true,
@@ -24018,8 +24076,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.0351801068,
-        "g": 0.158776373,
-        "b": 0.301390737
+        "g": 0.158776015,
+        "b": 0.30139035
       },
       "Locked": true,
       "Grid": true,
@@ -24122,9 +24180,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.08145536,
-        "g": 0.29790622,
-        "b": 0.0700634941
+        "r": 0.08145506,
+        "g": 0.297905862,
+        "b": 0.07006321
       },
       "Locked": true,
       "Grid": true,
@@ -24272,12 +24330,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": 40.8331947,
+        "posX": 40.8332,
         "posY": 0.6824504,
-        "posZ": 15.511941,
-        "rotX": 3.1126192E-06,
-        "rotY": 0.00507106725,
-        "rotZ": -2.29400212E-05,
+        "posZ": 15.5119438,
+        "rotX": 2.680001E-07,
+        "rotY": 0.004817931,
+        "rotZ": 1.12191292E-05,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -24288,7 +24346,7 @@
       "ColorDiffuse": {
         "r": 1.0,
         "g": 0.450692773,
-        "b": 0.188285649
+        "b": 0.18828547
       },
       "Locked": false,
       "Grid": true,
@@ -24664,12 +24722,12 @@
     {
       "Name": "Bag",
       "Transform": {
-        "posX": 41.16441,
+        "posX": 41.1644058,
         "posY": 0.682449937,
-        "posZ": 10.9821854,
-        "rotX": -3.29697878E-06,
-        "rotY": 0.0374892727,
-        "rotZ": 5.9486556E-06,
+        "posZ": 10.9821806,
+        "rotX": 4.995033E-06,
+        "rotY": 0.037438184,
+        "rotZ": 2.684682E-06,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -25057,11 +25115,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": 40.98218,
-        "posY": 0.682449937,
-        "posZ": 6.601277,
-        "rotX": -1.10356641E-05,
-        "rotY": 0.0296197087,
-        "rotZ": 6.34041862E-06,
+        "posY": 0.682448745,
+        "posZ": 6.601279,
+        "rotX": -6.07303127E-06,
+        "rotY": 0.0295205377,
+        "rotZ": -3.93433254E-07,
         "scaleX": 1.5,
         "scaleY": 1.5,
         "scaleZ": 1.5
@@ -25072,7 +25130,7 @@
       "ColorDiffuse": {
         "r": 0.9337694,
         "g": 1.0,
-        "b": 0.188285649
+        "b": 0.18828547
       },
       "Locked": false,
       "Grid": true,
@@ -25448,12 +25506,12 @@
     {
       "Name": "Custom_Token",
       "Transform": {
-        "posX": -81.13164,
-        "posY": -0.49999997,
-        "posZ": 52.1495361,
-        "rotX": 4.922376E-05,
-        "rotY": 90.02092,
-        "rotZ": 5.178597E-06,
+        "posX": -81.1316452,
+        "posY": -0.4999999,
+        "posZ": 52.1496162,
+        "rotX": 1.94639938E-06,
+        "rotY": 90.02189,
+        "rotZ": 1.99242859E-05,
         "scaleX": 0.6428425,
         "scaleY": 1.0,
         "scaleZ": 0.6428425
@@ -25495,12 +25553,12 @@
     {
       "Name": "Custom_Token",
       "Transform": {
-        "posX": -60.1527672,
-        "posY": -0.450000048,
-        "posZ": 50.75274,
-        "rotX": -9.148015E-06,
-        "rotY": 90.01467,
-        "rotZ": 6.84020563E-07,
+        "posX": -60.1527443,
+        "posY": -0.450000018,
+        "posZ": 50.7528076,
+        "rotX": 5.16924456E-06,
+        "rotY": 90.01487,
+        "rotZ": 7.721072E-05,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -25542,12 +25600,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -60.5893478,
+        "posX": -60.58933,
         "posY": -0.478892237,
-        "posZ": -46.0773163,
-        "rotX": 1.84642875E-06,
-        "rotY": 89.99714,
-        "rotZ": 3.37326583E-06,
+        "posZ": -46.07739,
+        "rotX": 1.65425689E-07,
+        "rotY": 89.997,
+        "rotZ": 3.80028223E-06,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25588,12 +25646,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -57.80475,
+        "posX": -57.80473,
         "posY": -0.478892237,
-        "posZ": -46.0772,
-        "rotX": -2.22706853E-06,
-        "rotY": 90.0045,
-        "rotZ": 7.59729858E-07,
+        "posZ": -46.07727,
+        "rotX": -1.00550331E-07,
+        "rotY": 90.00478,
+        "rotZ": -9.500873E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25634,12 +25692,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -57.8047066,
-        "posY": -0.478892237,
-        "posZ": -48.62045,
-        "rotX": -5.14551175E-08,
-        "rotY": 90.0038452,
-        "rotZ": -8.18683148E-08,
+        "posX": -57.80469,
+        "posY": -0.478892267,
+        "posZ": -48.62052,
+        "rotX": -1.89331359E-08,
+        "rotY": 90.00395,
+        "rotZ": -1.41594356E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25680,12 +25738,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -60.58934,
-        "posY": -0.478892267,
-        "posZ": -51.15928,
-        "rotX": 2.06448433E-07,
-        "rotY": 90.00968,
-        "rotZ": -3.41491887E-06,
+        "posX": -60.5893326,
+        "posY": -0.4788923,
+        "posZ": -51.1593552,
+        "rotX": -6.91481361E-08,
+        "rotY": 90.0097656,
+        "rotZ": -8.915446E-08,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25726,11 +25784,11 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -60.58933,
-        "posY": -0.467885643,
-        "posZ": -48.6205826,
-        "rotX": -3.26407348E-06,
-        "rotY": 90.00836,
+        "posX": -60.5893135,
+        "posY": -0.4678856,
+        "posZ": -48.6206474,
+        "rotX": -6.568591E-08,
+        "rotY": 90.0084457,
         "rotZ": 180.0,
         "scaleX": 0.875,
         "scaleY": 0.875,
@@ -25772,12 +25830,12 @@
     {
       "Name": "Custom_Model",
       "Transform": {
-        "posX": -57.8047371,
-        "posY": -0.478892237,
-        "posZ": -51.15915,
-        "rotX": 8.907529E-08,
-        "rotY": 89.99732,
-        "rotZ": -2.58227639E-09,
+        "posX": -57.80473,
+        "posY": -0.4788922,
+        "posZ": -51.1592255,
+        "rotX": -2.20956E-06,
+        "rotY": 89.9977341,
+        "rotZ": 8.22887671E-07,
         "scaleX": 0.875,
         "scaleY": 0.875,
         "scaleZ": 0.875
@@ -25818,12 +25876,12 @@
     {
       "Name": "Custom_Token",
       "Transform": {
-        "posX": -80.97247,
-        "posY": -0.499999881,
-        "posZ": 49.5629845,
-        "rotX": 6.79293044E-06,
-        "rotY": 90.01712,
-        "rotZ": 2.81182E-05,
+        "posX": -80.97248,
+        "posY": -0.5,
+        "posZ": 49.56306,
+        "rotX": 6.72466467E-06,
+        "rotY": 90.01758,
+        "rotZ": -6.47705428E-06,
         "scaleX": 0.6428425,
         "scaleY": 1.0,
         "scaleZ": 0.6428425
@@ -25867,8 +25925,8 @@
       "Transform": {
         "posX": -74.57407,
         "posY": -0.467085123,
-        "posZ": 50.66488,
-        "rotX": 5.13604945E-08,
+        "posZ": 50.6649437,
+        "rotX": -2.67907669E-08,
         "rotY": 89.99981,
         "rotZ": 180.0,
         "scaleX": 2.396114,
@@ -26200,9 +26258,9 @@
       "Transform": {
         "posX": -66.56079,
         "posY": -0.467085123,
-        "posZ": 50.61152,
-        "rotX": -1.492432E-07,
-        "rotY": 89.9999847,
+        "posZ": 50.61159,
+        "rotX": -2.59760526E-07,
+        "rotY": 90.00003,
         "rotZ": 180.0,
         "scaleX": 2.396114,
         "scaleY": 1.0,
@@ -26531,12 +26589,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -77.2578049,
-        "posY": -0.478217751,
-        "posZ": -48.7148666,
-        "rotX": -0.000718779338,
-        "rotY": 90.01417,
-        "rotZ": 1.72113741E-05,
+        "posX": -77.30265,
+        "posY": -0.2581532,
+        "posZ": -48.737606,
+        "rotX": 0.248188376,
+        "rotY": 89.745575,
+        "rotZ": 359.950317,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26579,12 +26637,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -73.88625,
-        "posY": -0.429479271,
-        "posZ": -47.9249077,
-        "rotX": 0.0196724366,
-        "rotY": 89.8462143,
-        "rotZ": 0.00554112857,
+        "posX": -73.8861542,
+        "posY": -0.478578448,
+        "posZ": -47.9274178,
+        "rotX": 0.0007399291,
+        "rotY": 89.84564,
+        "rotZ": 0.00488829752,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26627,12 +26685,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -75.56151,
-        "posY": -0.380686671,
-        "posZ": -49.0656776,
-        "rotX": 0.07515394,
-        "rotY": 89.99963,
-        "rotZ": 0.0266128834,
+        "posX": -75.6025543,
+        "posY": -0.28880015,
+        "posZ": -49.0871964,
+        "rotX": 0.426171124,
+        "rotY": 89.93006,
+        "rotZ": 0.10538388,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26675,12 +26733,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -72.14086,
-        "posY": -0.335091382,
-        "posZ": -48.6011238,
-        "rotX": 0.06542603,
-        "rotY": 90.1171951,
-        "rotZ": 0.0245330669,
+        "posX": -72.13747,
+        "posY": -0.427501023,
+        "posZ": -48.60081,
+        "rotX": 359.934021,
+        "rotY": 90.1040649,
+        "rotZ": 359.883179,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26723,12 +26781,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -71.1671,
-        "posY": -0.290443063,
-        "posZ": -45.7554932,
-        "rotX": 0.08885764,
-        "rotY": 90.09918,
-        "rotZ": 0.021319,
+        "posX": -71.16383,
+        "posY": -0.171727121,
+        "posZ": -45.758358,
+        "rotX": 0.5580973,
+        "rotY": 90.07828,
+        "rotZ": 0.0308392625,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
@@ -26771,12 +26829,12 @@
     {
       "Name": "Card",
       "Transform": {
-        "posX": -69.02202,
-        "posY": -0.147048488,
-        "posZ": -47.7205429,
-        "rotX": 0.09175415,
-        "rotY": 90.05793,
-        "rotZ": 0.01980981,
+        "posX": -68.97383,
+        "posY": -0.04759206,
+        "posZ": -47.79366,
+        "rotX": 0.5616844,
+        "rotY": 90.18823,
+        "rotZ": 0.0104773194,
         "scaleX": 3.9999938,
         "scaleY": 1.0,
         "scaleZ": 3.9999938
