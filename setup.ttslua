@@ -71,6 +71,7 @@ function setUpMurder(murder, playerCount)
   rotation = murderTrayLiner.getRotation()
   sheet.setRotation(rotation)
   sheet.setPosition(getSheetPlacement(playerCount, 0))
+  sheet.setLock(true)
   murderEventsDeck = getMurderEvents(murder)
   murderEventsDeck.setPosition(murderEventsLocation)
   murderEventsDeck.setRotation({ 180, 0, 0 })
@@ -87,6 +88,7 @@ function setUpMurder(murder, playerCount)
     if i < playerCount + 2 then
       suspectSheet.setRotation(rotation)
       suspectSheet.setPosition(getSheetPlacement(playerCount, i))
+      suspectSheet.setLock(true)
       guiltyDeck.putObject(guiltyCard)
       innocentDeck.putObject(innocentCard)
       suspectToken.setRotation({180,0,0})
@@ -116,7 +118,7 @@ function getSheetPlacement(playerCount, sheet)
   sheetSpacing = 0.5
   leftMost = space.center.z - ((playerCount+2)*sheetWidth + (playerCount+1)*sheetSpacing)/2
   z = leftMost + (sheetWidth + sheetSpacing) * sheet
-  y = space.center.y + space.size.y / 2 + 0.1
+  y = -0.48
   x = space.center.x
   return {x, y, z}
 end
