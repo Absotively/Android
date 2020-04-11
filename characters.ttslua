@@ -264,7 +264,7 @@ function setUpCharacter(bag, tray)
     callback_function = function(plotsBag)
       plotsBag.randomize()
       placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotOne'], true)
-      if id != 'Caprice' then
+      if id != 'Caprice' and id != 'Raymond' then
         placePlot(plotsBag, tray, commonCharacterItemStartingLocations['plotTwo'], false)
       end
       plotsBag.destruct()
