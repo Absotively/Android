@@ -280,7 +280,7 @@ function setUpCharacter(bag, tray, playerColor)
     -- set up memory cards
     bag.takeObject({
       guid = data.guids.memoryDeck,
-      position = commonCharacterItemStartingLocations.specialCardTwo,
+      position = locationToPosition(commonCharacterItemStartingLocations.specialCardTwo, tray),
       callback_function = function(deck)
         deck.shuffle()
         for _, player in pairs(Player.getPlayers()) do
