@@ -29,8 +29,8 @@ characterData = {
       leadOne = {area = 'board', x = -16.04, y = 1.0, z = -18.16, xRot = 0, yRot = 90, zRot = 180},
       leadTwo = {area = 'board', x = -24.81, y = 1.0, z = -21.72, xRot = 0, yRot = 180, zRot = 0},
       darkDeck = {area = 'board', x = -16.99, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
-      sanityCard = {area = 'tray', x = 6, y = 0.7, z = 3, xRot = 0, yRot = 180, zRot = 0, lock = true},
-      sanityMarker = {area = 'tray', x = 8.2, y = 0.8, z = 2.4, xRot = 0, yRot = 180, zRot = 180},
+      sanityCard = {area = 'tray', x = 4.75, y = 0.7, z = 3, xRot = 0, yRot = 180, zRot = 0, lock = true},
+      sanityMarker = {area = 'tray', x = 7, y = 0.8, z = 2.4, xRot = 0, yRot = 180, zRot = 180},
       jintekiWarrant = {area = 'board', x = -15.03, y = 1.1, z = -9.64, xRot = 0, yRot = 180, zRot = 0},
     }
   },
@@ -56,14 +56,19 @@ characterData = {
       directiveOne = '1e5705',
       directiveTwo = 'c84713',
       directiveThree = '826556',
-      hbWarrant = '6e33c6'
+      hbWarrant = '6e33c6',
+      startingFavorOne = '3b87f5'
     },
     startingLocations = {
       token = {area = 'board', x = -19.58, y = 2.20, z = 21.24, xRot = 0, yRot = 0, zRot = 0},
       leadOne = {area = 'board', x = -20.11, y = 1.0, z = 15.66, xRot = 0, yRot = 90, zRot = 180},
       leadTwo = {area = 'board', x = -14.81, y = 1.0, z = 5.32, xRot = 0, yRot = 180, zRot = 0},
       darkDeck = {area = 'board', x = -29.22, y = 1.1, z = 0.75, xRot = 0, yRot = 180, zRot = 180},
+      directiveOne = {area = 'tray', x = 4.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
+      directiveTwo = {area = 'tray', x = 8, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
+      directiveThree = {area = 'tray', x = 11.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 0},
       hbWarrant = {area = 'board', x = -17.07, y = 1.1, z = 19.58, xRot = 0, yRot = 180, zRot = 0},
+      startingFavorOne = {area = 'tray', x = 1, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0}
     }
   },
 }
@@ -72,13 +77,13 @@ commonCharacterItemStartingLocations = {
   sheet = {area = 'tray', x = -11.2, y = 0.8, z = 2.2, xRot = 0, yRot = 180, zRot = 0},
   twilightMarker = {area = 'tray', x = -11.2, y = 0.8, z = 1.4, xRot = 0, yRot = 0, zRot = 0},
   tipSheet = {area = 'tray', x = -11.2, y = 0.8, z = -2.1, xRot = 0, yRot = 180, zRot = 0},
-  plotOne = {area = 'tray', x = -2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},
-  plotTwo = {area = 'tray', x = 2, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},
+  plotOne = {area = 'tray', x = -2.75, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},
+  plotTwo = {area = 'tray', x = 1, y = 0.8, z = 3, xRot = 0, yRot = 180, zRot = 180},
   heroMarkers = {area = 'tray', x = -3.3, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},
   warrants = {area = 'tray', x = -1.5, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},
-  favorsOne = {area = 'tray', x = 1, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},
-  favorsTwo = {area = 'tray', x = 4, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},
-  favorsThree = {area = 'tray', x = 7, y = 0.8, z = 0.5, xRot = 0, yRot = 180, zRot = 0},
+  favorsOne = {area = 'tray', x = 12, y = 0.8, z = -3.6, xRot = 0, yRot = 180, zRot = 0},
+  favorsTwo = {area = 'tray', x = 14.2, y = 0.8, z = -3.6, xRot = 0, yRot = 180, zRot = 0},
+  favorsThree = {area = 'tray', x = 16.4, y = 0.8, z = -3.6, xRot = 0, yRot = 180, zRot = 0},
   statusOne = {area = 'tray', x = 1, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
   statusTwo = {area = 'tray', x = 4, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
   statusThree = {area = 'tray', x = 7, y = 0.8, z = -0.75, xRot = 0, yRot = 180, zRot = 0},
@@ -117,7 +122,6 @@ function setUpCharacters()
       end
       markers = getObjectFromGUID(characterData[characterID]['guids']['heroMarkers'])
       l = startingPuzzleMarkerLocations[i]
-      print(markers)
       markers.takeObject({position = {l.x, l.y, l.z}, rotation = {l.xRot, l.yRot, l.zRot}})
       i = i + 1
     end
@@ -125,12 +129,12 @@ function setUpCharacters()
 end
 
 function setUpCharacter(bag, tray)
-  id = bag.getName()
-  data = characterData[id]
+  local id = bag.getName()
+  local data = characterData[id]
   if data == nil then
     return
   end
-  guids = data['guids']
+  local guids = data['guids']
   for item, location in pairs(commonCharacterItemStartingLocations) do
     if itemNotInBags[item] then
       placeCharacterItem(guids[item], tray, location)
