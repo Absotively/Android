@@ -162,6 +162,7 @@ characterData = {
 }
 
 commonCharacterItemStartingLocations = {
+  bag = {area = 'tray', x = -10, y = 3, z = -5, xRot = 0, yRot = 0, zRot = 0},
   sheet = {area = 'tray', x = -11.2, y = 0.8, z = 2.2, xRot = 0, yRot = 180, zRot = 0},
   twilightMarker = {area = 'tray', x = -11.2, y = 0.8, z = 1.4, xRot = 0, yRot = 0, zRot = 0},
   tipSheet = {area = 'tray', x = -11.2, y = 0.8, z = -2.1, xRot = 0, yRot = 180, zRot = 0},
@@ -184,6 +185,7 @@ commonCharacterItemStartingLocations = {
 }
 
 itemNotInBags = {
+  bag = true,
   statusOne = true,
   statusTwo = true,
   statusThree = true
