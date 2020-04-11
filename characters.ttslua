@@ -59,14 +59,23 @@ itemNotInBags = {
   statusThree = true
 }
 
+startingPuzzleMarkerLocations = {
+  {x = 45.44, y = 1.01, z = 14.94, xRot = 0, yRot = 180, zRot = 180},
+  {x = 45.44, y = 1.01, z = 16.81, xRot = 0, yRot = 180, zRot = 180},
+  {x = 49.17, y = 1.01, z = 14.94, xRot = 0, yRot = 180, zRot = 180},
+  {x = 49.17, y = 1.01, z = 16.81, xRot = 0, yRot = 180, zRot = 180},
+  {x = 47.44, y = 1.01, z = 15.83, xRot = 0, yRot = 180, zRot = 180}
+}
+
 function setUpCharacters()
   for playerColor, characterID in pairs(playerCharacters) do
     bag = getObjectFromGUID(characterData[characterID]['guids']['bag'])
     tray = getObjectFromGUID(playerObjectGUIDs[playerColor]['trayLiner'])
     setUpCharacter(bag, tray)
   end
-  -- lock stuff after it's had time to fall
+  -- wait for everything to appear/fall before this next bit
   Wait.time(function()
+    local i = 1
     for _, characterID in pairs(playerCharacters) do
       data = characterData[characterID]
       for item, location in pairs(data['startingLocations']) do
@@ -74,6 +83,11 @@ function setUpCharacters()
           getObjectFromGUID(data['guids'][item]).setLock(true)
         end
       end
+      markers = getObjectFromGUID(characterData[characterID]['guids']['heroMarkers'])
+      l = startingPuzzleMarkerLocations[i]
+      print(markers)
+      markers.takeObject({position = {l.x, l.y, l.z}, rotation = {l.xRot, l.yRot, l.zRot}})
+      i = i + 1
     end
   end, 1)
 end
